@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, CalendarDays, Radio } from "lucide-react";
+import { ArrowRight, CalendarDays, Radio, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "./NewsEventsLiveCard.css";
 
@@ -22,6 +22,7 @@ export default function NewsEventsLiveCard() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [isCardVisible, setIsCardVisible] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
@@ -55,6 +56,7 @@ export default function NewsEventsLiveCard() {
 
     // Refresh published news and events periodically.
     const refreshTimer = window.setInterval(loadEvents, 60000);
+    
 
     return () => {
       cancelled = true;
@@ -99,11 +101,29 @@ export default function NewsEventsLiveCard() {
     return null;
   }
 
+  if (!isCardVisible) {
+  return null;
+}
+
   return (
     <aside
       className="news-live-card"
       aria-label="Live college news and events"
     >
+
+
+{/* Cancel button — mobile and tablet */}
+    <button
+      type="button"
+      className="news-live-card__close"
+      onClick={() => setIsCardVisible(false)}
+      aria-label="Close live updates"
+      title="Close"
+    >
+      <X size={14} />
+    </button>
+
+
       <div className="news-live-card__shine" />
 
       <div className="news-live-card__header">
