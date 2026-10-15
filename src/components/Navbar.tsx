@@ -107,36 +107,33 @@ export default function Navbar({ onEnquiryClick }: NavbarProps) {
               onClick={() => setAboutOpen(false)}
               className="flex items-center gap-3 shrink-0 group"
             >
-              <div className="flex items-center gap-3 -translate-x-6">
-                <div className="logo-fog w-20 h-20 lg:w-24 lg:h-24">
-                  <div className="logo-shine relative w-1 h-16 lg:w-20 lg:h-20 flex items-center justify-center shrink-0">
-                    <img
-                      src="/logos/mdch-logo (1).png"
-                      alt="Madha College of Physiotherapy"
-                      className="w-[115%] h-[115%] max-w-none max-h-none object-contain p-0"
-                      style={{
-                        width: '115%',
-                        height: '115%',
-                        flexShrink: 0,
-                      }}
-                    />
-                  </div>
-                </div>
+            
+<div className="flex items-center gap-2 sm:gap-3 -translate-x-2 sm:-translate-x-3 lg:translate-x-0 lg:gap-3">
+  <div className="logo-fog w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-24 lg:h-24">
+    <div className="logo-shine relative w-full h-full flex items-center justify-center shrink-0">
+      <img
+        src="/logos/mdch-logo (1).png"
+        alt="Madha College of Physiotherapy"
+        className="w-full h-full object-contain"
+      />
+    </div>
+  </div>
 
-                <div>
-                  <p
-                    className={`font-serif text-base lg:text-3xl font-bold leading-tight tracking-wide transition-colors duration-300 ${brandColor}`}
-                  >
-                    MADHA COLLEGE
-                  </p>
+  <div className="min-w-0">
+    <p
+      className={`font-serif text-sm sm:text-base md:text-lg lg:text-3xl font-bold leading-tight tracking-wide transition-colors duration-300 ${brandColor}`}
+    >
+      MADHA COLLEGE
+    </p>
 
-                  <p
-                    className={`text-sm lg:text-base font-semibold font-[Montserrat] tracking-[0.15em] uppercase transition-colors duration-300 ${goldText}`}
-                  >
-                    Of Physiotherapy
-                  </p>
-                </div>
-              </div>
+    <p
+      className={`text-[10px] sm:text-xs md:text-sm lg:text-base font-semibold font-[Montserrat] tracking-[0.1em] sm:tracking-[0.15em] uppercase transition-colors duration-300 ${goldText}`}
+    >
+      Of Physiotherapy
+    </p>
+  </div>
+</div>
+
             </Link>
 
             {/* Desktop navigation */}
