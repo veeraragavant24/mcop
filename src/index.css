@@ -743,6 +743,183 @@
   }
 }
 
+/* Responsive scroll animations */
+.premium-reveal {
+  opacity: 0;
+  filter: blur(2px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.7s ease;
+  will-change: opacity, transform, filter;
+}
+
+.reveal-up {
+  transform: translate3d(0, 28px, 0);
+}
+
+.reveal-down {
+  transform: translate3d(0, -28px, 0);
+}
+
+.reveal-left {
+  transform: translate3d(-28px, 0, 0);
+}
+
+.reveal-right {
+  transform: translate3d(28px, 0, 0);
+}
+
+.reveal-scale {
+  transform: scale(0.96);
+}
+
+.reveal-fade {
+  transform: none;
+}
+
+.premium-reveal.reveal-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Smooth card hover on desktop and laptop */
+.premium-card {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .premium-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .premium-reveal {
+    transition-duration: 0.55s;
+    filter: none;
+  }
+
+  .reveal-up {
+    transform: translate3d(0, 20px, 0);
+  }
+
+  .reveal-down {
+    transform: translate3d(0, -20px, 0);
+  }
+
+  .reveal-left {
+    transform: translate3d(-20px, 0, 0);
+  }
+
+  .reveal-right {
+    transform: translate3d(20px, 0, 0);
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .premium-reveal {
+    transition-duration: 0.45s;
+    will-change: opacity, transform;
+  }
+
+  .reveal-up {
+    transform: translate3d(0, 14px, 0);
+  }
+
+  .reveal-down {
+    transform: translate3d(0, -14px, 0);
+  }
+
+  .reveal-left,
+  .reveal-right {
+    transform: translate3d(0, 14px, 0);
+  }
+
+  .reveal-scale {
+    transform: scale(0.98);
+  }
+
+  .premium-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Respect accessibility settings */
+@media (prefers-reduced-motion: reduce) {
+  .premium-reveal,
+  .premium-card {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+    animation: none;
+    will-change: auto;
+  }
+}
+
+/* Responsive logo — desktop, tablet and mobile */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.navbar-logo img {
+  display: block;
+  width: auto;
+  height: 56px;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .navbar-logo img {
+    height: 48px;
+    max-width: 190px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .navbar-logo {
+    display: flex !important;
+    visibility: visible;
+    opacity: 1;
+    overflow: visible;
+  }
+
+  .navbar-logo img {
+    display: block !important;
+    visibility: visible;
+    opacity: 1;
+    height: 40px;
+    width: auto;
+    max-width: 155px;
+    object-fit: contain;
+  }
+}
+
+/* Very small mobile screens */
+@media (max-width: 380px) {
+  .navbar-logo img {
+    height: 34px;
+    max-width: 125px;
+  }
+}
+
+
 
 
 
