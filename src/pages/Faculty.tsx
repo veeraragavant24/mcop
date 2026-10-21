@@ -757,6 +757,235 @@ export default function Faculty() {
             transform: none;
           }
         }
+
+        /* Faculty profile popup overlay */
+        .faculty-profile-overlay {
+          position: fixed;
+          inset: 0;
+          z-index: 99999;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 24px;
+          background: rgba(10, 20, 15, 0.72);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+        }
+
+        /* Centered profile card */
+        .faculty-profile-panel {
+          position: relative;
+          display: grid;
+          grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
+          gap: 30px;
+          width: 100%;
+          max-width: 1100px;
+          max-height: 90vh;
+          overflow-y: auto;
+          margin: 0;
+          padding: 28px;
+          border: 1px solid var(--faculty-gold);
+          border-radius: 22px;
+          color: var(--faculty-text);
+          background: var(--faculty-cream);
+          box-shadow: 0 20px 65px rgba(0, 0, 0, 0.3);
+          animation: facultyPanelEnter 0.3s ease both;
+        }
+
+        .faculty-profile-photo-wrap {
+          width: 100%;
+          height: 100%;
+          min-height: 400px;
+          max-height: 600px;
+          overflow: hidden;
+          border: 1px solid var(--faculty-gold);
+          border-radius: 14px;
+          background: #fff;
+        }
+
+        .faculty-profile-photo {
+          display: block;
+          width: 100%;
+          height: 100%;
+          min-height: 400px;
+          object-fit: cover;
+          object-position: center top;
+        }
+
+        .faculty-profile-content {
+          min-width: 0;
+          padding: 10px 25px 10px 0;
+        }
+
+        .faculty-profile-kicker {
+          margin: 0 0 9px;
+          color: #9c7627;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+        }
+
+        .faculty-profile-name {
+          margin: 0;
+          padding-right: 25px;
+          color: var(--faculty-forest);
+          font-family: Georgia, "Times New Roman", serif;
+          font-size: clamp(26px, 3vw, 38px);
+          line-height: 1.3;
+          overflow-wrap: anywhere;
+        }
+
+        .faculty-profile-role {
+          margin: 8px 0 4px;
+          color: #997021;
+          font-size: 16px;
+          font-weight: 700;
+        }
+
+        .faculty-profile-department {
+          margin: 0 0 18px;
+          color: var(--faculty-forest);
+          font-size: 14px;
+          line-height: 1.7;
+        }
+
+        .faculty-profile-divider {
+          height: 1px;
+          margin: 16px 0;
+          background: rgba(214, 168, 63, 0.8);
+        }
+
+        .faculty-profile-biography {
+          margin: 0;
+          color: #4b554e;
+          font-size: 14px;
+          line-height: 1.85;
+        }
+
+        .faculty-profile-details {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 20px;
+          margin-top: 22px;
+        }
+
+        .faculty-profile-details h4,
+        .faculty-profile-content > h4 {
+          margin: 0 0 10px;
+          color: var(--faculty-forest);
+          font-size: 15px;
+        }
+
+        .faculty-profile-details ul {
+          margin: 0;
+          padding-left: 19px;
+        }
+
+        .faculty-profile-details li {
+          margin: 6px 0;
+          color: #4b554e;
+          font-size: 13px;
+          line-height: 1.6;
+          overflow-wrap: anywhere;
+        }
+
+        .faculty-profile-details li::marker {
+          color: #c79a2d;
+        }
+
+        .faculty-profile-details p {
+          margin: 0;
+          color: #4b554e;
+          font-size: 13px;
+          line-height: 1.7;
+          overflow-wrap: anywhere;
+        }
+
+        .faculty-profile-close {
+          position: absolute;
+          top: 14px;
+          right: 15px;
+          z-index: 2;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 38px;
+          height: 38px;
+          border: 1px solid var(--faculty-gold);
+          border-radius: 50%;
+          color: var(--faculty-forest);
+          background: #fffdf8;
+          cursor: pointer;
+          font-size: 27px;
+          line-height: 1;
+          transition: all 0.2s ease;
+        }
+
+        .faculty-profile-close:hover {
+          color: #fff;
+          background: var(--faculty-forest);
+        }
+
+        @keyframes facultyPanelEnter {
+          from {
+            opacity: 0;
+            transform: translateY(12px) scale(0.99);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
+        @media (max-width: 760px) {
+          .faculty-profile-overlay {
+            padding: 14px;
+          }
+
+          .faculty-profile-panel {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 18px;
+            max-height: 92vh;
+            padding: 18px;
+            border-radius: 16px;
+          }
+
+          .faculty-profile-photo-wrap {
+            height: 280px;
+            min-height: 0;
+            max-height: 320px;
+          }
+
+          .faculty-profile-photo {
+            min-height: 0;
+          }
+
+          .faculty-profile-content {
+            padding: 0 2px 8px;
+          }
+
+          .faculty-profile-details {
+            grid-template-columns: minmax(0, 1fr);
+            gap: 16px;
+          }
+
+          .faculty-profile-name {
+            font-size: 27px;
+          }
+
+          .faculty-profile-close {
+            top: 12px;
+            right: 12px;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .faculty-profile-panel {
+            animation: none;
+          }
+        }
+
       `}</style>
 
       <div className="faculty-container">
@@ -843,84 +1072,90 @@ export default function Faculty() {
           )}
         </section>
 
-        {/* Selected faculty details */}
+        {/* Selected faculty profile popup */}
         {selectedFaculty && (
-          <section
-            className="faculty-profile-panel"
-            aria-label={`Profile of ${selectedFaculty.name}`}
-            aria-live="polite"
+          <div
+            className="faculty-profile-overlay"
+            onClick={() => setSelectedFaculty(null)}
           >
-            <button
-              type="button"
-              className="faculty-profile-close"
-              onClick={() => setSelectedFaculty(null)}
-              aria-label="Close faculty profile"
+            <section
+              className="faculty-profile-panel"
+              role="dialog"
+              aria-modal="true"
+              aria-label={`Profile of ${selectedFaculty.name}`}
+              onClick={(event) => event.stopPropagation()}
             >
-              ×
-            </button>
+              <button
+                type="button"
+                className="faculty-profile-close"
+                onClick={() => setSelectedFaculty(null)}
+                aria-label="Close faculty profile"
+              >
+                ×
+              </button>
 
-            <div className="faculty-profile-photo-wrap">
-              <img
-                className="faculty-profile-photo"
-                src={selectedFaculty.image}
-                alt={selectedFaculty.name}
-              />
-            </div>
+              <div className="faculty-profile-photo-wrap">
+                <img
+                  className="faculty-profile-photo"
+                  src={selectedFaculty.image}
+                  alt={selectedFaculty.name}
+                />
+              </div>
 
-            <div className="faculty-profile-content">
-              <p className="faculty-profile-kicker">
-                Faculty Profile
-              </p>
+              <div className="faculty-profile-content">
+                <p className="faculty-profile-kicker">Faculty Profile</p>
 
-              <h2 className="faculty-profile-name">
-                {selectedFaculty.name}
-              </h2>
+                <h2 className="faculty-profile-name">
+                  {selectedFaculty.name}
+                </h2>
 
-              <p className="faculty-profile-role">
-                {selectedFaculty.designation}
-              </p>
+                <p className="faculty-profile-role">
+                  {selectedFaculty.designation}
+                </p>
 
-              <p className="faculty-profile-department">
-                Department of {selectedFaculty.department} Physiotherapy
-              </p>
+                <p className="faculty-profile-department">
+                  Department of {selectedFaculty.department} Physiotherapy
+                </p>
 
-              <div className="faculty-profile-divider" />
+                <div className="faculty-profile-divider" />
 
-              <p className="faculty-profile-biography">
-                {selectedFaculty.biography}
-              </p>
+                <h4>About</h4>
+                <p className="faculty-profile-biography">
+                  {selectedFaculty.biography}
+                </p>
 
-              <div className="faculty-profile-details">
-                <div>
-                  <h4>Qualifications</h4>
-                  <ul>
-                    {selectedFaculty.qualifications.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
+                <div className="faculty-profile-details">
+                  <div>
+                    <h4>Qualifications</h4>
+                    <ul>
+                      {selectedFaculty.qualifications.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
 
-                <div>
-                  <h4>Professional Experience</h4>
-                  <p>{selectedFaculty.experience}</p>
-                </div>
+                  <div>
+                    <h4>Professional Experience</h4>
+                    <p>{selectedFaculty.experience}</p>
+                  </div>
 
-                <div>
-                  <h4>Specialization</h4>
-                  <ul>
-                    {selectedFaculty.specialization.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
+                  <div>
+                    <h4>Specialization</h4>
+                    <ul>
+                      {selectedFaculty.specialization.map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
 
-                <div>
-                  <h4>Research Interests</h4>
-                  <p>{selectedFaculty.research}</p>
+                  <div>
+                    <h4>Research Interests</h4>
+                    <p>{selectedFaculty.research}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
+            </section>
+          </div>
         )}
       </div>
     </main>

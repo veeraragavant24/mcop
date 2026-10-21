@@ -76,14 +76,16 @@
   font-weight: 700;
 }
 
+
 .news-event-grid {
   display: grid;
-  /* Fixed maximum card width prevents a single card from stretching across the page. */
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 340px));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   justify-content: start;
   align-items: stretch;
-  gap: 26px;
+  gap: 24px;
+  width: 100%;
 }
+
 
 /* Clean gold outline by default; the stronger golden glow appears on hover. */
 .news-event-card {
@@ -333,6 +335,7 @@
   overflow-wrap: anywhere;
 }
 
+
 @media (max-width: 900px) {
   .news-event-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -352,11 +355,12 @@
   .news-section-heading h2 {
     font-size: 24px;
   }
-
+ 
   .news-event-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 20px;
   }
+
 
   .news-event-image {
     height: 220px;

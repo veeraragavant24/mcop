@@ -60,18 +60,25 @@ export default function NewsEvents() {
     return typeof value === 'string' && value.trim() ? value : undefined;
   };
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+ 
+const today = new Date();
+today.setHours(0, 0, 0, 0);
 
-  const upcomingEvents = newsItems
-    .filter((item) => {
-      if (item.type?.trim().toLowerCase() !== 'event') return false;
-      const eventDate = new Date(item.date);
-      if (Number.isNaN(eventDate.getTime())) return false;
-      eventDate.setHours(0, 0, 0, 0);
-      return eventDate >= today;
-    })
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+const upcomingEvents = newsItems
+  .filter((item) => {
+    if (item.isPublished === false) return false;
+
+    const eventDate = new Date(item.date);
+    if (Number.isNaN(eventDate.getTime())) return false;
+
+    eventDate.setHours(0, 0, 0, 0);
+    return eventDate >= today;
+  })
+  .sort(
+    (a, b) =>
+      new Date(a.date).getTime() - new Date(b.date).getTime()
+  );
+
 
   const renderImage = (item: NewsEventItem, className: string) => {
     const imageUrl = getImageUrl(item);

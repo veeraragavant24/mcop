@@ -2,7 +2,7 @@
 import React from "react";
 
 const principal = {
-  name: "Dr. S. Meena",
+  name: "Dr. D. Mythili",
   role: "Principal",
   college: "Madha College of Physiotherapy",
   image: "/managementand faculty/Dr D. Mythili.png",
@@ -207,7 +207,14 @@ export default function Principal() {
         .principal-title span {
           color: var(--gold-light);
         }
-
+        .principal-qualifications {
+  margin: 8px 0;
+  color: #ffffff;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 400;
+}
         .principal-role {
           margin: 8px 0 4px;
           color: var(--gold-light);
@@ -529,9 +536,11 @@ export default function Principal() {
           <p className="principal-eyebrow">Our Principal</p>
 
           <h1 className="principal-title">
-            Dr. S. <span>Meena</span>
+            Dr. D. <span>Mythili</span>
           </h1>
-
+<p className="principal-qualifications">
+  MPT (Neuro.), MSc (Counsel. Psychol.), Ph.D., MIAP
+</p>
           <p className="principal-role">{principal.role}</p>
 
           <p className="principal-college">{principal.college}</p>

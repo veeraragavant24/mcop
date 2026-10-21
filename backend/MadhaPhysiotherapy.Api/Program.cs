@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using MadhaPhysiotherapy.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,6 +75,13 @@ builder.Services
     });
 
 builder.Services.AddAuthorization();
+
+
+// Admission enquiry email service
+builder.Services.AddScoped<
+    MadhaPhysiotherapy.Api.Services.IEnquiryEmailService,
+    MadhaPhysiotherapy.Api.Services.SmtpEnquiryEmailService>();
+
 
 // Frontend CORS policy
 builder.Services.AddCors(options =>

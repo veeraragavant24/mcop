@@ -216,3 +216,7 @@ D:\madha physiotharapy website\backend\MadhaPhysiotherapy.Api\bin\Debug\net10.0\
 D:\madha physiotharapy website\backend\MadhaPhysiotherapy.Api\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\madha physiotharapy website\backend\MadhaPhysiotherapy.Api\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
 D:\madha physiotharapy website\backend\MadhaPhysiotherapy.Api\bin\Debug\net10.0\MadhaPhysiotherapy.Api.staticwebassets.runtime.json
+D:\madha physiotharapy website\backend\MadhaPhysiotherapy.Api\obj\Debug\net10.0\MadhaPhysiotherapy.Api.sourcelink.json
+D:\madha physiotharapy website\backend\MadhaPhysiotherapy.Api\bin\Debug\net10.0\BouncyCastle.Cryptography.dll
+D:\madha physiotharapy website\backend\MadhaPhysiotherapy.Api\bin\Debug\net10.0\MailKit.dll
+D:\madha physiotharapy website\backend\MadhaPhysiotherapy.Api\bin\Debug\net10.0\MimeKit.dll
