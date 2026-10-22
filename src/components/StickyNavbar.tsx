@@ -206,20 +206,39 @@ export default function StickyNavbar({
             }}
             className="flex items-center gap-3 shrink-0 group"
           >
-            <div className="sticky-logo-fog relative flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 shrink-0">
-              <div className="sticky-logo-shine absolute inset-0 rounded-full" />
+             <div className="sticky-logo-fog relative flex items-center justify-center w-12 h-12 lg:w-14 lg:h-14 shrink-0">
+  {/* White glow behind the logo */}
+  <div
+    aria-hidden="true"
+    className="absolute rounded-full pointer-events-none"
+    style={{
+      inset: '-7px',
+      background:
+        'radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.28) 48%, transparent 75%)',
+      filter: 'blur(7px)',
+      zIndex: 0,
+    }}
+  />
 
-              <img
-                src="/logos/mdch-logo (1).png"
-                alt="Madha College of Physiotherapy"
-                className="relative z-10 w-[105%] h-[105%] max-w-none max-h-none object-contain p-0"
-                style={{
-                  width: '105%',
-                  height: '105%',
-                  flexShrink: 0,
-                }}
-              />
-            </div>
+{/* Existing golden animated ring */}
+
+  <div className="sticky-logo-shine absolute inset-0 rounded-full" />
+
+{/* College logo */}
+<img
+src="/logos/mdch-logo (1).png"
+alt="Madha College of Physiotherapy"
+className="relative z-10 w-[105%] h-[105%] max-w-none max-h-none object-contain p-0"
+style={{
+width: '105%',
+height: '105%',
+flexShrink: 0,
+filter:
+'drop-shadow(0 0 2px rgba(255,255,255,0.95)) drop-shadow(0 0 5px rgba(255,255,255,0.45))',
+}}
+/>
+
+</div>
 
             <div>
               <p
