@@ -88,7 +88,7 @@ export default function About() {
             <div className="relative">
               <div className="rounded-2xl overflow-hidden shadow-xl">
                 <img
-                  src="https://images.pexels.com/photos/32213424/pexels-photo-32213424.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                  src="/slides/campus.png"
                   alt="Physiotherapy education and learning"
                   className="w-full h-[420px] object-cover"
                   loading="lazy"
@@ -216,10 +216,10 @@ export default function About() {
           <ScrollReveal direction="right" delay={150}>
             <div className="rounded-2xl overflow-hidden shadow-xl">
               <img
-                src="https://images.pexels.com/photos/8197558/pexels-photo-8197558.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                src="/images/academic.png"
                 alt="Students learning in an academic environment"
                 className="w-full h-[400px] object-cover"
-                loading="lazy"
+               
               />
             </div>
           </ScrollReveal>
@@ -232,7 +232,7 @@ export default function About() {
           <ScrollReveal direction="left">
             <div className="order-2 lg:order-1 rounded-2xl overflow-hidden shadow-xl">
               <img
-                src="https://images.pexels.com/photos/20860610/pexels-photo-20860610.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                src="/images/practice.png"
                 alt="Practical physiotherapy learning"
                 className="w-full h-[400px] object-cover"
                 loading="lazy"

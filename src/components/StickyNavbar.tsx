@@ -5,6 +5,25 @@ import { Menu, X, Search, ArrowRight } from 'lucide-react';
 import { useHeaderTheme } from '@/hooks/useHeaderTheme';
 import { searchSiteText } from '@/utils/siteSearch';
 
+const popularSearches = [
+  'BPT',
+  'MPT',
+  'Clinical training',
+  'Facilities',
+  'Eligibility',
+  'Departments',
+];
+
+function normalizeSearchText(value: string): string {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim()
+    .replace(/\s+/g, ' ');
+}
+
 const mainNavLinks = [
   { label: 'Home', path: '/' },
   { label: 'About Us', path: '/about' },
@@ -49,7 +68,26 @@ export default function StickyNavbar({
   const [theme, isScrolled] = useHeaderTheme();
 
   const searchResults = searchQuery.trim()
-    ? searchSiteText(searchQuery)
+    ? searchSiteText(searchQuery).sort((a, b) => {
+        const query = normalizeSearchText(searchQuery);
+        const titleA = normalizeSearchText(a.title ?? '');
+        const titleB = normalizeSearchText(b.title ?? '');
+
+        const exactA = titleA === query;
+        const exactB = titleB === query;
+        if (exactA !== exactB) return exactA ? -1 : 1;
+
+        const startsA = titleA.startsWith(query);
+        const startsB = titleB.startsWith(query);
+        if (startsA !== startsB) return startsA ? -1 : 1;
+
+        const containsA = titleA.includes(query);
+        const containsB = titleB.includes(query);
+        if (containsA !== containsB) return containsA ? -1 : 1;
+
+        // Keep the relevance order returned by siteSearch.ts for other matches.
+        return 0;
+      })
     : [];
 
   useEffect(() => {
@@ -60,6 +98,53 @@ export default function StickyNavbar({
     setMobileOpen(false);
     setSearchOpen(false);
     setAboutOpen(false);
+  }, [location.pathname]);
+
+  // After navigation from search, scroll to a matching heading or text block.
+  useEffect(() => {
+    const savedTerm = sessionStorage.getItem('site-search-target');
+    if (!savedTerm) return;
+
+    sessionStorage.removeItem('site-search-target');
+
+    const timer = window.setTimeout(() => {
+      const queryWords = normalizeSearchText(savedTerm)
+        .split(' ')
+        .filter(Boolean);
+
+      if (queryWords.length === 0) return;
+
+      const candidates = Array.from(
+        document.querySelectorAll<HTMLElement>(
+          'h1, h2, h3, h4, p, li, article, section [id], [data-search-section]'
+        )
+      );
+
+      const matchingElement = candidates.find((element) => {
+        const text = normalizeSearchText(
+          element.innerText || element.textContent || ''
+        );
+        return text.length > 0 && queryWords.every((word) => text.includes(word));
+      });
+
+      if (matchingElement) {
+        const section = matchingElement.closest<HTMLElement>(
+          'section[id], article[id], [data-search-section]'
+        );
+        const target = section ?? matchingElement;
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+        if (target.id) {
+          window.history.replaceState(
+            null,
+            '',
+            `${window.location.pathname}${window.location.search}#${target.id}`
+          );
+        }
+      }
+    }, 300);
+
+    return () => window.clearTimeout(timer);
   }, [location.pathname]);
 
   const isActive = (path: string) =>
@@ -363,6 +448,26 @@ export default function StickyNavbar({
                 Close
               </button>
             </div>
+
+            {!searchQuery.trim() && (
+              <div className="mt-4 border-t border-gray-100 pt-3">
+                <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-500">
+                  Popular searches
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {popularSearches.map((suggestion) => (
+                    <button
+                      key={suggestion}
+                      type="button"
+                      onClick={() => setSearchQuery(suggestion)}
+                      className="rounded-full border border-gray-200 px-3 py-1.5 text-xs font-medium text-forest-800 transition-colors hover:border-gold-500 hover:bg-gold-50"
+                    >
+                      {suggestion}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {searchQuery.trim() && (
               <div className="mt-4 border-t border-gray-100 pt-3">

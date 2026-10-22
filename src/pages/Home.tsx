@@ -112,15 +112,13 @@ export default function Home({ onEnquiryClick }: HomeProps) {
 
             <div className="rounded-2xl overflow-hidden shadow-xl">
 
-              <img
+              
+<img
+  src="/images/madha physio .png"
+  alt="Madha College of Physiotherapy campus"
+  className="w-full h-[400px] object-cover"
+/>
 
-                src={heroSlides[0].image}
-
-                alt="Physiotherapy education"
-
-                className="w-full h-[400px] object-cover"
-
-              />
 
             </div>
 
@@ -470,7 +468,7 @@ export default function Home({ onEnquiryClick }: HomeProps) {
 
               <img
 
-                src="https://images.pexels.com/photos/19554793/pexels-photo-19554793.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                src="/images/madhagroups.png"
 
                 alt="Madha Educational Group campus"
 

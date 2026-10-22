@@ -287,17 +287,17 @@ export const newsItems: NewsItem[] = [
 
 export const heroSlides = [
   {
-    image: 'https://images.pexels.com/photos/20860622/pexels-photo-20860622.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: '/slides/campus.png',
     title: 'Empowering Movement. Transforming Lives.',
     subtitle: 'Shaping skilled, compassionate rehabilitation professionals through evidence-based education and hands-on clinical training.',
   },
   {
-    image: 'https://images.pexels.com/photos/40117755/pexels-photo-40117755.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: '/slides/graduation2.png',
     title: 'Learning Through Practice.',
     subtitle: 'State-of-the-art laboratories and clinical facilities where theory meets hands-on patient care.',
   },
   {
-    image: 'https://images.pexels.com/photos/30562665/pexels-photo-30562665.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: '/slides/graduation1.png',
     title: 'A Future in Rehabilitation.',
     subtitle: 'Join a community dedicated to advancing physiotherapy through education, research, and ethical practice.',
   },

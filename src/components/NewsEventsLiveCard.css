@@ -4,7 +4,7 @@
 ========================================= */
 
 .news-live-card {
-  position: fixed;
+position: absolute;
   right: clamp(300px, 24vw, 380px);
   bottom: 165px;
   z-index: 1000;
