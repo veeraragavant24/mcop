@@ -223,8 +223,7 @@ export default function Navbar({ onEnquiryClick }: NavbarProps) {
     className="absolute rounded-full pointer-events-none"
     style={{
       inset: '-7px',
-      background:
-        'radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.28) 48%, transparent 75%)',
+      background:'radial-gradient(circle, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.28) 48%, transparent 75%)',
       filter: 'blur(7px)',
       zIndex: 0,
     }}
@@ -381,14 +380,7 @@ filter:
               <Search className="w-5 h-5" />
             </button>
 
-            {/* Apply Now — tablet */}
-            <button
-              type="button"
-              onClick={onEnquiryClick}
-              className="hidden md:inline-flex lg:hidden items-center gap-1.5 px-4 py-2 bg-forest-700 text-white text-xs font-semibold rounded-lg border-b-2 border-gold-500 active:scale-95"
-            >
-              Apply
-            </button>
+
 
             {/* Mobile menu toggle */}
             <button
