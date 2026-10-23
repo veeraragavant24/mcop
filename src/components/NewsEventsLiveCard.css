@@ -547,3 +547,35 @@ position: absolute;
     animation: none;
   }
 }
+
+.news-live-card--empty {
+  display: flex;
+  flex-direction: column;
+}
+
+.news-live-card__empty-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  text-align: center;
+  color: #ffd45d;
+}
+
+.news-live-card__empty-content h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+}
+
+.news-live-card__empty-content p {
+  margin: 0;
+  color: #e0ebe6;
+  font-size: 11px;
+  line-height: 1.5;
+}

@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { ArrowRight, CalendarDays, Radio, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -17,12 +18,31 @@ interface NewsEvent {
 
 const API_URL = "/api/news-events";
 
+function isUpcomingEvent(event: NewsEvent): boolean {
+  if (event.isPublished === false || !event.date) {
+    return false;
+  }
+
+  const eventDate = new Date(event.date);
+
+  if (Number.isNaN(eventDate.getTime())) {
+    return false;
+  }
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  eventDate.setHours(0, 0, 0, 0);
+
+  return eventDate >= today;
+}
+
 export default function NewsEventsLiveCard() {
   const [events, setEvents] = useState<NewsEvent[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
   const [isCardVisible, setIsCardVisible] = useState(true);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     let cancelled = false;
@@ -38,25 +58,30 @@ export default function NewsEventsLiveCard() {
         const data: NewsEvent[] = await response.json();
 
         if (!cancelled) {
-          const published = data.filter(
-            (item) => item.isPublished !== false
-          );
+          const upcoming = data
+            .filter(isUpcomingEvent)
+            .sort(
+              (a, b) =>
+                new Date(a.date).getTime() -
+                new Date(b.date).getTime()
+            );
 
-          setEvents(published);
+          setEvents(upcoming);
           setActiveIndex(0);
         }
       } catch (error) {
         console.error("News and events loading failed:", error);
       } finally {
-        if (!cancelled) setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
     };
 
     void loadEvents();
 
-    // Refresh published news and events periodically.
+    // Refresh the latest events every minute.
     const refreshTimer = window.setInterval(loadEvents, 60000);
-    
 
     return () => {
       cancelled = true;
@@ -81,48 +106,79 @@ export default function NewsEventsLiveCard() {
 
     if (Number.isNaN(parsed.getTime())) return "NEW";
 
-    return parsed.toLocaleDateString("en-IN", {
-      day: "2-digit",
-      month: "short",
-    }).toUpperCase();
+    return parsed
+      .toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+      })
+      .toUpperCase();
   };
 
   const openDetails = () => {
     if (!activeEvent) return;
 
-    // Change this route only if your project uses a different
-    // public news and events details page.
     navigate("/news-events", {
       state: { eventId: activeEvent.id },
     });
   };
 
-  if (loading || !activeEvent) {
+  if (loading) {
     return null;
   }
 
   if (!isCardVisible) {
-  return null;
-}
+    return null;
+  }
+
+  // No upcoming events: show the waiting message.
+  if (events.length === 0) {
+    return (
+      <aside
+        className="news-live-card news-live-card--empty"
+        aria-label="Live college news and events"
+      >
+        <button
+          type="button"
+          className="news-live-card__close"
+          onClick={() => setIsCardVisible(false)}
+          aria-label="Close live updates"
+          title="Close"
+        >
+          <X size={14} />
+        </button>
+
+        <div className="news-live-card__shine" />
+
+        <div className="news-live-card__header">
+          <div className="news-live-card__live">
+            <Radio size={13} />
+            <span>LIVE UPDATES</span>
+          </div>
+        </div>
+
+        <div className="news-live-card__empty-content">
+          <CalendarDays size={28} />
+          <h3>WAITING FOR UPDATES</h3>
+          <p>Stay tuned for upcoming college events and announcements.</p>
+        </div>
+      </aside>
+    );
+  }
 
   return (
     <aside
       className="news-live-card"
       aria-label="Live college news and events"
     >
-
-
-{/* Cancel button — mobile and tablet */}
-    <button
-      type="button"
-      className="news-live-card__close"
-      onClick={() => setIsCardVisible(false)}
-      aria-label="Close live updates"
-      title="Close"
-    >
-      <X size={14} />
-    </button>
-
+      <button
+        type="button"
+        className="news-live-card__close"
+        onClick={() => setIsCardVisible(false)}
+        aria-label="Close live updates"
+        title="Close"
+      >
+        <X size={14} />
+      </button>
 
       <div className="news-live-card__shine" />
 
@@ -150,7 +206,9 @@ export default function NewsEventsLiveCard() {
         <div className="news-live-card__text">
           <div className="news-live-card__meta">
             <span className="news-live-card__category">
-              {activeEvent.type === "Event" ? "CAMPUS EVENT" : "ANNOUNCEMENT"}
+              {activeEvent.type === "Event"
+                ? "CAMPUS EVENT"
+                : "ANNOUNCEMENT"}
             </span>
 
             <span className="news-live-card__date">
@@ -161,9 +219,7 @@ export default function NewsEventsLiveCard() {
 
           <h3>{activeEvent.title}</h3>
 
-          <p>
-            {activeEvent.excerpt || activeEvent.content}
-          </p>
+          <p>{activeEvent.excerpt || activeEvent.content}</p>
         </div>
       </div>
 

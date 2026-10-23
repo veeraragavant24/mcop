@@ -47,13 +47,18 @@ const [submitted, setSubmitted] = useState(false);
 const [isSubmitting, setIsSubmitting] = useState(false);
 const [submitError, setSubmitError] = useState('');
 
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : '';
+ 
+useEffect(() => {
+  document.body.style.overflow = isOpen ? 'hidden' : '';
 
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
+  document.body.classList.toggle('enquiry-modal-open', isOpen);
+
+  return () => {
+    document.body.style.overflow = '';
+    document.body.classList.remove('enquiry-modal-open');
+  };
+}, [isOpen]);
+
 
   useEffect(() => {
     if (!isOpen) return;
@@ -177,20 +182,22 @@ const handleSubmit = async (
       <style>{`
         /* ===== MODAL OVERLAY ===== */
 
-        .enquiry-overlay {
-          position: fixed;
-          inset: 0;
-          z-index: 100;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 22px;
-          overflow-y: auto;
-          background: rgba(3, 25, 18, 0.80);
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-          animation: enquiryFadeIn 0.4s ease both;
-        }
+        
+.enquiry-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  overflow-y: auto;
+  background: rgba(3, 25, 18, 0.80);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: enquiryFadeIn 0.4s ease both;
+}
+
 
         @keyframes enquiryFadeIn {
           from { opacity: 0; }
@@ -210,7 +217,7 @@ const handleSubmit = async (
           max-width: 510px;
           max-height: 90vh;
           overflow: hidden;
-          border: 1px solid rgba(216, 181, 76, 0.75);
+          border: 3px solid rgba(216, 181, 76, 0.75);
           border-radius: 19px;
           background: #fff;
           box-shadow:
@@ -527,7 +534,7 @@ const handleSubmit = async (
           min-height: 48px;
           margin-top: 2px;
           padding: 13px 18px;
-          border: 1px solid #d8b54c;
+          border: 3px solid #d8b54c;
           border-radius: 9px;
           background: linear-gradient(110deg, #d8b54c, #f5d977);
           color: #082b20;
@@ -646,6 +653,13 @@ const handleSubmit = async (
             transition-duration: .01ms !important;
           }
         }
+          
+/* Hide the Live Updates card when Admission Enquiry opens */
+body.enquiry-modal-open .news-live-card,
+body.enquiry-modal-open .enquiry-live-updates {
+  display: none !important;
+}
+ 
       `}</style>
 
       <div
