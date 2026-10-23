@@ -292,7 +292,7 @@ export const heroSlides = [
     subtitle: 'Shaping skilled, compassionate rehabilitation professionals through evidence-based education and hands-on clinical training.',
   },
   {
-    image: '/slides/graduation2.png',
+    image: '/slides/graduation.JPG',
     title: 'Learning Through Practice.',
     subtitle: 'State-of-the-art laboratories and clinical facilities where theory meets hands-on patient care.',
   },
@@ -301,6 +301,11 @@ export const heroSlides = [
     title: 'A Future in Rehabilitation.',
     subtitle: 'Join a community dedicated to advancing physiotherapy through education, research, and ethical practice.',
   },
+  {
+image: '/slides/student.png',
+title: 'Advancing Rehabilitation. Inspiring Recovery.',
+subtitle: 'Building the next generation of physiotherapy professionals through academic excellence, clinical expertise, and compassionate patient care.',
+},
 ];
 
 export const collegeInfo = {

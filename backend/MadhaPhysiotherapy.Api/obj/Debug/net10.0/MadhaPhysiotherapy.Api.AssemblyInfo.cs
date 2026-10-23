@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MadhaPhysiotherapy.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+03d3f98e4dc3ff8b8d5b8b58c027150740a75bec")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+994f8ec6ad4de96be1a3a9744b67d684299b428d")]
 [assembly: System.Reflection.AssemblyProductAttribute("MadhaPhysiotherapy.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MadhaPhysiotherapy.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

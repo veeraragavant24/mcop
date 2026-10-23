@@ -60,9 +60,7 @@ export default function HeroSlider({ onEnquiryClick }: HeroSliderProps) {
             >
               {i === current && (
                 <div className="max-w-2xl animate-fade-up">
-                  <span className="inline-block px-4 py-1.5 bg-gold-500 text-forest-900 text-xs font-semibold rounded-full mb-4 uppercase tracking-wider">
-                    Madha College of Physiotherapy
-                  </span>
+                  
                   <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
                     {slide.title}
                   </h1>
