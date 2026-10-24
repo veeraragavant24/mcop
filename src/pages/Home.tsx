@@ -304,112 +304,160 @@ export default function Home({ onEnquiryClick }: HomeProps) {
 
 
 
-      {/* Vision & Mission preview \*/}
+     
+{/* Vision & Mission preview */}
 
 <ScrollReveal direction="right" as="section" className="section-padding bg-white">
+  <style>{`
+    .vision-mission-card {
+      position: relative;
+      min-height: 300px;
+      overflow: hidden;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 1rem;
+      background: #174D38;
+      cursor: pointer;
+      transition:
+        background 0.45s ease,
+        border-color 0.45s ease,
+        box-shadow 0.45s ease,
+        transform 0.45s ease;
+    }
 
-        <div className="container-mcp">
+    .vision-mission-card:hover {
+      background: linear-gradient(
+        135deg,
+        #F8E9AB 0%,
+        #D4AF37 52%,
+        #B8860B 100%
+      );
+      border-color: #D4AF37;
+      box-shadow: 0 16px 36px rgba(132, 95, 12, 0.22);
+      transform: translateY(-5px);
+    }
 
-          <SectionTitle
+    .vision-mission-card .vm-content {
+      position: relative;
+      z-index: 1;
+      min-height: 300px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+    }
 
-            eyebrow="Our Direction"
+    .vision-mission-card .vm-icon {
+      color: #D4AF37;
+      margin-bottom: 1rem;
+      transition: color 0.35s ease;
+    }
 
-            title="Vision & Mission"
+    .vision-mission-card h3 {
+      color: #FFFFFF;
+      transition: color 0.35s ease;
+    }
 
-            description="Guided by clear principles that shape every aspect of our educational approach — from classroom teaching to clinical practice."
+    .vision-mission-card p {
+      color: #E5E7EB;
+      line-height: 1.7;
+      transition: color 0.35s ease;
+    }
 
-          />
+    .vision-mission-card .vm-link {
+      color: #F5D477;
+      transition: color 0.35s ease, gap 0.3s ease;
+    }
 
-          <div className="grid md:grid-cols-2 gap-6">
+    .vision-mission-card:hover .vm-icon,
+    .vision-mission-card:hover h3,
+    .vision-mission-card:hover p,
+    .vision-mission-card:hover .vm-link {
+      color: #173B2C;
+    }
 
-            <div className="relative rounded-2xl overflow-hidden group cursor-pointer">
+    .vision-mission-card:hover .vm-icon {
+      stroke: #173B2C;
+    }
 
-              <img
+    @media (max-width: 640px) {
+      .vision-mission-card .vm-content {
+        padding: 1.5rem;
+      }
+    }
 
-                src="https://images.pexels.com/photos/20860610/pexels-photo-20860610.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+    @media (prefers-reduced-motion: reduce) {
+      .vision-mission-card,
+      .vision-mission-card * {
+        transition: none !important;
+      }
 
-                alt="Our Vision"
+      .vision-mission-card:hover {
+        transform: none;
+      }
+    }
+  `}</style>
 
-                className="w-full h-[300px] object-cover group-hover:scale-105 transition-transform duration-700"
+  <div className="container-mcp">
+    <SectionTitle
+      eyebrow="Our Direction"
+      title="Vision & Mission"
+      description="Guided by clear principles that shape every aspect of our educational approach — from classroom teaching to clinical practice."
+    />
 
-              />
+    <div className="grid md:grid-cols-2 gap-6">
+      {/* Our Vision card */}
+      <div className="vision-mission-card group">
+        <div className="vm-content">
+          <Eye className="vm-icon w-10 h-10" />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-forest-900/95 to-forest-900/40" />
+          <h3 className="text-2xl font-bold mb-3">
+            Our Vision
+          </h3>
 
-              <div className="absolute bottom-0 p-8">
+          <p className="text-sm">
+            To be a center of excellence in physiotherapy education,
+            producing skilled professionals who advance rehabilitation
+            science and serve communities with evidence-based,
+            compassionate care.
+          </p>
 
-                <Eye className="w-10 h-10 text-gold-500 mb-4" />
-
-                <h3 className="text-2xl font-bold text-white mb-3">Our Vision</h3>
-
-                <p className="text-gray-200 leading-relaxed text-sm">
-
-                  To be a center of excellence in physiotherapy education, producing skilled
-
-                  professionals who advance rehabilitation science and serve communities with
-
-                  evidence-based, compassionate care.
-
-                </p>
-
-                <Link to="/vision-mission" className="inline-flex items-center gap-2 text-gold-400 text-sm font-semibold mt-4 hover:gap-3 transition-all">
-
-                  Read More <ArrowRight className="w-4 h-4" />
-
-                </Link>
-
-              </div>
-
-            </div>
-
-
-
-            <div className="relative rounded-2xl overflow-hidden group cursor-pointer">
-
-              <img
-
-                src="https://images.pexels.com/photos/20860596/pexels-photo-20860596.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-
-                alt="Our Mission"
-
-                className="w-full h-[300px] object-cover group-hover:scale-105 transition-transform duration-700"
-
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-forest-900/95 to-forest-900/40" />
-
-              <div className="absolute bottom-0 p-8">
-
-                <Target className="w-10 h-10 text-gold-500 mb-4" />
-
-                <h3 className="text-2xl font-bold text-white mb-3">Our Mission</h3>
-
-                <p className="text-gray-200 leading-relaxed text-sm">
-
-                  To deliver quality physiotherapy education through evidence-based curriculum,
-
-                  hands-on clinical training, and a commitment to ethical practice and compassionate
-
-                  patient care.
-
-                </p>
-
-                <Link to="/vision-mission" className="inline-flex items-center gap-2 text-gold-400 text-sm font-semibold mt-4 hover:gap-3 transition-all">
-
-                  Read More <ArrowRight className="w-4 h-4" />
-
-                </Link>
-
-              </div>
-
-            </div>
-
-          </div>
-
+          <Link
+            to="/vision-mission"
+            className="vm-link inline-flex items-center gap-2 text-sm font-semibold mt-4 group-hover:gap-3"
+          >
+            Read More <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
+      </div>
 
-      </ScrollReveal>
+      {/* Our Mission card */}
+      <div className="vision-mission-card group">
+        <div className="vm-content">
+          <Target className="vm-icon w-10 h-10" />
 
+          <h3 className="text-2xl font-bold mb-3">
+            Our Mission
+          </h3>
+
+          <p className="text-sm">
+            To deliver quality physiotherapy education through
+            evidence-based curriculum, hands-on clinical training,
+            and a commitment to ethical practice and compassionate
+            patient care.
+          </p>
+
+          <Link
+            to="/vision-mission"
+            className="vm-link inline-flex items-center gap-2 text-sm font-semibold mt-4 group-hover:gap-3"
+          >
+            Read More <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
+    </div>
+  </div>
+</ScrollReveal>
 
 
       

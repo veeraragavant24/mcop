@@ -24,6 +24,7 @@ import Faculty from "./pages/Faculty";
 
 
 
+
 function RefreshToHome() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -131,8 +132,8 @@ function Layout({ onEnquiryClick }: LayoutProps) {
   }, [onEnquiryClick]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
-      <SearchJumpHandler />
+<div className="min-h-screen w-full flex flex-col bg-white">
+        <SearchJumpHandler />
       {!isHome && <StickyNavbar onEnquiryClick={onEnquiryClick} />}
       <main className="flex-1">
         <Routes>

@@ -26,7 +26,7 @@ export default function VisionMission() {
       <PageHeader
         title="Vision & Mission"
         subtitle="The principles that guide our institution and shape every aspect of our educational approach."
-        image="https://images.pexels.com/photos/20860596/pexels-photo-20860596.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+        image=""
         breadcrumbs={[{ label: 'Vision & Mission' }]}
       />
 
@@ -36,7 +36,7 @@ export default function VisionMission() {
           <div className="relative">
             <div className="rounded-2xl overflow-hidden shadow-xl">
               <img
-                src="https://images.pexels.com/photos/20860610/pexels-photo-20860610.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                src=""
                 alt="Our Vision"
                 className="w-full h-[400px] object-cover"
               />
@@ -88,7 +88,7 @@ export default function VisionMission() {
           <div className="order-1 lg:order-2 relative">
             <div className="rounded-2xl overflow-hidden shadow-xl">
               <img
-                src="https://images.pexels.com/photos/40117755/pexels-photo-40117755.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+                src=""
                 alt="Our Mission"
                 className="w-full h-[400px] object-cover"
               />

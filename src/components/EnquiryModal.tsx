@@ -359,7 +359,7 @@ const handleSubmit = async (
         }
 
         .enquiry-card-content::-webkit-scrollbar-thumb {
-          border-radius: 10px;
+          border-radius: 10px;  
           background: #d8b54c;
         }
 
