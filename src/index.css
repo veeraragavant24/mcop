@@ -1,0 +1,935 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Poppins', system-ui, sans-serif;
+    @apply text-gray-700 antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+}
+
+@layer components {
+  .container-mcp {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-gold-500 text-forest-900 font-semibold rounded-lg transition-all duration-300 hover:bg-gold-400 hover:shadow-lg hover:shadow-gold-500/30 active:scale-95;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-forest-700 text-white font-semibold rounded-lg transition-all duration-300 hover:bg-forest-800 hover:shadow-lg active:scale-95;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-forest-700 text-forest-700 font-semibold rounded-lg transition-all duration-300 hover:bg-forest-700 hover:text-white active:scale-95;
+  }
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+  .nav-underline {
+    position: relative;
+  }
+  .nav-underline span {
+    transform-origin: left;
+  }
+
+  /* === Card hover lift === */
+  .card-lift {
+    @apply transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl;
+  }
+
+  /* === Image zoom on hover === */
+  .img-zoom {
+    @apply transition-transform duration-700 group-hover:scale-110;
+  }
+
+  /* === Stagger children reveal === */
+  .stagger > * {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .stagger.reveal-visible > *:nth-child(1) { transition-delay: 0ms; }
+  .stagger.reveal-visible > *:nth-child(2) { transition-delay: 80ms; }
+  .stagger.reveal-visible > *:nth-child(3) { transition-delay: 160ms; }
+  .stagger.reveal-visible > *:nth-child(4) { transition-delay: 240ms; }
+  .stagger.reveal-visible > *:nth-child(5) { transition-delay: 320ms; }
+  .stagger.reveal-visible > *:nth-child(6) { transition-delay: 400ms; }
+  .stagger.reveal-visible > *:nth-child(7) { transition-delay: 480ms; }
+  .stagger.reveal-visible > *:nth-child(8) { transition-delay: 560ms; }
+  .stagger.reveal-visible > *:nth-child(9) { transition-delay: 640ms; }
+  .stagger.reveal-visible > *:nth-child(10) { transition-delay: 720ms; }
+  .stagger.reveal-visible > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Scroll Reveal Animation Classes === */
+.reveal-up,
+.reveal-down,
+.reveal-left,
+.reveal-right,
+.reveal-scale,
+.reveal-fade {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-up { transform: translateY(40px); }
+.reveal-down { transform: translateY(-40px); }
+.reveal-left { transform: translateX(-40px); }
+.reveal-right { transform: translateX(40px); }
+.reveal-scale { transform: scale(0.92); }
+.reveal-fade { transform: none; }
+
+.reveal-visible {
+  opacity: 1 !important;
+  transform: translate(0, 0) scale(1) !important;
+}
+
+/* === Keyframe Animations === */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in { animation: fadeIn 0.4s ease forwards; }
+.animate-fade-up { animation: fadeUp 0.6s ease forwards; }
+.animate-slide-in { animation: slideIn 0.3s ease forwards; }
+.animate-scale-in { animation: scaleIn 0.3s ease forwards; }
+.animate-marquee { animation: marquee 25s linear infinite; }
+
+/* === Advanced hover effects === */
+.hover-glow {
+  @apply transition-all duration-300;
+}
+.hover-glow:hover {
+  box-shadow: 0 0 30px rgba(23, 77, 56, 0.15);
+}
+
+.hover-underline {
+  position: relative;
+}
+.hover-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+.hover-underline:hover::after {
+  width: 100%;
+}
+
+/* === Floating animation === */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* === Pulse glow === */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(215, 180, 90, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(215, 180, 90, 0); }
+}
+.animate-pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #E7EDE7;
+}
+::-webkit-scrollbar-thumb {
+  background: #174D38;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #103d2c;
+}
+
+/* Line clamp utility */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Apply Now - animated golden shining border */
+.apply-now-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid #f5d56b;
+  border-radius: 999px;
+  box-shadow:
+    0 0 8px rgba(255, 204, 51, 0.45),
+    0 0 18px rgba(255, 204, 51, 0.2);
+}
+
+/* Rotating golden light */
+.apply-now-button::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  z-index: -2;
+  background: conic-gradient(
+    transparent 0deg,
+    transparent 260deg,
+    #fffde7 280deg,
+    #ffd700 300deg,
+    #fff4a3 315deg,
+    transparent 335deg,
+    transparent 360deg
+  );
+  animation: applyNowGoldenShine 2.5s linear infinite;
+}
+
+/* Keeps the button's original gold-colored interior */
+.apply-now-button::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  z-index: -1;
+  border-radius: inherit;
+  background: #eabf32;
+}
+
+@keyframes applyNowGoldenShine {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Stronger glow on hover */
+.apply-now-button:hover {
+  box-shadow:
+    0 0 10px rgb(255, 231, 17),
+    0 0 24px rgba(255, 193, 7, 0.959);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apply-now-button::before {
+    animation: none;
+  }
+}
+
+/* =========================================
+   PREMIUM SCROLL REVEAL SYSTEM
+========================================= */
+
+.premium-reveal {
+  opacity: 0;
+  filter: blur(7px);
+  transition:
+  opacity 1000ms cubic-bezier(0.22, 1, 0.36, 1),
+  transform 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+  filter 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+  backface-visibility: hidden;
+}
+
+/* Directional entrance */
+.reveal-up {
+  transform: translate3d(0, 42px, 0);
+}
+
+.reveal-down {
+  transform: translate3d(0, -42px, 0);
+}
+
+.reveal-left {
+  transform: translate3d(42px, 0, 0);
+}
+
+.reveal-right {
+  transform: translate3d(-42px, 0, 0);
+}
+
+/* Elegant scale entrance */
+.reveal-scale {
+  transform: scale(0.94);
+}
+
+/* Minimal fade entrance */
+.reveal-fade {
+  transform: none;
+}
+
+/* Revealed state */
+.premium-reveal.reveal-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Premium card hover - opt in with this class */
+.premium-hover-card {
+  transition:
+    transform 450ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 450ms ease,
+    border-color 450ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .premium-hover-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 40px rgba(10, 35, 65, 0.13);
+  }
+}
+
+/* Avoid motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .premium-reveal,
+  .premium-hover-card {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Course card slide-in animation */
+.premium-reveal {
+  opacity: 0;
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+/* First, third, fifth cards: slide from left */
+.premium-reveal.reveal-left {
+  transform: translateX(-70px);
+}
+
+/* Second, fourth, sixth cards: slide from right */
+.premium-reveal.reveal-right {
+  transform: translateX(70px);
+}
+
+/* Reveal cards when they enter the viewport */
+.premium-reveal.reveal-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .premium-reveal,
+  .premium-reveal.reveal-left,
+  .premium-reveal.reveal-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Scroll reveal base */
+
+.premium-reveal {
+  opacity: 0;
+  transition:
+    opacity 1.5s ease-in-out,
+    transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* Slide from the left */
+.premium-reveal.reveal-left {
+  transform: translateX(-70px);
+}
+
+/* Slide from the right */
+.premium-reveal.reveal-right {
+  transform: translateX(70px);
+}
+
+/* Final visible state */
+.premium-reveal.reveal-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .premium-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Moving golden highlight around the circular logo border */
+.logo-shine {
+  position: relative;
+  isolation: isolate;
+}
+
+.logo-shine::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  padding: 3px;
+
+  background: conic-gradient(
+    from 0deg,
+    #C5A34D 0deg,
+    #C5A34D 250deg,
+    #FFF2B0 275deg,
+    #FFFFFF 290deg,
+    #FFD700 305deg,
+    #C5A34D 325deg,
+    #C5A34D 360deg
+  );
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  pointer-events: none;
+  animation: logo-golden-rotation 2.5s linear infinite;
+}
+
+@keyframes logo-golden-rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.logo-fog {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+
+.logo-fog::before {
+  content: "";
+  position: absolute;
+  width: 115%;
+  height: 115%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.7) 35%,
+    rgba(255, 255, 255, 0.3) 60%,
+    transparent 100%
+  );
+  filter: blur(7px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+
+.logo-fog img {
+  position: relative;
+  z-index: 1;
+}
+/* Sticky navbar logo only */
+.sticky-logo-fog {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Golden animated ring — sticky navbar only */
+.sticky-logo-shine {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  padding: 3px;
+
+  background: conic-gradient(
+    from 0deg,
+    #C5A34D 0deg,
+    #C5A34D 250deg,
+    #FFF2B0 275deg,
+    #FFFFFF 290deg,
+    #FFD700 305deg,
+    #C5A34D 325deg,
+    #C5A34D 360deg
+  );
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  pointer-events: none;
+  animation: sticky-logo-golden-rotation 2.5s linear infinite;
+}
+
+@keyframes sticky-logo-golden-rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.about-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 196px;
+  padding: 7px;
+  background: #fff;
+  border: 1px solid #e4e9e5;
+  border-radius: 15px;
+  box-shadow: 0 12px 30px rgba(0, 35, 25, 0.14);
+  z-index: 1000;
+}
+
+.about-dropdown-item {
+  display: block;
+  padding: 13px 15px;
+  color: #003b2b;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.about-dropdown-item:hover,
+.about-dropdown-item-active {
+  color: #003b2b;
+  background: #eaf5f0;
+}
+
+/* Temporary highlight used when website search jumps to a matching phrase. */
+.site-search-highlight {
+  background: #ffe58a;
+  color: #173b2c;
+  border-radius: 3px;
+  padding: 0 2px;
+  box-shadow: 0 0 0 3px rgba(255, 229, 138, 0.35);
+}
+
+
+/* Navbar underline — hover and active page */
+@media (min-width: 1024px) {
+  .navbar-underline {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 0;
+    height: 3px;
+    background-color: #D4AF37;
+    border-radius: 999px;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 300ms ease;
+    pointer-events: none;
+  }
+
+  a[aria-current="page"] .navbar-underline {
+    transform: scaleX(1);
+  }
+
+  a:hover .navbar-underline,
+  a:focus-visible .navbar-underline {
+    transform: scaleX(1);
+  }
+}
+
+/* =========================================
+   PREMIUM SCROLL REVEAL ANIMATIONS
+   ========================================= */
+
+/* Base animation state */
+.premium-reveal {
+  opacity: 0;
+  filter: blur(3px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.8s ease;
+  will-change: transform, opacity;
+}
+
+/* Reveal from bottom */
+.reveal-up {
+  transform: translate3d(0, 55px, 0);
+}
+
+/* Reveal from top */
+.reveal-down {
+  transform: translate3d(0, -45px, 0);
+}
+
+/* Reveal from left */
+.reveal-left {
+  transform: translate3d(-65px, 0, 0);
+}
+
+/* Reveal from right */
+.reveal-right {
+  transform: translate3d(65px, 0, 0);
+}
+
+/* Zoom-in reveal */
+.reveal-scale {
+  transform: scale(0.92);
+}
+
+/* Simple fade-in */
+.reveal-fade {
+  transform: translate3d(0, 0, 0);
+}
+
+/* Visible state */
+.premium-reveal.reveal-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Smooth card hover effect */
+.premium-card {
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.premium-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.10);
+}
+
+/* Accessibility: respect reduced-motion settings */
+@media (prefers-reduced-motion: reduce) {
+  .premium-reveal,
+  .premium-card {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}
+/* ========================================
+   PREMIUM SCROLL REVEAL ANIMATIONS
+   Used by ScrollReveal.tsx
+======================================== */
+
+/* Base animation */
+.premium-reveal {
+  opacity: 0;
+  filter: blur(3px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.8s ease;
+
+  will-change: transform, opacity, filter;
+}
+
+/* Slide upward */
+.reveal-up {
+  transform: translate3d(0, 55px, 0);
+}
+
+/* Slide downward */
+.reveal-down {
+  transform: translate3d(0, -45px, 0);
+}
+
+/* Slide in from the left */
+.reveal-left {
+  transform: translate3d(-65px, 0, 0);
+}
+
+/* Slide in from the right */
+.reveal-right {
+  transform: translate3d(65px, 0, 0);
+}
+
+/* Zoom in */
+.reveal-scale {
+  transform: scale(0.92);
+}
+
+/* Fade in */
+.reveal-fade {
+  transform: translate3d(0, 0, 0);
+}
+
+/* Visible state */
+.premium-reveal.reveal-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Premium card hover effect */
+.premium-card {
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.premium-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.10);
+}
+
+/* Accessibility: respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .premium-reveal,
+  .premium-card {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+    animation: none;
+    will-change: auto;
+  }
+}
+
+/* Responsive scroll animations */
+.premium-reveal {
+  opacity: 0;
+  filter: blur(2px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.7s ease;
+  will-change: opacity, transform, filter;
+}
+
+.reveal-up {
+  transform: translate3d(0, 28px, 0);
+}
+
+.reveal-down {
+  transform: translate3d(0, -28px, 0);
+}
+
+.reveal-left {
+  transform: translate3d(-28px, 0, 0);
+}
+
+.reveal-right {
+  transform: translate3d(28px, 0, 0);
+}
+
+.reveal-scale {
+  transform: scale(0.96);
+}
+
+.reveal-fade {
+  transform: none;
+}
+
+.premium-reveal.reveal-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Smooth card hover on desktop and laptop */
+.premium-card {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .premium-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .premium-reveal {
+    transition-duration: 0.55s;
+    filter: none;
+  }
+
+  .reveal-up {
+    transform: translate3d(0, 20px, 0);
+  }
+
+  .reveal-down {
+    transform: translate3d(0, -20px, 0);
+  }
+
+  .reveal-left {
+    transform: translate3d(-20px, 0, 0);
+  }
+
+  .reveal-right {
+    transform: translate3d(20px, 0, 0);
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .premium-reveal {
+    transition-duration: 0.45s;
+    will-change: opacity, transform;
+  }
+
+  .reveal-up {
+    transform: translate3d(0, 14px, 0);
+  }
+
+  .reveal-down {
+    transform: translate3d(0, -14px, 0);
+  }
+
+  .reveal-left,
+  .reveal-right {
+    transform: translate3d(0, 14px, 0);
+  }
+
+  .reveal-scale {
+    transform: scale(0.98);
+  }
+
+  .premium-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Respect accessibility settings */
+@media (prefers-reduced-motion: reduce) {
+  .premium-reveal,
+  .premium-card {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+    animation: none;
+    will-change: auto;
+  }
+}
+
+/* Responsive logo — desktop, tablet and mobile */
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.navbar-logo img {
+  display: block;
+  width: auto;
+  height: 56px;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .navbar-logo img {
+    height: 48px;
+    max-width: 190px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .navbar-logo {
+    display: flex !important;
+    visibility: visible;
+    opacity: 1;
+    overflow: visible;
+  }
+
+  .navbar-logo img {
+    display: block !important;
+    visibility: visible;
+    opacity: 1;
+    height: 40px;
+    width: auto;
+    max-width: 155px;
+    object-fit: contain;
+  }
+}
+
+/* Very small mobile screens */
+@media (max-width: 380px) {
+  .navbar-logo img {
+    height: 34px;
+    max-width: 125px;
+  }
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  width: 100%;
+  direction: ltr;
+}
+
+body {
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+
