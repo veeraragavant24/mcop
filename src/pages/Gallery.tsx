@@ -16,7 +16,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
-import { galleryItems } from '@/data/content';
+import { galleryItems } from '@/data/galleryData';
 
 type GalleryPhoto = {
   id: string | number;
