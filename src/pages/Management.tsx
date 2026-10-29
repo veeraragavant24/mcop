@@ -865,6 +865,232 @@ export default function Management() {
   margin-top: 15px;
 }
 
+/* =========================================
+   MOBILE-ONLY LEADERSHIP PROFILE CARD
+   Desktop design remains unchanged
+========================================= */
+@media (max-width: 600px) {
+  .management-page .mg-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    overflow: hidden;
+  }
+
+  .management-page .mg-profile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+
+    width: 100%;
+    max-width: 390px;
+    max-height: 92dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    padding: 20px 16px 14px;
+    border: 2px solid #d8b54c;
+    border-radius: 22px;
+
+    background:
+      radial-gradient(
+        ellipse at top,
+        rgba(17, 100, 67, 0.32),
+        transparent 48%
+      ),
+      linear-gradient(155deg, #06452f, #02291e 80%);
+
+    box-shadow:
+      0 0 0 1px rgba(255, 230, 160, 0.15),
+      0 0 24px rgba(212, 175, 55, 0.22),
+      0 18px 50px rgba(0, 0, 0, 0.35);
+
+    scrollbar-width: thin;
+    scrollbar-color: #c5a34d #02291e;
+  }
+
+  /* Keep close button above the card content */
+  .management-page .mg-close {
+    position: sticky;
+    top: 0;
+    align-self: flex-end;
+    flex-shrink: 0;
+    margin: -8px -7px 4px 0;
+    width: 36px;
+    height: 36px;
+    color: #ffe6a0;
+    background: #033526;
+    border: 1px solid #d8b54c;
+  }
+
+  /* Centered portrait with a golden frame */
+  .management-page .mg-profile-photo {
+    flex: 0 0 auto;
+    width: min(78%, 230px);
+    height: clamp(145px, 24dvh, 190px);
+    margin: 0 auto 17px;
+    overflow: hidden;
+
+    border: 3px solid #d8b54c;
+    border-radius: 17px;
+
+    background: #02291e;
+
+    box-shadow:
+      0 0 0 1px rgba(255, 230, 160, 0.35),
+      0 0 17px rgba(212, 175, 55, 0.24);
+  }
+
+  .management-page .mg-profile-photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+  }
+
+  /* Center name and designation */
+  .management-page .mg-profile-main {
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+  }
+
+  .management-page .mg-profile-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #e5bd58;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2.4px;
+  }
+
+  .management-page .mg-profile-main h2 {
+    margin: 0 0 5px;
+    color: #ffe6a0;
+    font-family: Georgia, serif;
+    font-size: clamp(21px, 6vw, 27px);
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+
+  .management-page .mg-profile-main h3 {
+    margin: 0;
+    color: #fff8e8;
+    font-family: Georgia, serif;
+    font-size: 16px;
+  }
+
+  .management-page .mg-vision {
+    margin: 8px 0 15px;
+    color: #ffdf83;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .management-page .mg-profile-divider {
+    height: 1px;
+    margin: 14px 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      #d8b54c,
+      transparent
+    );
+  }
+
+  .management-page .mg-bio {
+    margin: 0 0 15px;
+    color: #e7eee9;
+    font-size: 12px;
+    line-height: 1.75;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+
+  /* Compact information rows with gold accents */
+  .management-page .mg-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+
+    width: 100%;
+    height: auto;
+    padding: 4px 0 0;
+
+    border-top: 1px solid rgba(216, 181, 76, 0.4);
+    border-left: 0;
+  }
+
+  .management-page .mg-detail {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    min-width: 0;
+    padding: 12px 2px;
+
+    border-bottom: 1px solid rgba(216, 181, 76, 0.22);
+  }
+
+  .management-page .mg-detail:last-child {
+    border-bottom: 0;
+  }
+
+  .management-page .mg-detail h4 {
+    margin: 0;
+    color: #f4d17a;
+    font-family: Georgia, serif;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .management-page .mg-detail p,
+  .management-page .mg-detail li {
+    margin: 0;
+    color: #edf2ed;
+    font-size: 12px;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+  }
+
+  .management-page .mg-detail ul {
+    margin: 0;
+    padding-left: 17px;
+  }
+
+  .management-page .mg-detail li + li {
+    margin-top: 3px;
+  }
+}
+
+/* Extra-small mobile screens */
+@media (max-width: 360px) {
+  .management-page .mg-profile {
+    padding: 16px 12px 10px;
+    border-radius: 18px;
+  }
+
+  .management-page .mg-profile-photo {
+    width: 76%;
+    height: 140px;
+  }
+
+  .management-page .mg-profile-main h2 {
+    font-size: 21px;
+  }
+
+  .management-page .mg-detail {
+    padding: 10px 1px;
+  }
+}
+
   
 `}</style>
 
