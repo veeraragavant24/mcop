@@ -79,7 +79,7 @@ export const departments: Department[] = [
   {
     id: 'orthopedics',
     name: 'Orthopedics & Sports Physiotherapy',
-    image: 'https://images.pexels.com/photos/4506110/pexels-photo-4506110.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: '/department/orthopedics.jpg',
     description:
       'Focuses on the assessment and treatment of musculoskeletal conditions including fractures, joint disorders, sports injuries, post-surgical rehabilitation, and postural dysfunctions. Students learn manual therapy, therapeutic exercise prescription, and evidence-based injury management protocols.',
     focus: ['Manual therapy techniques', 'Sports injury rehabilitation', 'Post-surgical recovery', 'Posture and ergonomics'],
@@ -87,7 +87,7 @@ export const departments: Department[] = [
   {
     id: 'neurology',
     name: 'Neurological Physiotherapy',
-    image: 'https://images.pexels.com/photos/39192362/pexels-photo-39192362.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: '/department/neurological.jpg',
     description:
       'Dedicated to rehabilitation of patients with neurological conditions such as stroke, spinal cord injuries, Parkinson\'s disease, and cerebral palsy. The department emphasizes neuro-developmental treatment approaches and motor relearning strategies.',
     focus: ['Stroke rehabilitation', 'Spinal cord injury management', 'Neuro-developmental therapy', 'Balance and coordination training'],
@@ -95,7 +95,7 @@ export const departments: Department[] = [
   {
     id: 'cardio-respiratory',
     name: 'Cardio-Respiratory Physiotherapy',
-    image: 'https://images.pexels.com/photos/8460228/pexels-photo-8460228.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: '/department/cardiorespiratory.jpg',
     description:
       'Addresses pulmonary and cardiac rehabilitation, peri-operative care, and intensive care physiotherapy. Students train in chest physiotherapy, breathing exercises, and exercise prescription for patients with cardiac and respiratory conditions.',
     focus: ['Pulmonary rehabilitation', 'Post-operative chest care', 'ICU physiotherapy', 'Cardiac fitness programs'],
@@ -103,7 +103,7 @@ export const departments: Department[] = [
   {
     id: 'pediatrics',
     name: 'Pediatric Physiotherapy',
-    image: 'https://images.pexels.com/photos/18830315/pexels-photo-18830315.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: '/department/pediatric.jpg',
     description:
       'Specializes in the assessment and early intervention for children with developmental delays, congenital disorders, and neuromuscular conditions. Family-centered care and play-based therapy approaches are integral to this department.',
     focus: ['Early intervention programs', 'Cerebral palsy management', 'Developmental delay therapy', 'Family-centered care'],
@@ -111,7 +111,7 @@ export const departments: Department[] = [
   {
     id: 'obstetrics',
     name: 'Obstetrics & Gynecological Physiotherapy',
-    image: 'https://images.pexels.com/photos/20860622/pexels-photo-20860622.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: '/department/geriatric.jpg',
     description:
       'Focuses on antenatal and postnatal care, pelvic floor rehabilitation, and management of pregnancy-related musculoskeletal conditions. Students learn safe exercise protocols and education for expectant and new mothers.',
     focus: ['Antenatal exercise programs', 'Postnatal rehabilitation', 'Pelvic floor therapy', 'Pregnancy-related pain management'],
@@ -119,7 +119,7 @@ export const departments: Department[] = [
   {
     id: 'community',
     name: 'Community-Based Rehabilitation',
-    image: 'https://images.pexels.com/photos/20860617/pexels-photo-20860617.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: '/department/community.jpg',
     description:
       'Promotes accessible rehabilitation services in community settings. Students engage in outreach programs, disability awareness, and training of community health workers to deliver sustainable rehabilitation in underserved populations.',
     focus: ['Rural outreach programs', 'Disability awareness', 'Home-based therapy', 'Community health worker training'],
@@ -154,7 +154,7 @@ export const facilities: Facility[] = [
   {
     id: 'library',
     name: 'Central Library',
-    image: 'https://images.pexels.com/photos/28463480/pexels-photo-28463480.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+    image: 'https://images.pexels.com/photos/28463480/pexels-photo-28463480.jpeg',
     description:
       'A well-stocked library with an extensive collection of physiotherapy textbooks, international journals, anatomical models, and digital resources. The reading hall provides a quiet, comfortable space for independent study and research.',
     icon: 'Library',
@@ -292,7 +292,7 @@ export const heroSlides = [
     subtitle: 'Shaping skilled, compassionate rehabilitation professionals through evidence-based education and hands-on clinical training.',
   },
   {
-    image: '/slides/graduation.JPG',
+    image: '/slides/student.png',
     title: 'Learning Through Practice.',
     subtitle: 'State-of-the-art laboratories and clinical facilities where theory meets hands-on patient care.',
   },
@@ -302,9 +302,9 @@ export const heroSlides = [
     subtitle: 'Join a community dedicated to advancing physiotherapy through education, research, and ethical practice.',
   },
   {
-image: '/slides/student.png',
-title: 'Advancing Rehabilitation. Inspiring Recovery.',
-subtitle: 'Building the next generation of physiotherapy professionals through academic excellence, clinical expertise, and compassionate patient care.',
+  image: '/slides/graduation.JPG',
+  title: 'Celebrating Achievement. Inspiring Excellence.',
+  subtitle: 'Honouring the dedication of our graduates as they begin their journey towards compassionate patient care and a brighter future in physiotherapy.',
 },
 ];
 

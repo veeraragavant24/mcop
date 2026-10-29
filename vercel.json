@@ -2,7 +2,7 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!gallery/).*)",
       "destination": "/index.html"
     }
   ]

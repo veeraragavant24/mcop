@@ -43,13 +43,7 @@ export const galleryItems: GalleryPhoto[] = [
         "category":  "Students",
         "year":  null
     },
-    {
-        "id":  7,
-        "title":  "BATCH 2023-2028 - pongalfest3 (14)",
-        "image":  "/gallery/BATCH%202023-2028/pongalfest3%20(14).jpg",
-        "category":  "Students",
-        "year":  null
-    },
+ 
     {
         "id":  8,
         "title":  "BATCH 2023-2028 - pongalfest3 (15)",
@@ -267,13 +261,7 @@ export const galleryItems: GalleryPhoto[] = [
         "category":  "Students",
         "year":  null
     },
-    {
-        "id":  39,
-        "title":  "BATCH 2023-2028 copy - pongalfest3 (14)",
-        "image":  "/gallery/BATCH%202023-2028%20copy/pongalfest3%20(14).jpg",
-        "category":  "Students",
-        "year":  null
-    },
+   
     {
         "id":  40,
         "title":  "BATCH 2023-2028 copy - pongalfest3 (15)",
@@ -3291,13 +3279,7 @@ export const galleryItems: GalleryPhoto[] = [
         "category":  "Events \u0026 Celebrations",
         "year":  null
     },
-    {
-        "id":  471,
-        "title":  "republic - republicday (38)",
-        "image":  "/gallery/republic/republicday%20(38).jpg",
-        "category":  "Events \u0026 Celebrations",
-        "year":  null
-    },
+   
     {
         "id":  472,
         "title":  "republic - republicday (39)",

@@ -1,5 +1,5 @@
-
-import { useMemo, useState } from 'react';
+import { galleryItems } from '@/data/galleryData';
+import { useEffect, useMemo, useState } from 'react';
 import {
   Image as ImageIcon,
   CalendarDays,
@@ -16,7 +16,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
-import { galleryItems } from '@/data/galleryData';
+
 
 type GalleryPhoto = {
   id: string | number;
@@ -27,7 +27,85 @@ type GalleryPhoto = {
   date?: string;
 };
 
-const photos = galleryItems as unknown as GalleryPhoto[];
+
+type EventGroup =
+  | 'Pongal Fest — 2026'
+  | 'Republic Day — 2026'
+  | "Fresher's Day — 2025"
+  | 'Graduation Day — 2026';
+
+const eventGroups: EventGroup[] = [
+  'Pongal Fest — 2026',
+  'Republic Day — 2026',
+  "Fresher's Day — 2025",
+  'Graduation Day — 2026',
+];
+
+
+function normalizeText(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/%20/g, ' ')
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function getEventGroup(photo: GalleryPhoto): EventGroup | null {
+  const text = normalizeText(`${photo.title} ${photo.image}`);
+
+  if (text.includes('pongalfest') || text.includes('pongal fest')) {
+    return 'Pongal Fest — 2026';
+  }
+
+
+if (
+  text.includes('republic day') ||
+  text.includes('republicday') ||
+  text.includes('republic')
+) {
+  return 'Republic Day — 2026';
+}
+
+
+  if (
+    text.includes('freshers day') ||
+    text.includes('freshersday') ||
+    text.includes('fresher day')
+  ) {
+    return "Fresher's Day — 2025";
+  }
+
+  if (
+    text.includes('graduation day') ||
+    text.includes('graduationday')
+  ) {
+    return 'Graduation Day — 2026';
+  }
+
+  return null;
+}
+
+const photos: GalleryPhoto[] = (
+  galleryItems as unknown as GalleryPhoto[]
+).map((photo) => {
+  const event = getEventGroup(photo);
+
+  if (!event) return photo;
+
+  const eventTitle = event.split(' — ')[0];
+  const eventYear = event.split(' — ')[1];
+
+  return {
+    ...photo,
+    title: `${eventTitle} ${eventYear} - ${photo.title}`,
+    category:
+      event === 'Graduation Day — 2026'
+        ? 'Achievements'
+        : 'Events & Celebrations',
+    year: eventYear,
+  };
+});
 
 const years = [
   'All Years',
@@ -56,7 +134,10 @@ function getPhotoYear(photo: GalleryPhoto): string {
 
   if (photo.date) {
     const year = new Date(photo.date).getFullYear();
-    if (!Number.isNaN(year)) return String(year);
+
+    if (!Number.isNaN(year)) {
+      return String(year);
+    }
   }
 
   return '';
@@ -94,53 +175,154 @@ function normalizeCategory(value: string): string {
     return 'Workshops & Seminars';
   }
 
-  if (category.includes('achievement') || category.includes('award')) {
+  if (
+    category.includes('achievement') ||
+    category.includes('award')
+  ) {
     return 'Achievements';
   }
 
-  if (category.includes('student') || category.includes('sports')) {
+  if (
+    category.includes('student') ||
+    category.includes('sports')
+  ) {
     return 'Students';
   }
 
   return value;
 }
 
+type EventSection = {
+  title: string;
+  year: string;
+  keywords: string[];
+};
+
+const eventSections: EventSection[] = [
+  {
+    title: 'Pongal Fest',
+    year: '2026',
+    keywords: ['pongal', 'pongal fest', 'pongalfest'],
+  },
+  {
+  title: 'Republic Day',
+  year: '2026',
+  keywords: [
+    'republic day',
+    'republicday',
+    'republic',
+  ],
+},
+  {
+    title: "Fresher's Day",
+    year: '2025',
+    keywords: [
+      'freshers day',
+      'fresher day',
+      'freshersday',
+      'freshers',
+    ],
+  },
+  {
+    title: 'Graduation Day',
+    year: '2026',
+    keywords: ['graduation day', 'graduationday', 'graduation'],
+  },
+];
+
+function getEventPhotos(
+  allPhotos: GalleryPhoto[],
+  section: EventSection,
+) {
+  return allPhotos.filter((photo) => {
+    const searchableText = normalizeText(
+      `${photo.title} ${photo.image} ${photo.category}`,
+    );
+
+    return section.keywords.some((keyword) =>
+      searchableText.includes(normalizeText(keyword)),
+    );
+  });
+}
+
 export default function Gallery() {
   const [selectedYear, setSelectedYear] = useState('All Years');
-  const [selectedCategory, setSelectedCategory] = useState('All Photos');
+  const [selectedCategory, setSelectedCategory] =
+    useState('All Photos');
+  const [selectedEvent, setSelectedEvent] =
+    useState<EventGroup | null>(null);
   const [search, setSearch] = useState('');
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [lightboxIndex, setLightboxIndex] =
+    useState<number | null>(null);
 
-  const filteredPhotos = useMemo(() => {
-    return photos.filter((photo) => {
-      const photoYear = getPhotoYear(photo);
-      const category = normalizeCategory(photo.category || '');
 
-      const matchesYear =
-        selectedYear === 'All Years' || photoYear === selectedYear;
+const filteredPhotos = useMemo(() => {
+  return photos.filter((photo) => {
+    const photoYear = getPhotoYear(photo);
+    const category = normalizeCategory(photo.category || '');
+    const photoEvent = getEventGroup(photo);
 
-      const matchesCategory =
+    const matchesYear =
+      selectedYear === 'All Years' ||
+      photoYear === selectedYear;
+
+    const eventParentCategories = [
+      'Campus Life',
+      'Students',
+      'Events & Celebrations',
+    ];
+
+    let matchesCategory: boolean;
+
+    if (selectedEvent) {
+      // An event selection takes priority over the main category.
+      matchesCategory = photoEvent === selectedEvent;
+    } else if (
+      eventParentCategories.includes(selectedCategory)
+    ) {
+      // Show event photos while browsing these parent categories.
+      matchesCategory =
+        photoEvent !== null ||
+        category === selectedCategory;
+    } else {
+      matchesCategory =
         selectedCategory === 'All Photos' ||
         category === selectedCategory;
+    }
 
-      const searchableText =
-        `${photo.title} ${photo.category} ${photoYear}`.toLowerCase();
+    const searchableText = normalizeText(
+      `${photo.title} ${photo.image} ${photo.category} ${
+        photoYear
+      } ${photoEvent || ''}`
+    );
 
-      const matchesSearch = searchableText.includes(
-        search.toLowerCase().trim()
-      );
+    const matchesSearch = searchableText.includes(
+      normalizeText(search)
+    );
 
-      return matchesYear && matchesCategory && matchesSearch;
-    });
-  }, [selectedYear, selectedCategory, search]);
+    return (
+      matchesYear &&
+      matchesCategory &&
+      matchesSearch
+    );
+  });
+}, [selectedYear, selectedCategory, selectedEvent, search]);
+
 
   const activePhoto =
-    lightboxIndex !== null ? filteredPhotos[lightboxIndex] : null;
+    lightboxIndex !== null
+      ? filteredPhotos[lightboxIndex]
+      : null;
 
   const closeLightbox = () => setLightboxIndex(null);
 
   const showPrevious = () => {
-    if (lightboxIndex === null || filteredPhotos.length < 2) return;
+    if (
+      lightboxIndex === null ||
+      filteredPhotos.length < 2
+    ) {
+      return;
+    }
 
     setLightboxIndex(
       (lightboxIndex - 1 + filteredPhotos.length) %
@@ -149,17 +331,85 @@ export default function Gallery() {
   };
 
   const showNext = () => {
-    if (lightboxIndex === null || filteredPhotos.length < 2) return;
+    if (
+      lightboxIndex === null ||
+      filteredPhotos.length < 2
+    ) {
+      return;
+    }
 
-    setLightboxIndex((lightboxIndex + 1) % filteredPhotos.length);
+    setLightboxIndex(
+      (lightboxIndex + 1) % filteredPhotos.length
+    );
   };
 
   const clearFilters = () => {
     setSelectedYear('All Years');
     setSelectedCategory('All Photos');
+    setSelectedEvent(null);
     setSearch('');
     setLightboxIndex(null);
   };
+
+  const selectCategory = (name: string) => {
+    setSelectedCategory(name);
+    setSelectedEvent(null);
+    setLightboxIndex(null);
+  };
+
+  const selectEvent = (eventName: EventGroup) => {
+    setSelectedEvent((current) =>
+      current === eventName ? null : eventName
+    );
+    setLightboxIndex(null);
+  };
+
+
+
+
+useEffect(() => {
+  const root = document.querySelector('.mcp-gallery');
+  if (!root) return;
+
+  const elements = root.querySelectorAll<HTMLElement>(
+    '[data-scroll-reveal]'
+  );
+
+  // Keep all gallery content visible by default.
+  elements.forEach((element) => {
+    element.classList.add('is-revealed');
+  });
+
+  if (
+    window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+    !('IntersectionObserver' in window)
+  ) {
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          (entry.target as HTMLElement).classList.add('is-revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.05,
+      rootMargin: '0px 0px 50px 0px',
+    }
+  );
+
+  elements.forEach((element) => {
+    observer.observe(element);
+  });
+
+  return () => observer.disconnect();
+}, [selectedCategory, selectedYear, selectedEvent, search]);
+
+
 
   return (
     <main className="mcp-gallery">
@@ -188,7 +438,10 @@ export default function Gallery() {
           box-sizing: border-box;
         }
 
-        /* HEADER */
+        .mcp-gallery button:focus-visible {
+          outline: 3px solid var(--g-gold);
+          outline-offset: 3px;
+        }
 
         .mcp-gallery .g-hero {
           position: relative;
@@ -330,8 +583,6 @@ export default function Gallery() {
           transform: rotate(25deg);
         }
 
-        /* PAGE CONTAINER */
-
         .mcp-gallery .g-container {
           width: 100%;
           max-width: 1600px;
@@ -362,8 +613,6 @@ export default function Gallery() {
           font-weight: 700;
           line-height: 1.3;
         }
-
-        /* YEAR FILTERS */
 
         .mcp-gallery .g-year-section {
           display: flex;
@@ -408,8 +657,6 @@ export default function Gallery() {
           color: #fff;
           box-shadow: 0 4px 10px rgba(3, 45, 34, .12);
         }
-
-        /* CATEGORY CARDS */
 
         .mcp-gallery .g-category-section {
           padding: 23px 0 30px;
@@ -504,7 +751,99 @@ export default function Gallery() {
           text-align: center;
         }
 
-        /* PHOTO GALLERY */
+        /* EVENT SUBSECTIONS */
+
+        .mcp-gallery .g-event-section {
+          padding: 0 0 26px;
+          animation: g-fade-in .25s ease both;
+        }
+
+        .mcp-gallery .g-event-heading {
+          margin: 0 0 13px;
+          color: var(--g-muted);
+          font-size: 13px;
+          font-weight: 650;
+          letter-spacing: .25px;
+        }
+
+        .mcp-gallery .g-event-grid {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 12px;
+        }
+
+        .mcp-gallery .g-event-button {
+          display: flex;
+          min-width: 0;
+          min-height: 68px;
+          align-items: center;
+          gap: 11px;
+          padding: 13px 14px;
+          border: 1px solid var(--g-border);
+          border-radius: 11px;
+          background: #fff;
+          color: var(--g-dark);
+          cursor: pointer;
+          font-family: inherit;
+          text-align: left;
+          transition: border-color .25s ease,
+            background .25s ease,
+            box-shadow .25s ease,
+            transform .25s ease;
+        }
+
+        .mcp-gallery .g-event-button:hover {
+          border-color: rgba(214, 173, 82, .85);
+          box-shadow: 0 6px 18px rgba(3, 45, 34, .08);
+          transform: translateY(-2px);
+        }
+
+        .mcp-gallery .g-event-button.active {
+          border-color: var(--g-gold);
+          background: #fffaf0;
+          box-shadow: 0 4px 13px rgba(214, 173, 82, .16);
+        }
+
+        .mcp-gallery .g-event-icon {
+          display: flex;
+          width: 37px;
+          height: 37px;
+          flex: 0 0 37px;
+          align-items: center;
+          justify-content: center;
+          border-radius: 9px;
+          background: #e8efe8;
+          color: var(--g-green);
+        }
+
+        .mcp-gallery .g-event-button.active .g-event-icon,
+        .mcp-gallery .g-event-button:hover .g-event-icon {
+          background: var(--g-green);
+          color: var(--g-gold-light);
+        }
+
+        .mcp-gallery .g-event-icon svg {
+          width: 19px;
+          height: 19px;
+        }
+
+        .mcp-gallery .g-event-label {
+          display: flex;
+          min-width: 0;
+          flex-direction: column;
+          gap: 4px;
+        }
+
+        .mcp-gallery .g-event-label strong {
+          font-size: 13px;
+          font-weight: 700;
+          line-height: 1.35;
+        }
+
+        .mcp-gallery .g-event-label small {
+          color: var(--g-muted);
+          font-size: 12px;
+        }
 
         .mcp-gallery .g-photos-section {
           padding-top: 5px;
@@ -591,18 +930,19 @@ export default function Gallery() {
         .mcp-gallery .g-photo-card {
           position: relative;
           display: block;
+          width: 100%;
           min-width: 0;
-          overflow: hidden;
           aspect-ratio: 1.58 / 1;
+          overflow: hidden;
           padding: 0;
           border: 1px solid rgba(3, 45, 34, .08);
           border-radius: 11px;
           background: #e8eee9;
-          box-shadow: 0 3px 8px rgba(3, 45, 34, .05);
           cursor: pointer;
           isolation: isolate;
-          text-align: left;
-          transition: all .3s ease;
+          transition: border-color .25s ease,
+            box-shadow .25s ease,
+            transform .25s ease;
         }
 
         .mcp-gallery .g-photo-card:hover {
@@ -617,11 +957,13 @@ export default function Gallery() {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform .55s ease;
+          object-position: center;
+          transform: none;
+          transition: transform .3s ease;
         }
 
         .mcp-gallery .g-photo-card:hover > img {
-          transform: scale(1.07);
+          transform: scale(1.04);
         }
 
         .mcp-gallery .g-photo-card::after {
@@ -719,8 +1061,6 @@ export default function Gallery() {
           white-space: nowrap;
         }
 
-        /* EMPTY STATE */
-
         .mcp-gallery .g-empty {
           display: flex;
           min-height: 240px;
@@ -763,8 +1103,6 @@ export default function Gallery() {
           font-family: inherit;
           font-weight: 600;
         }
-
-        /* LIGHTBOX */
 
         .mcp-gallery .g-lightbox {
           position: fixed;
@@ -874,17 +1212,10 @@ export default function Gallery() {
           right: 18px;
         }
 
-        .mcp-gallery button:focus-visible {
-          outline: 3px solid var(--g-gold);
-          outline-offset: 3px;
-        }
-
         @keyframes g-fade-in {
           from { opacity: 0; }
           to { opacity: 1; }
         }
-
-        /* TABLET */
 
         @media (max-width: 1100px) {
           .mcp-gallery .g-container {
@@ -907,12 +1238,14 @@ export default function Gallery() {
             grid-template-columns: repeat(4, minmax(0, 1fr));
           }
 
+          .mcp-gallery .g-event-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+
           .mcp-gallery .g-photo-grid {
             grid-template-columns: repeat(3, minmax(0, 1fr));
           }
         }
-
-        /* MOBILE */
 
         @media (max-width: 700px) {
           .mcp-gallery .g-hero {
@@ -1015,6 +1348,20 @@ export default function Gallery() {
             font-size: 12px;
           }
 
+          .mcp-gallery .g-event-section {
+            padding-bottom: 22px;
+          }
+
+          .mcp-gallery .g-event-grid {
+            grid-template-columns: 1fr;
+            gap: 8px;
+          }
+
+          .mcp-gallery .g-event-button {
+            min-height: 62px;
+            padding: 10px 12px;
+          }
+
           .mcp-gallery .g-photos-header {
             align-items: stretch;
             flex-direction: column;
@@ -1030,11 +1377,6 @@ export default function Gallery() {
           .mcp-gallery .g-photo-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 10px;
-          }
-
-          .mcp-gallery .g-photo-card {
-            aspect-ratio: 1.15 / 1;
-            border-radius: 9px;
           }
 
           .mcp-gallery .g-photo-year {
@@ -1136,11 +1478,143 @@ export default function Gallery() {
             transition-duration: .01ms !important;
           }
         }
+
+.mcp-gallery .g-event-photo-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.mcp-gallery .g-event-photo-section {
+  min-width: 0;
+}
+
+.mcp-gallery .g-event-photo-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 17px;
+  padding-bottom: 13px;
+  border-bottom: 1px solid #e4ebe6;
+}
+
+.mcp-gallery .g-event-photo-heading h2 {
+  margin: 4px 0 0;
+  color: #064b38;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.mcp-gallery .g-event-eyebrow {
+  color: #a47c2c;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.mcp-gallery .g-event-empty {
+  margin: 0;
+  padding: 20px;
+  border: 1px dashed #d8e1da;
+  border-radius: 10px;
+  color: #68766f;
+  font-size: 14px;
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .mcp-gallery .g-event-photo-sections {
+    gap: 26px;
+  }
+
+  .mcp-gallery .g-event-photo-heading h2 {
+    font-size: 20px;
+  }
+
+  .mcp-gallery .g-event-photo-heading {
+    align-items: flex-start;
+  }
+}
+/* PREMIUM SCROLL REVEAL */
+
+.mcp-gallery [data-scroll-reveal] {
+  --reveal-x: 0px;
+
+  opacity: 0;
+  transform: translate3d(var(--reveal-x), 24px, 0);
+  transition:
+    opacity 700ms ease,
+    transform 700ms cubic-bezier(.22, 1, .36, 1);
+  will-change: opacity, transform;
+}
+
+.mcp-gallery [data-scroll-reveal="left"] {
+  --reveal-x: -34px;
+}
+
+.mcp-gallery [data-scroll-reveal="right"] {
+  --reveal-x: 34px;
+}
+
+/* Alternate photo entrance directions */
+.mcp-gallery .g-photo-grid
+  > [data-scroll-reveal]:nth-child(odd) {
+  --reveal-x: -24px;
+}
+
+.mcp-gallery .g-photo-grid
+  > [data-scroll-reveal]:nth-child(even) {
+  --reveal-x: 24px;
+}
+
+.mcp-gallery [data-scroll-reveal].is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Stagger photo cards */
+.mcp-gallery .g-photo-grid
+  > [data-scroll-reveal]:nth-child(1) {
+  transition-delay: 0ms;
+}
+
+.mcp-gallery .g-photo-grid
+  > [data-scroll-reveal]:nth-child(2) {
+  transition-delay: 70ms;
+}
+
+.mcp-gallery .g-photo-grid
+  > [data-scroll-reveal]:nth-child(3) {
+  transition-delay: 140ms;
+}
+
+.mcp-gallery .g-photo-grid
+  > [data-scroll-reveal]:nth-child(4) {
+  transition-delay: 210ms;
+}
+
+.mcp-gallery .g-photo-grid
+  > [data-scroll-reveal]:nth-child(n + 5) {
+  transition-delay: 250ms;
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .mcp-gallery [data-scroll-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto;
+  }
+}
+
       `}</style>
 
       {/* HEADER */}
-      <header className="g-hero">
-        <div className="g-hero-inner">
+<header className="g-hero" data-scroll-reveal="left">
+          <div className="g-hero-inner">
           <div className="g-college-name">
             <span>MADHA COLLEGE OF PHYSIOTHERAPY</span>
             <span className="g-gold-line" />
@@ -1163,8 +1637,10 @@ export default function Gallery() {
 
       <div className="g-container">
         {/* BROWSE BY YEAR */}
-        <section className="g-year-section">
-          <div className="g-section-heading">
+<section
+  className="g-year-section"
+  data-scroll-reveal="right"
+>          <div className="g-section-heading">
             <CalendarDays aria-hidden="true" />
             <h2>Browse by Year</h2>
           </div>
@@ -1188,9 +1664,11 @@ export default function Gallery() {
           </div>
         </section>
 
-        {/* EXPLORE CATEGORIES */}
-        <section className="g-category-section">
-          <div className="g-section-heading">
+        {/* MAIN CATEGORIES */}
+<section
+  className="g-category-section"
+  data-scroll-reveal="left"
+>          <div className="g-section-heading">
             <div className="g-grid-icon" aria-hidden="true">
               <span />
               <span />
@@ -1208,114 +1686,276 @@ export default function Gallery() {
                 className={`g-category-card ${
                   selectedCategory === name ? 'active' : ''
                 }`}
-                onClick={() => {
-                  setSelectedCategory(name);
-                  setLightboxIndex(null);
-                }}
+                onClick={() => selectCategory(name)}
                 aria-pressed={selectedCategory === name}
               >
                 <span className="g-category-icon">
                   <Icon aria-hidden="true" />
                 </span>
+
                 <span className="g-category-name">{name}</span>
               </button>
             ))}
           </div>
         </section>
 
-        {/* PHOTO GALLERY */}
-        <section className="g-photos-section">
-          <div className="g-photos-header">
-            <div className="g-section-heading">
-              <ImageIcon aria-hidden="true" />
-              <h2>Photo Gallery</h2>
+        {/* EVENT SUBSECTIONS */}
+     
+{[
+  'Campus Life',
+  'Students',
+  'Events & Celebrations',
+].includes(selectedCategory) && (
+  <section
+    className="g-event-section"
+    data-scroll-reveal="left"
+  >
+
+            <p className="g-event-heading">
+              Choose an event to view its photos
+            </p>
+
+            <div className="g-event-grid">
+              {eventGroups.map((eventName) => {
+                const EventIcon =
+                  eventName === 'Pongal Fest — 2026'
+                    ? PartyPopper
+                    : eventName === 'Republic Day — 2026'
+                      ? Building2
+                      : eventName === "Fresher's Day — 2025"
+                        ? Users
+                        : GraduationCap;
+
+                return (
+                  <button
+                    type="button"
+                    key={eventName}
+                    className={`g-event-button ${
+                      selectedEvent === eventName ? 'active' : ''
+                    }`}
+                    onClick={() => selectEvent(eventName)}
+                    aria-pressed={selectedEvent === eventName}
+                  >
+                    <span className="g-event-icon">
+                      <EventIcon aria-hidden="true" />
+                    </span>
+
+                    <span className="g-event-label">
+                      <strong>
+                        {eventName.split(' — ')[0]}
+                      </strong>
+                      <small>
+                        {eventName.split(' — ')[1]}
+                      </small>
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+       
+{/* PHOTO GALLERY */}
+<section
+  className="g-photos-section"
+  data-scroll-reveal="right"
+>  {selectedCategory === 'Events & Celebrations' &&
+  !selectedEvent &&
+  !search.trim() ? (
+    <div className="g-event-photo-sections">
+      {eventSections.map((section) => {
+        const sectionPhotos = getEventPhotos(
+          photos,
+          section,
+        ).filter(
+          (photo) =>
+            selectedYear === 'All Years' ||
+            getPhotoYear(photo) === selectedYear,
+        );
+
+        return (
+          <section
+            className="g-event-photo-section"
+            key={section.title}
+          >
+            <div className="g-event-photo-heading">
+              <div>
+                <span className="g-event-eyebrow">
+                  EVENTS & CELEBRATIONS
+                </span>
+
+                <h2>
+                  {section.title} — {section.year}
+                </h2>
+              </div>
+
               <span className="g-photo-count">
-                {filteredPhotos.length} photos
+                {sectionPhotos.length} photos
               </span>
             </div>
 
-            <label className="g-search">
-              <Search aria-hidden="true" />
+            {sectionPhotos.length > 0 ? (
+              <div className="g-photo-grid">
+                {sectionPhotos.map((photo) => {
+                  const photoIndex =
+                    filteredPhotos.findIndex(
+                      (item) => item.id === photo.id,
+                    );
 
-              <input
-                type="search"
-                value={search}
-                onChange={(event) => {
-                  setSearch(event.target.value);
-                  setLightboxIndex(null);
-                }}
-                placeholder="Search photos..."
-                aria-label="Search photos"
-              />
+                  return (
+                   <button
+  type="button"
+  key={photo.id}
+  className="g-photo-card"
+  data-scroll-reveal
+  onClick={() => {
+    if (photoIndex >= 0) {
+      setLightboxIndex(photoIndex);
+    } else {
+      setSelectedEvent(
+        `${section.title} — ${section.year}` as EventGroup,
+      );
+      setLightboxIndex(null);
+    }
+  }}
+  aria-label={`View ${photo.title}`}
+>
+  <img
+  src={photo.image}
+  alt={photo.title}
+  loading="lazy"
+  onError={(event) => {
+    console.error(
+      'Gallery image failed to load:',
+      photo.image
+    );
+    event.currentTarget.style.visibility = 'hidden';
+  }}
+/>
 
-              {search && (
-                <button
-                  type="button"
-                  className="g-clear-search"
-                  onClick={() => setSearch('')}
-                  aria-label="Clear search"
-                >
-                  <X size={16} />
-                </button>
-              )}
-            </label>
-          </div>
+  <span className="g-photo-year">
+    {section.year}
+  </span>
 
-          {filteredPhotos.length > 0 ? (
-            <div className="g-photo-grid">
-              {filteredPhotos.map((photo, index) => (
-                <button
-                  type="button"
-                  key={photo.id}
-                  className="g-photo-card"
-                  onClick={() => setLightboxIndex(index)}
-                  aria-label={`View ${photo.title}`}
-                >
-                  <img
-                    src={photo.image}
-                    alt={photo.title}
-                    loading="lazy"
-                  />
+  <span className="g-photo-zoom">
+    <ZoomIn aria-hidden="true" />
+  </span>
 
-                  <span className="g-photo-year">
-                    {getPhotoYear(photo) || 'Gallery'}
-                  </span>
-
-                  <span className="g-photo-zoom">
-                    <ZoomIn aria-hidden="true" />
-                  </span>
-
-                  <span className="g-photo-caption">
-                    <span className="g-photo-category">
-                      {normalizeCategory(photo.category || '')}
-                    </span>
-                    <span className="g-photo-title">
-                      {photo.title}
-                    </span>
-                  </span>
-                </button>
-              ))}
-            </div>
-          ) : (
-            <div className="g-empty">
-              <ImageIcon aria-hidden="true" />
-              <h3>No photos found</h3>
-              <p>
-                Try another year, category, or search term.
+  <span className="g-photo-caption">
+    <span className="g-photo-category">
+      {section.title}
+    </span>
+  </span>
+</button>
+                  );
+                })}
+              </div>
+            ) : (
+              <p className="g-event-empty">
+                No matching photos found for this event.
               </p>
-              <button
-                type="button"
-                className="g-reset-button"
-                onClick={clearFilters}
-              >
-                Clear all filters
-              </button>
-            </div>
+            )}
+          </section>
+        );
+      })}
+    </div>
+  ) : (
+    <>
+      <div className="g-photos-header">
+        <div className="g-section-heading">
+          <ImageIcon aria-hidden="true" />
+          <h2>
+            {selectedEvent || 'Photo Gallery'}
+          </h2>
+
+          <span className="g-photo-count">
+            {filteredPhotos.length} photos
+          </span>
+        </div>
+
+        <label className="g-search">
+          <Search aria-hidden="true" />
+
+          <input
+            type="search"
+            value={search}
+            onChange={(event) => {
+              setSearch(event.target.value);
+              setLightboxIndex(null);
+            }}
+            placeholder="Search photos..."
+            aria-label="Search photos"
+          />
+
+          {search && (
+            <button
+              type="button"
+              className="g-clear-search"
+              onClick={() => setSearch('')}
+              aria-label="Clear search"
+            >
+              <X size={16} />
+            </button>
           )}
-        </section>
+        </label>
       </div>
 
-      {/* LIGHTBOX */}
+      {filteredPhotos.length > 0 ? (
+        <div className="g-photo-grid">
+          {filteredPhotos.map((photo, index) => (
+            <button
+              type="button"
+              key={photo.id}
+              className="g-photo-card"
+              onClick={() => setLightboxIndex(index)}
+              aria-label={`View ${photo.title}`}
+            >
+              <img
+                src={photo.image}
+                alt={photo.title}
+                loading="lazy"
+              />
+
+              <span className="g-photo-year">
+                {getPhotoYear(photo) || 'Gallery'}
+              </span>
+
+              <span className="g-photo-zoom">
+                <ZoomIn aria-hidden="true" />
+              </span>
+
+              <span className="g-photo-caption">
+                <span className="g-photo-category">
+                  {normalizeCategory(photo.category || '')}
+                </span>
+              </span>
+            </button>
+          ))}
+        </div>
+      ) : (
+        <div className="g-empty">
+          <ImageIcon aria-hidden="true" />
+          <h3>No photos found</h3>
+          <p>
+            Try another year, category, event, or search term.
+          </p>
+          <button
+            type="button"
+            className="g-reset-button"
+            onClick={clearFilters}
+          >
+            Clear all filters
+          </button>
+        </div>
+      )}
+    </>
+  )}
+</section>
+
+      </div>
+
+      {/* PHOTO LIGHTBOX */}
       {activePhoto && (
         <div
           className="g-lightbox"
@@ -1365,7 +2005,10 @@ export default function Gallery() {
             className="g-lightbox-content"
             onClick={(event) => event.stopPropagation()}
           >
-            <img src={activePhoto.image} alt={activePhoto.title} />
+            <img
+              src={activePhoto.image}
+              alt={activePhoto.title}
+            />
 
             <div className="g-lightbox-caption">
               <span>{getPhotoYear(activePhoto)}</span>
