@@ -29,3 +29,6 @@ dist/
 dist/
 # Large video files - keep originals locally
 public/FRESHERS DAY 2K25/*.MP4
+# Ignore generated .NET build folders
+/backend/MadhaPhysiotherapy.Api/bin/**
+/backend/MadhaPhysiotherapy.Api/obj/**
