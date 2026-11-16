@@ -25,11 +25,11 @@ export default defineConfig({
       ],
     },
 
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5196',
-        changeOrigin: true,
-      },
-    },
+proxy: {
+  '/api': {
+    target: 'http://localhost:5196',
+    changeOrigin: true,
+  },
+},
   },
 });

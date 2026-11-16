@@ -3,7 +3,7 @@ import {
   Plus, Pencil, Trash2, X, CalendarDays, Newspaper, RefreshCw,
   Search, ImagePlus, Upload, MapPin, Eye, EyeOff, Star, CheckCircle2,
 } from 'lucide-react';
-import { getNewsEvents, createNewsEvent, type NewsEventItem } from '@/services/newsEventsApi';
+import { getNewsEvents, type NewsEventItem } from '@/services/newsEventsApi';
 
 type NewsType = 'News' | 'Event';
 type NewsForm = Omit<NewsEventItem, 'id'> & { imageUrl?: string; location?: string; isPublished?: boolean; isFeatured?: boolean };
@@ -29,7 +29,28 @@ function isUpcoming(value?: string) {
   const date = new Date(value);
   const today = new Date(); today.setHours(0, 0, 0, 0);
   return !Number.isNaN(date.getTime()) && date >= today;
+
 }
+
+
+async function createNewsEvent(item: NewsForm): Promise<NewsEventItem> {
+  const response = await fetch(API_BASE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(item),
+  });
+  if (!response.ok) {
+    throw new Error(
+      (await response.text().catch(() => '')) ||
+        `Unable to create entry (HTTP ${response.status}).`
+    );
+  }
+  if (response.status === 204) return { ...item } as unknown as NewsEventItem;
+  return response.json();
+}
+
+
+
 async function updateNewsEvent(id: string, item: NewsForm): Promise<NewsEventItem> {
   const response = await fetch(`${API_BASE_URL}/${encodeURIComponent(id)}`, {
     method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(item),

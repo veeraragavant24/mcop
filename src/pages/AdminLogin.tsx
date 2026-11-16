@@ -10,7 +10,8 @@ import {
   Heart,
 } from 'lucide-react';
 
-const API_BASE_URL = 'http://localhost:5196';
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || 'http://localhost:5196';
 
 interface LoginResponse {
   token: string;

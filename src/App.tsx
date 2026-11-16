@@ -166,33 +166,34 @@ export default function App() {
   const openEnquiry = () => setEnquiryOpen(true);
   const closeEnquiry = () => setEnquiryOpen(false);
 
+  // Show the popup every time the website loads or refreshes
+  useEffect(() => {
+    // Don't show it on the admin pages
+    if (window.location.pathname.startsWith('/admin')) return;
+
+    const timer = window.setTimeout(() => setEnquiryOpen(true), 800);
+    return () => window.clearTimeout(timer);
+  }, []);
+
   return (
     <BrowserRouter>
       <ScrollToTop />
- 
-<Routes>
-  <Route path="/admin" element={<AdminLogin />} />
 
-  <Route
-    path="/admin/news-events"
-    element={<AdminNewsEvents />}
-  />
+      <Routes>
+        <Route path="/admin" element={<AdminLogin />} />
 
-  <Route
-    path="*"
-    element={
-      <>
-        <Layout onEnquiryClick={openEnquiry} />
-        <EnquiryModal
-          isOpen={enquiryOpen}
-          onClose={closeEnquiry}
+        <Route path="/admin/news-events" element={<AdminNewsEvents />} />
+
+        <Route
+          path="*"
+          element={
+            <>
+              <Layout onEnquiryClick={openEnquiry} />
+              <EnquiryModal isOpen={enquiryOpen} onClose={closeEnquiry} />
+            </>
+          }
         />
-      </>
-    }
-  />
-</Routes>
-
-
+      </Routes>
     </BrowserRouter>
   );
 }

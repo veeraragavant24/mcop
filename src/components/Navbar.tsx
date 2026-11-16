@@ -200,11 +200,11 @@ export default function Navbar({ onEnquiryClick }: NavbarProps) {
   };
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled ? 'backdrop-blur-[2px]' : ''
-      }`}
-    >
+<header
+  className={`fixed top-0 left-0 right-0 w-full z-[1000] transition-all duration-300 ${
+    scrolled ? 'backdrop-blur-[2px]' : ''
+  }`}
+>
       <nav className="container-mcp">
         <div className="flex items-center justify-between py-3">
           {/* Logo and college name */}

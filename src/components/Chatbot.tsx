@@ -214,6 +214,7 @@ export default function Chatbot({ navigate }: ChatbotProps) {
   const [typing, setTyping] = useState(false);
   const [menu, setMenu] = useState<Menu>('main');
   const [selectedCourse, setSelectedCourse] = useState('');
+  const [hiddenOptions, setHiddenOptions] = useState<string[]>([]);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'bot',
@@ -251,9 +252,13 @@ export default function Chatbot({ navigate }: ChatbotProps) {
     timerRef.current = window.setTimeout(() => {
       setMessages((previous) => [...previous, { role: 'bot', text }]);
 
-      if (nextMenu) {
-        setMenu(nextMenu);
-      }
+     if (nextMenu) {
+  if (nextMenu !== menu) {
+    setHiddenOptions([]);
+  }
+
+  setMenu(nextMenu);
+}
 
       setTyping(false);
       timerRef.current = null;
@@ -276,8 +281,16 @@ export default function Chatbot({ navigate }: ChatbotProps) {
     }
   };
 
-  const handleOption = (value: string, label: string) => {
-    if (typing) return;
+const handleOption = (value: string, label: string) => {
+  if (typing) return;
+
+  if (!['previous-menu', 'main-menu', 'reset'].includes(value)) {
+    setHiddenOptions((previous) =>
+      previous.includes(value) ? previous : [...previous, value]
+    );
+  }
+
+  // Keep the rest of your existing handleOption logic here.
 
     setMessages((previous) => [...previous, { role: 'user', text: label }]);
     setInput('');
@@ -542,9 +555,18 @@ export default function Chatbot({ navigate }: ChatbotProps) {
     );
   };
 
-  const renderOptions = (options: ChatOption[]) => (
+ const renderOptions = (options: ChatOption[]) => {
+  const remainingOptions = options.filter(
+    (option) => !hiddenOptions.includes(option.value)
+  );
+
+  if (remainingOptions.length === 0) {
+    return null;
+  }
+
+  return (
     <div className="madha-quick-questions madha-icon-menu">
-      {options.map((option) => (
+      {remainingOptions.map((option) => (
         <button
           key={option.value}
           type="button"
@@ -556,7 +578,9 @@ export default function Chatbot({ navigate }: ChatbotProps) {
             {option.icon ?? <BookOpen size={19} />}
           </span>
 
-          <span className="madha-icon-menu-label">{option.label}</span>
+          <span className="madha-icon-menu-label">
+            {option.label}
+          </span>
 
           <span className="madha-icon-menu-arrow">
             <ChevronRight size={17} />
@@ -565,6 +589,7 @@ export default function Chatbot({ navigate }: ChatbotProps) {
       ))}
     </div>
   );
+};
 
   const renderCurrentMenu = () => {
     switch (menu) {
@@ -751,27 +776,77 @@ export default function Chatbot({ navigate }: ChatbotProps) {
           font-family: inherit;
         }
 
-        .madha-chat-toggle {
-          position: fixed;
-          right: 24px;
-          bottom: 24px;
-          z-index: 9990;
-          width: 64px;
-          height: 64px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: var(--madha-gold-light);
-          border: 1.5px solid var(--madha-gold-light);
-          border-radius: 50%;
-          background: linear-gradient(145deg, rgba(10,83,59,.55), rgba(2,37,28,.45));
-          -webkit-backdrop-filter: blur(14px) saturate(160%);
-          backdrop-filter: blur(14px) saturate(160%);
-          box-shadow: 0 0 0 2px rgba(232,198,109,.22), 0 0 20px rgba(232,198,109,.32), inset 0 0 14px rgba(255,240,176,.08);
-          cursor: pointer;
-          transition: transform .28s ease, box-shadow .28s ease;
-        }
+      
+.madha-chat-toggle {
+  position: fixed;
+  right: 24px;
+  bottom: 65px;
+  z-index: 9990;
 
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  min-height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--madha-gold-light);
+  background: #0b4a37;
+  border: 1px solid #d8b54c;
+  border-radius: 50%;
+  box-sizing: border-box;
+
+  isolation: isolate;
+  overflow: visible;
+  cursor: pointer;
+}
+
+/* Rotating highlight clipped to the circular gold border */
+.madha-chat-toggle::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  z-index: 2;
+  padding: 3px;
+  border-radius: 50%;
+  pointer-events: none;
+
+  background: conic-gradient(
+    from 0deg,
+    #d8b54c 0deg,
+    #d8b54c 285deg,
+    #fff8d6 315deg,
+    #ffffff 328deg,
+    #ffffff 335deg,
+    #fff8d6 345deg,
+    #d8b54c 360deg
+  );
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  animation: madhaBorderShine 2s linear infinite !important;
+}
+
+@keyframes madhaBorderShine {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+ 
+
+
+ 
         .madha-chat-toggle:hover {
           transform: translateY(-3px) scale(1.035);
           box-shadow: 0 0 0 3px rgba(232,198,109,.25), 0 0 28px rgba(232,198,109,.5);
@@ -1283,6 +1358,38 @@ export default function Chatbot({ navigate }: ChatbotProps) {
             transition-duration: .01ms !important;
           }
         }
+          /* Small golden notification dot inside the chatbot circle */
+.madha-chat-notification {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 7px;
+  height: 7px;
+  box-sizing: border-box;
+  border: 1px solid #d8b54c;
+  border-radius: 50%;
+  background: #ffd966;
+  box-shadow:
+    0 0 4px rgba(255, 217, 102, 0.75),
+    0 0 7px rgba(255, 200, 50, 0.4);
+  z-index: 10;
+  pointer-events: none;
+  animation: goldDotGlow 1.8s ease-in-out infinite;
+}
+
+@keyframes goldDotGlow {
+  0%, 100% {
+    opacity: 0.8;
+    box-shadow: 0 0 3px rgba(255, 217, 102, 0.6);
+  }
+
+  50% {
+    opacity: 1;
+    box-shadow:
+      0 0 5px rgba(255, 217, 102, 0.9),
+      0 0 8px rgba(255, 200, 50, 0.5);
+  }
+}
       `}</style>
     </div>
   );

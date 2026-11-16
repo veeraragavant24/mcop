@@ -300,6 +300,17 @@ export default function Facilities({
           background: var(--facility-gold);
         }
 
+        @keyframes facility-card-arrive {
+          from {
+            opacity: 0;
+            translate: -36px 0;
+          }
+          to {
+            opacity: 1;
+            translate: 0 0;
+          }
+        }
+
         /* Facility card layout */
         .facilities-showcase {
           display: grid;
@@ -323,6 +334,55 @@ export default function Facilities({
             transform .35s ease,
             box-shadow .35s ease,
             border-color .35s ease;
+          animation: facility-card-arrive .75s cubic-bezier(.16, 1, .3, 1) both;
+        }
+
+        .facilities-showcase .facility-card:nth-child(2) {
+          animation-delay: 120ms;
+        }
+
+        .facilities-showcase .facility-card:nth-child(3) {
+          animation-delay: 240ms;
+        }
+
+        .facilities-extra-grid .facility-card:nth-child(1) {
+          animation-delay: 320ms;
+        }
+
+        .facilities-extra-grid .facility-card:nth-child(2) {
+          animation-delay: 420ms;
+        }
+
+        .facilities-extra-grid .facility-card:nth-child(3) {
+          animation-delay: 520ms;
+        }
+
+        .facilities-extra-grid .facility-card:nth-child(4) {
+          animation-delay: 620ms;
+        }
+
+        .facilities-extra-grid .facility-card:nth-child(5) {
+          animation-delay: 720ms;
+        }
+
+        .facilities-extra-grid .facility-card:nth-child(6) {
+          animation-delay: 820ms;
+        }
+
+        .facilities-extra-grid .facility-card:nth-child(7) {
+          animation-delay: 920ms;
+        }
+
+        .facilities-extra-grid .facility-card:nth-child(8) {
+          animation-delay: 1020ms;
+        }
+
+        .facilities-extra-grid .facility-card:nth-child(9) {
+          animation-delay: 1120ms;
+        }
+
+        .facilities-extra-grid .facility-card:nth-child(10) {
+          animation-delay: 1220ms;
         }
 
         .facility-card:hover {
@@ -739,7 +799,7 @@ export default function Facilities({
           .facilities-page *::after {
             scroll-behavior: auto !important;
             transition-duration: .01ms !important;
-            animation-duration: .01ms !important;
+            animation: none !important;
           }
         }
       `}</style>
