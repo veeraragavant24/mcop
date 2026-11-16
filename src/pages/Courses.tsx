@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GraduationCap, Award, BookOpen, ArrowRight, CheckCircle2, Clock, User } from 'lucide-react';
 import PageHeader from '@/components/PageHeader';
 import SectionTitle from '@/components/SectionTitle';
 import { courses, courseSpecializations } from '@/data/content';
 import ScrollReveal from '@/components/ScrollReveal';
+
 interface CoursesProps {
   onEnquiryClick: () => void;
 }
@@ -11,6 +13,72 @@ interface CoursesProps {
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   GraduationCap, Award, BookOpen,
 };
+
+/* Flip panel: front = green card with icon + title, back = image only */
+function CourseFlipPanel({
+  name,
+  image,
+  Icon,
+}: {
+  name: string;
+  image?: string;
+  Icon: React.ComponentType<{ className?: string }>;
+}) {
+  const [flipped, setFlipped] = useState(false);
+
+  const faceStyle: React.CSSProperties = {
+    backfaceVisibility: 'hidden',
+    WebkitBackfaceVisibility: 'hidden',
+  };
+
+  return (
+    <div
+      className="absolute inset-0 cursor-pointer"
+      style={{ perspective: '1000px' }}
+      onPointerEnter={(e) => e.pointerType === 'mouse' && setFlipped(true)}
+      onPointerLeave={(e) => e.pointerType === 'mouse' && setFlipped(false)}
+      onClick={() => setFlipped((f) => !f)} // tap to flip on touch screens
+    >
+      <div
+        className="relative w-full h-full transition-transform duration-700 ease-in-out"
+        style={{
+          transformStyle: 'preserve-3d',
+          transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+        }}
+      >
+        {/* FRONT */}
+        <div
+          className="absolute inset-0 bg-forest-700 p-8 flex flex-col justify-center items-center text-center"
+          style={faceStyle}
+        >
+          <div className="w-20 h-20 rounded-2xl bg-gold-500 flex items-center justify-center mb-5">
+            <Icon className="w-10 h-10 text-forest-900" />
+          </div>
+
+          <p className="text-gold-400 text-sm font-semibold uppercase tracking-wider mb-2">
+            Program
+          </p>
+
+          <h3 className="text-xl font-bold text-white leading-snug">{name}</h3>
+        </div>
+
+        {/* BACK: image only */}
+        <div
+          className="absolute inset-0 bg-forest-700 overflow-hidden"
+          style={{ ...faceStyle, transform: 'rotateY(180deg)' }}
+        >
+          {image && (
+            <img
+              src={image}
+              alt={name}
+              className="w-full h-full object-cover"
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Courses({ onEnquiryClick }: CoursesProps) {
   return (
@@ -31,108 +99,94 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
             description="From undergraduate foundations to advanced specialization and doctoral research, our programs cover the full spectrum of physiotherapy education."
           />
 
-        
-            
+          <div className="space-y-8">
+            {courses.map((course, index) => {
+              const Icon = iconMap[course.icon] ?? BookOpen;
+              const isEven = index % 2 === 0;
 
-<div className="space-y-8">
-  {courses.map((course, index) => {
-    const Icon = iconMap[course.icon] ?? BookOpen;
-    const isEven = index % 2 === 0;
+              return (
+                <ScrollReveal
+                  key={course.id}
+                  direction={index % 2 === 0 ? 'left' : 'right'}
+                  className="w-full"
+                >
+                  <div className="grid lg:grid-cols-3 gap-0 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
+                    {/* Left: Flip card panel */}
+                    <div
+                      className={`relative min-h-[320px] bg-forest-700 ${
+                        isEven ? 'lg:order-1' : 'lg:order-2'
+                      }`}
+                    >
+                      <CourseFlipPanel
+                        name={course.name}
+                        image={course.image}
+                        Icon={Icon}
+                      />
+                    </div>
 
-    return (
-      <ScrollReveal
-        key={course.id}
-        direction={index % 2 === 0 ? 'left' : 'right'}
-        className="w-full"
-      >
-        <div
-          className={`grid lg:grid-cols-3 gap-0 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 ${
-            isEven ? '' : 'lg:flex-row-reverse'
-          }`}
-        >
-          {/* Left: Icon panel */}
-          <div
-            className={`bg-forest-700 p-8 flex flex-col justify-center items-center text-center ${
-              isEven ? 'lg:order-1' : 'lg:order-2'
-            }`}
-          >
-            <div className="w-20 h-20 rounded-2xl bg-gold-500 flex items-center justify-center mb-5">
-              <Icon className="w-10 h-10 text-forest-900" />
-            </div>
+                    {/* Right: Details */}
+                    <div
+                      className={`lg:col-span-2 p-8 bg-white ${
+                        isEven ? 'lg:order-2' : 'lg:order-1'
+                      }`}
+                    >
+                      <p className="text-gray-600 leading-relaxed mb-6">
+                        {course.description}
+                      </p>
 
-            <p className="text-gold-400 text-sm font-semibold uppercase tracking-wider mb-2">
-              Program
-            </p>
+                      <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                        <div className="flex items-start gap-3 p-4 rounded-xl bg-forest-50">
+                          <Clock className="w-5 h-5 text-forest-700 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="text-xs font-semibold text-forest-700 uppercase tracking-wide">
+                              Duration
+                            </p>
+                            <p className="text-sm text-gray-600 mt-0.5">
+                              {course.duration}
+                            </p>
+                          </div>
+                        </div>
 
-            <h3 className="text-xl font-bold text-white leading-snug">
-              {course.name}
-            </h3>
-          </div>
+                        <div className="flex items-start gap-3 p-4 rounded-xl bg-forest-50">
+                          <User className="w-5 h-5 text-forest-700 shrink-0 mt-0.5" />
+                          <div>
+                            <p className="text-xs font-semibold text-forest-700 uppercase tracking-wide">
+                              Eligibility
+                            </p>
+                            <p className="text-sm text-gray-600 mt-0.5">
+                              {course.eligibility}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
 
-          {/* Right: Details */}
-          <div
-            className={`lg:col-span-2 p-8 bg-white ${
-              isEven ? 'lg:order-2' : 'lg:order-1'
-            }`}
-          >
-            <p className="text-gray-600 leading-relaxed mb-6">
-              {course.description}
-            </p>
+                      <div className="mb-6">
+                        <p className="text-sm font-semibold text-forest-800 mb-3">
+                          Program Highlights
+                        </p>
 
-            <div className="grid sm:grid-cols-2 gap-4 mb-6">
-              <div className="flex items-start gap-3 p-4 rounded-xl bg-forest-50">
-                <Clock className="w-5 h-5 text-forest-700 shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-xs font-semibold text-forest-700 uppercase tracking-wide">
-                    Duration
-                  </p>
-                  <p className="text-sm text-gray-600 mt-0.5">
-                    {course.duration}
-                  </p>
-                </div>
-              </div>
+                        <div className="grid sm:grid-cols-2 gap-2">
+                          {course.highlights.map((highlight) => (
+                            <div
+                              key={highlight}
+                              className="flex items-start gap-2 text-sm text-gray-600"
+                            >
+                              <CheckCircle2 className="w-4 h-4 text-gold-500 shrink-0 mt-0.5" />
+                              {highlight}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
 
-              <div className="flex items-start gap-3 p-4 rounded-xl bg-forest-50">
-                <User className="w-5 h-5 text-forest-700 shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-xs font-semibold text-forest-700 uppercase tracking-wide">
-                    Eligibility
-                  </p>
-                  <p className="text-sm text-gray-600 mt-0.5">
-                    {course.eligibility}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mb-6">
-              <p className="text-sm font-semibold text-forest-800 mb-3">
-                Program Highlights
-              </p>
-
-              <div className="grid sm:grid-cols-2 gap-2">
-                {course.highlights.map((highlight) => (
-                  <div
-                    key={highlight}
-                    className="flex items-start gap-2 text-sm text-gray-600"
-                  >
-                    <CheckCircle2 className="w-4 h-4 text-gold-500 shrink-0 mt-0.5" />
-                    {highlight}
+                      <button onClick={onEnquiryClick} className="btn-primary">
+                        Apply for Admission <ArrowRight className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            <button onClick={onEnquiryClick} className="btn-primary">
-              Apply for Admission <ArrowRight className="w-4 h-4" />
-            </button>
+                </ScrollReveal>
+              );
+            })}
           </div>
-        </div>
-      </ScrollReveal>
-    );
-  })}
-</div>
-
         </div>
       </section>
 

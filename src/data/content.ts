@@ -1,6 +1,7 @@
 export interface Course {
   id: string;
   name: string;
+  image?: string;
   duration: string;
   eligibility: string;
   description: string;
@@ -12,6 +13,7 @@ export const courses: Course[] = [
   {
     id: 'bpt',
     name: 'Bachelor of Physiotherapy (BPT)',
+    image: '/course/bpt.png',
     duration: '4½ Years (including 6 months internship)',
     eligibility: '10+2 with Physics, Chemistry, Biology (or Botany & Zoology) with minimum 50% marks',
     description:
@@ -27,6 +29,7 @@ export const courses: Course[] = [
   {
     id: 'mpt',
     name: 'Master of Physiotherapy (MPT)',
+    image: '/course/mpt.png',
     duration: '2 Years',
     eligibility: 'BPT degree from a recognized institution with minimum 50% marks',
     description:
@@ -42,6 +45,7 @@ export const courses: Course[] = [
   {
     id: 'phd',
     name: 'Doctor of Philosophy (Ph.D.) in Physiotherapy',
+    image: '/course/phd.png',
     duration: '3–5 Years',
     eligibility: 'MPT degree from a recognized university with minimum 55% marks',
     description:
@@ -54,7 +58,6 @@ export const courses: Course[] = [
     ],
     icon: 'BookOpen',
   },
-  
 ];
 
 export const courseSpecializations = [
@@ -65,7 +68,6 @@ export const courseSpecializations = [
   'Obstetrics & Gynecological Physiotherapy',
   'Community-Based Rehabilitation',
 ];
-
 
 export interface Department {
   id: string;
@@ -223,7 +225,6 @@ export interface NewsItem {
 }
 
 export const newsItems: NewsItem[] = [
-  
   {
     id: 'physiotherapy-awareness-2026',
     title: 'Physiotherapy Awareness Programme',
@@ -234,7 +235,6 @@ export const newsItems: NewsItem[] = [
     content:
       'Madha College of Physiotherapy will conduct a physiotherapy awareness programme featuring educational activities and discussions about rehabilitation.',
   },
-
   {
     id: 'admissions-2026',
     title: 'Admissions Open for 2026–2027 Academic Year',
@@ -302,10 +302,10 @@ export const heroSlides = [
     subtitle: 'Join a community dedicated to advancing physiotherapy through education, research, and ethical practice.',
   },
   {
-  image: '/slides/graduation.JPG',
-  title: 'Celebrating Achievement. Inspiring Excellence.',
-  subtitle: 'Honouring the dedication of our graduates as they begin their journey towards compassionate patient care and a brighter future in physiotherapy.',
-},
+    image: '/slides/graduation.JPG',
+    title: 'Celebrating Achievement. Inspiring Excellence.',
+    subtitle: 'Honouring the dedication of our graduates as they begin their journey towards compassionate patient care and a brighter future in physiotherapy.',
+  },
 ];
 
 export const collegeInfo = {

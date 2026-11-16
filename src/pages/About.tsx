@@ -232,7 +232,7 @@ export default function About() {
           <ScrollReveal direction="left">
             <div className="order-2 lg:order-1 rounded-2xl overflow-hidden shadow-xl">
               <img
-                src="/images/practice.png"
+                src="/slides/student.png"
                 alt="Practical physiotherapy learning"
                 className="w-full h-[400px] object-cover"
                 loading="lazy"
