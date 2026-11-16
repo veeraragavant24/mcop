@@ -138,6 +138,23 @@ const facultyMembers: FacultyMember[] = [
       "Focuses on supporting students through structured academic instruction and practical physiotherapy training.",
     research: "Neurological physiotherapy and functional rehabilitation.",
   },
+    {
+    id: 7,
+    name: "A.Prakash",
+    designation: "Lecturer",
+    department: "Neurological",
+    image: " /managementand faculty/A.Prakash.png",
+    qualifications: ["BPT", "MPT"],
+    experience: "Teaching and practical training",
+    specialization: [
+      "Neurological Physiotherapy",
+      "Functional Training",
+      "Patient Care",
+    ],
+    biography:
+      "Focuses on supporting students through structured academic instruction and practical physiotherapy training.",
+    research: "Neurological physiotherapy and functional rehabilitation.",
+  },
 ];
 
 const departments = [
