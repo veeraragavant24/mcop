@@ -1,28 +1,49 @@
 import { Link } from 'react-router-dom';
 
-import { 
-
-  Heart, GraduationCap, Award, BookOpen, Stethoscope, Activity, Dumbbell,
-
-  Library, Monitor, Accessibility, Brain, Microscope, Trophy, Users,
-
-  FlaskConical, ArrowRight, Calendar, MapPin, Phone, Mail, ChevronRight,
-
-  Target, Eye, HandHeart, ShieldCheck, Lightbulb, Building2,
-
+import {
+  Heart,
+  GraduationCap,
+  Award,
+  BookOpen,
+  Stethoscope,
+  Activity,
+  Dumbbell,
+  Library,
+  Monitor,
+  Accessibility,
+  Brain,
+  Microscope,
+  Trophy,
+  Users,
+  FlaskConical,
+  ArrowRight,
+  MapPin,
+  Phone,
+  Mail,
+  ChevronRight,
+  Target,
+  Eye,
+  HandHeart,
+  ShieldCheck,
+  Lightbulb,
+  Building2,
 } from 'lucide-react';
 
-import HeroSlider from '@/components/HeroSlider';
-
-import SectionTitle from '@/components/SectionTitle';
-
-import ScrollReveal from '@/components/ScrollReveal';
-
-import { courses, departments, facilities, galleryItems, newsItems, heroSlides } from '@/data/content';
-
 import { useState } from 'react';
+import type { ComponentType } from 'react';
 
+import HeroSlider from '@/components/HeroSlider';
+import SectionTitle from '@/components/SectionTitle';
+import ScrollReveal from '@/components/ScrollReveal';
+import FacilitiesHomeDemo from '@/components/FacilitiesHomeDemo';
 import NewsEventsLiveCard from '@/components/NewsEventsLiveCard';
+
+import {
+  courses,
+  departments,
+  facilities,
+  galleryItems,
+} from '@/data/content';
 
 interface HomeProps {
 
@@ -558,171 +579,132 @@ export default function Home({ onEnquiryClick }: HomeProps) {
 
 
 
-      {/* Departments preview \*/}
 
-      <ScrollReveal direction="up" as="section" className="section-padding bg-forest-50">
+{/* Departments Preview */}
 
-        <div className="container-mcp">
+<ScrollReveal
+  direction="up"
+  as="section"
+  className="section-padding bg-forest-50"
+>
+  <div className="container-mcp">
 
-          <SectionTitle
+    <SectionTitle
+      eyebrow="Specializations"
+      title="Our Departments"
+      description="Explore our specialized departments, offering comprehensive physiotherapy education, practical learning and dedicated clinical training."
+    />
 
-            eyebrow="Specializations"
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
 
-            title="Departments"
+      {departments.map((dept, index) => (
+        <ScrollReveal
+          key={dept.id}
+          direction="up"
+          delay={index * 120}
+        >
+          <Link
+            to="/departments"
+            className="department-card group flex h-full flex-col overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500"
+          >
 
-            description="Specialized departments covering the full spectrum of physiotherapy practice, each with dedicated faculty and clinical training facilities."
+            {/* Department Image */}
+            <div className="relative h-56 overflow-hidden">
 
-          />
+              <img
+                src={dept.image}
+                alt={dept.name}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="absolute inset-0 bg-gradient-to-t from-forest-900/30 to-transparent" />
 
-            
-{departments.map((dept, index) => (
-  <ScrollReveal
-    key={dept.id}
-    direction="up"
-    delay={index * 120}
-  >
-    <Link
-      to="/departments"
+            </div>
 
+            {/* Department Content */}
+            <div className="flex flex-1 flex-col p-6">
 
-                className="premium-hover-card group rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100"
+              <div className="mb-3 h-1 w-12 rounded-full bg-gold-500 transition-all duration-500 group-hover:w-20" />
 
-              >
+              <h3 className="text-xl font-bold text-forest-800 mb-3 group-hover:text-gold-600 transition-colors">
+                {dept.name}
+              </h3>
 
-                <div className="relative h-48 overflow-hidden">
+              <p className="text-sm text-gray-600 leading-7 line-clamp-3">
+                {dept.description}
+              </p>
 
-                  <img
+              {/* Learn More */}
+              <div className="mt-auto pt-5">
 
-                    src={dept.image}
+                <span className="inline-flex items-center gap-2 text-sm font-semibold text-forest-700 group-hover:text-gold-600 transition-colors">
 
-                    alt={dept.name}
+                  Learn More
 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-
+                  <ChevronRight
+                    className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
                   />
 
-                  <div className="absolute inset-0 bg-gradient-to-t from-forest-900/70 to-transparent" />
+                </span>
 
-                  <h3 className="absolute bottom-3 left-4 right-4 text-white font-bold text-lg leading-snug">
+              </div>
 
-                    {dept.name}
+            </div>
 
-                  </h3>
+          </Link>
+        </ScrollReveal>
+      ))}
 
-                </div>
+    </div>
 
-                <div className="p-5">
+    {/* View All Departments */}
+    <div className="text-center mt-10">
 
-                  <p className="text-sm text-gray-600 leading-relaxed line-clamp-3">{dept.description}</p>
+      <Link
+        to="/departments"
+        className="btn-secondary inline-flex items-center gap-2"
+      >
+        Explore All Departments
+        <ArrowRight className="w-4 h-4" />
+      </Link>
 
-                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-forest-700 mt-3 group-hover:text-gold-600 transition-colors">
+    </div>
 
-                    Learn More <ChevronRight className="w-4 h-4" />
+  </div>
 
-                  </span>
+  <style>{`
+    .department-card {
+      transform: translateY(0);
+    }
 
-                </div>
+    .department-card:hover {
+      transform: translateY(-7px);
+    }
 
-                </Link>
-  </ScrollReveal>
-))}
+    @media (prefers-reduced-motion: reduce) {
+      .department-card,
+      .department-card * {
+        transition: none !important;
+      }
 
-          </div>
+      .department-card:hover {
+        transform: none;
+      }
+    }
+  `}</style>
 
-        </div>
-
-      </ScrollReveal>
-
-
-
-      {/* Facilities preview \*/}
-
-      <ScrollReveal direction="up" as="section" className="section-padding bg-white">
-
-        <div className="container-mcp">
-
-          <SectionTitle
-
-            eyebrow="Infrastructure"
-
-            title="Facilities"
-
-            description="Modern laboratories, well-equipped training spaces, and a comprehensive library support an immersive, hands-on learning experience."
-
-          />
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            
-
-{facilities.map((facility, index) => {
-  const Icon = iconMap[facility.icon] ?? Monitor;
-
-  return (
-    <ScrollReveal
-      key={facility.id}
-      direction="up"
-      delay={index * 120}
-    >
-    <Link
-  to="/facilities"
-  className="premium-hover-card group rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100"
->
-
-
-                  <div className="relative h-48 overflow-hidden">
-
-                    <img
-
-                      src={facility.image}
-
-                      alt={facility.name}
-
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-
-                    />
-
-                    <div className="absolute top-3 right-3 w-10 h-10 rounded-lg bg-white/90 backdrop-blur-sm flex items-center justify-center">
-
-                      <Icon className="w-5 h-5 text-forest-700" />
-
-                    </div>
-
-                  </div>
-
-                  <div className="p-5">
-
-                    <h3 className="font-bold text-forest-800 mb-2">{facility.name}</h3>
-
-                    <p className="text-sm text-gray-600 leading-relaxed line-clamp-3">{facility.description}</p>
-
-                  </div>
-
-                      </Link>
-    </ScrollReveal>
-  );
-})}
-
-          </div>
-
-          <div className="text-center mt-10">
-
-            <Link to="/facilities" className="btn-outline">
-
-              All Facilities <ArrowRight className="w-4 h-4" />
-
-            </Link>
-
-          </div>
-
-        </div>
-
-      </ScrollReveal>
+</ScrollReveal>
 
 
 
+
+     
+
+{/* Facilities Preview */}
+<FacilitiesHomeDemo
+  facilities={facilities}
+  iconMap={iconMap}
+/>
 
 
 

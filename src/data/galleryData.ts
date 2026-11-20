@@ -226,7 +226,7 @@ export const galleryItems: GalleryPhoto[] = [
   {"id": 217, "title": "graduationday - graduationday (42)", "image": "/gallery/graduationday/Graduationday (118).JPG", "category": "Achievements", "year": null},
   {"id": 218, "title": "graduationday - graduationday (43)", "image": "/gallery/graduationday/Graduationday (119).JPG", "category": "Achievements", "year": null},
   {"id": 219, "title": "graduationday - graduationday (44)", "image": "/gallery/graduationday/Graduationday (120).JPG", "category": "Achievements", "year": null},
-  {"id": 220, "title": "graduationday - graduationday (45)", "image": "/gallery/graduationday/Graduationday (121).JPG", "category": "Achievements", "year": null},
+  {"id": 220, "title": "graduationday - graduationday (45)", "image": "/gallery/graduationday/Graduationday(153).png", "category": "Achievements", "year": null},
   {"id": 221, "title": "graduationday - graduationday (46)", "image": "/gallery/graduationday/Graduationday (122).JPG", "category": "Achievements", "year": null},
   {"id": 222, "title": "graduationday - graduationday (47)", "image": "/gallery/graduationday/Graduationday (123).JPG", "category": "Achievements", "year": null},
   {"id": 223, "title": "graduationday - graduationday (48)", "image": "/gallery/graduationday/Graduationday (124).JPG", "category": "Achievements", "year": null},
@@ -258,6 +258,8 @@ export const galleryItems: GalleryPhoto[] = [
   {"id": 249, "title": "graduationday - graduationday (71)", "image": "/gallery/graduationday/Graduationday (150).JPG", "category": "Achievements", "year": null},
   {"id": 250, "title": "graduationday - graduationday (72)", "image": "/gallery/graduationday/Graduationday (151).JPG", "category": "Achievements", "year": null},
   {"id": 251, "title": "graduationday - graduationday (73)", "image": "/gallery/graduationday/Graduationday (152).JPG", "category": "Achievements", "year": null},
+  
+
   {"id": 253, "title": "republic - republicday (1)", "image": "/gallery/republic/republicday%20(1).jpg", "category": "Events & Celebrations", "year": null},
   {"id": 254, "title": "republic - republicday (10)", "image": "/gallery/republic/republicday%20(10).jpg", "category": "Events & Celebrations", "year": null},
   {"id": 255, "title": "republic - republicday (11)", "image": "/gallery/republic/republicday%20(11).jpg", "category": "Events & Celebrations", "year": null},

@@ -44,7 +44,7 @@ const departments: Department[] = [
     cardTitle: 'Orthopedics & Sports',
     icon: Activity,
     image: '/department/orthopedics.jpg',
-    bannerColor: '#0196fa',
+    bannerColor: '#0099ffea',
     hod: 'Department Faculty',
     qualification: 'Faculty details to be updated',
     overview:
@@ -80,7 +80,7 @@ const departments: Department[] = [
     cardTitle: 'Neurological Physiotherapy',
     icon: Brain,
     image: '/department/neurological.jpg',
-    bannerColor: '#ffd726',
+    bannerColor: '#ffe369',
     hod: 'Department Faculty',
     qualification: 'Faculty details to be updated',
     overview:
@@ -116,7 +116,7 @@ const departments: Department[] = [
     cardTitle: 'Cardiorespiratory',
     icon: HeartPulse,
     image: '/department/cardiorespiratory.jpg',
-    bannerColor: '#ffb4d8',
+    bannerColor: '#ff69b1',
     hod: 'Department Faculty',
     qualification: 'Faculty details to be updated',
     overview:
@@ -152,7 +152,7 @@ const departments: Department[] = [
     cardTitle: 'Pediatric Physiotherapy',
     icon: Baby,
     image: '/department/pediatric.jpg',
-    bannerColor: '#87a3ff',
+    bannerColor: '#5e83ff',
     hod: 'Department Faculty',
     qualification: 'Faculty details to be updated',
     overview:
@@ -188,7 +188,7 @@ const departments: Department[] = [
     cardTitle: 'Community Rehabilitation',
     icon: Users,
     image: '/department/community.jpg',
-    bannerColor: '#58c294',
+    bannerColor: '#53e0a3',
     hod: 'Department Faculty',
     qualification: 'Faculty details to be updated',
     overview:

@@ -254,6 +254,11 @@ export default function Gallery() {
   const [search, setSearch] = useState('');
   const [lightboxIndex, setLightboxIndex] =
     useState<number | null>(null);
+    const [zoomLevel, setZoomLevel] = useState(1);
+
+useEffect(() => {
+  setZoomLevel(1);
+}, [lightboxIndex]);
 
 
 const filteredPhotos = useMemo(() => {
@@ -1149,7 +1154,9 @@ useEffect(() => {
           gap: 15px;
         }
 
-        .mcp-gallery .g-lightbox-content > img {
+        .mcp-gallery .g-lightbox-image-viewport {
+  height: 65vh;
+
           display: block;
           max-width: 100%;
           max-height: 72vh;
@@ -1609,7 +1616,28 @@ useEffect(() => {
     will-change: auto;
   }
 }
+.mcp-gallery .g-lightbox-image-viewport {
+  display: flex;
+  width: min(1100px, 100%);
+  height: 72vh;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid rgba(214, 173, 82, .35);
+  border-radius: 9px;
+  overscroll-behavior: contain;
+}
 
+.mcp-gallery .g-lightbox-image-viewport img {
+  display: block;
+  max-width: 100%;
+  max-height: 72vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  box-shadow: 0 15px 60px rgba(0, 0, 0, .35);
+  user-select: none;
+}
       `}</style>
 
       {/* HEADER */}
@@ -2005,10 +2033,29 @@ useEffect(() => {
             className="g-lightbox-content"
             onClick={(event) => event.stopPropagation()}
           >
-            <img
-              src={activePhoto.image}
-              alt={activePhoto.title}
-            />
+          <div
+  className="g-lightbox-image-viewport"
+  onWheel={(event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    setZoomLevel((current) => {
+      const change = event.deltaY < 0 ? 0.2 : -0.2;
+      return Math.min(4, Math.max(1, current + change));
+    });
+  }}
+>
+  <img
+    src={activePhoto.image}
+    alt={activePhoto.title}
+    draggable={false}
+    style={{
+      transform: `scale(${zoomLevel})`,
+      transition: 'transform 0.15s ease',
+      transformOrigin: 'center center',
+    }}
+  />
+</div>
 
             <div className="g-lightbox-caption">
               <span>{getPhotoYear(activePhoto)}</span>

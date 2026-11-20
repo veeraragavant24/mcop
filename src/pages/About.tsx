@@ -163,8 +163,8 @@ export default function About() {
         delay={index * 120}
         className="premium-card h-full"
       >
-        <div className="bg-white rounded-2xl p-7 shadow-sm hover:shadow-xl transition-all duration-300 text-center group h-full">
-          <div className="w-16 h-16 mx-auto rounded-full bg-forest-50 group-hover:bg-forest-700 transition-colors duration-300 flex items-center justify-center mb-5">
+<div className="bg-[#D4AF37] rounded-2xl p-7 shadow-sm hover:shadow-xl transition-all duration-300 text-center group h-full">
+            <div className="w-16 h-16 mx-auto rounded-full bg-forest-50 group-hover:bg-forest-700 transition-colors duration-300 flex items-center justify-center mb-5">
             <Icon className="w-8 h-8 text-forest-700 group-hover:text-gold-500 transition-colors" />
           </div>
 
@@ -262,9 +262,7 @@ export default function About() {
                   </li>
                 ))}
               </ul>
-              <Link to="/facilities" className="btn-secondary">
-                View Facilities <ArrowRight className="w-4 h-4" />
-              </Link>
+             
             </div>
           </ScrollReveal>
         </div>
@@ -291,8 +289,7 @@ export default function About() {
         delay={index * 140}
         className="premium-card h-full"
       >
-        <div className="relative bg-gradient-to-br from-forest-50 to-white rounded-2xl p-8 border border-forest-100 hover:shadow-xl transition-all duration-300 group h-full">
-          <div className="w-14 h-14 rounded-xl bg-forest-700 group-hover:bg-gold-500 transition-colors duration-300 flex items-center justify-center mb-5">
+<div className="relative bg-gradient-to-br from-[#D4AF37] via-[#D4AF37] to-[#EBD69B] rounded-2xl p-8 border border-[#D4AF37]/40 hover:shadow-xl transition-all duration-300 group h-full">          <div className="w-14 h-14 rounded-xl bg-forest-700 group-hover:bg-gold-500 transition-colors duration-300 flex items-center justify-center mb-5">
             <Icon className="w-7 h-7 text-gold-500 group-hover:text-forest-900 transition-colors" />
           </div>
 
