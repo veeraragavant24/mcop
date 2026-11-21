@@ -9,6 +9,8 @@ import {
   Building2,
   ArrowRight,
   CheckCircle2,
+  Eye,
+  Target,
 } from 'lucide-react';
 import PageHeader from '@/components/PageHeader';
 import SectionTitle from '@/components/SectionTitle';
@@ -106,41 +108,265 @@ export default function About() {
             <div>
               <SectionTitle eyebrow="Our Story" title="About College" center={false} />
               <p className="text-gray-600 leading-relaxed mb-4">
-                Madha College of Physiotherapy (MCOP), established in 1998 and
-                affiliated with The Tamil Nadu Dr. M.G.R. Medical University,
-                Guindy, Chennai, is committed to excellence in physiotherapy
-                education and clinical practice. Located in Kundrathur, Chennai
-                – 600069, Tamil Nadu, the college has completed over 25 years of
-                service, nurturing physiotherapists who embody compassion,
-                clinical skill, and professionalism.
+                Madha College of Physiotherapy (MCOP) established in the year 1998 is 
+                a premier institution that aims to offer quality education in the field 
+                of Physiotherapy. The college is affiliated to Tamil Nadu Dr. M.G.R. Medical
+                 University, Guindy, Chennai -600032 and follows the curriculum approved by
+                  National Commission for Allied and Healthcare Professions (NCAHP),
+                   Government of India. The college has successfully completed over 25 
+                   years of providing quality education to budding Physiotherapists.
+                    The college located at Kundrathur, Chennai -600069, 
+                    Tamil Nadu offers an excellent environment to provide
+                     academic excellence, clinical expertise, evidence-based practice 
+                     and ethical values to shape future healthcare professionals.
               </p>
               <p className="text-gray-600 leading-relaxed mb-4">
-                The college crest features the statue of Mother Mary,
-                symbolising endurance, patience, nobility, and strength. The
-                inscription <em>“Oli Peruga”</em>, meaning enlightenment,
-                reflects the institution’s guiding philosophy: ethical
-                rehabilitation and the responsibility to deliver primary care
-                with integrity and empathy.
+                The college provides modern laboratories, Smart Classrooms,
+                 well stocked library and clinical training facilities.
+                  All the students are guided by an experienced and dedicated faculty. 
+                  The curriculum focuses on providing patient centric, 
+                  evidence-based education, collaborative and lifelong learning. 
+                  The students receive adequate exposure to various specialist
+                   areas such as Musculoskeletal, Neurology, Cardiopulmonary Physiotherapy,
+                    Sports Physiotherapy, Community Based Rehabilitation and Paediatrics Physiotherapy.
               </p>
               <p className="text-gray-600 leading-relaxed mb-4">
-                MCOP offers undergraduate Bachelor of Physiotherapy (BPT) and
-                postgraduate Master of Physiotherapy (MPT) programs that
-                combine academic learning with clinical exposure. Laboratories,
-                modern infrastructure, and collaborations with leading
-                hospitals support students as they develop the knowledge and
-                skills needed to respond to evolving healthcare challenges.
+               The college logo consists of a statue of Mother Mary representing
+                strength, patience, nobility, compassion and perseverance.
+                 The motto of the institution is "Oli Peruga" meaning Let the light flourish.
+                  Apart from academics, the students receive exposure to community by organising 
+                  various outreach programs, workshops, continuing education sessions, conferences
+                   and professional development programs. Students are trained to become future
+                    healthcare professionals who are socially responsible. The college aims to
+                     provide an environment of excellence to produce future leaders in Physiotherapy..
               </p>
-              <p className="text-gray-600 leading-relaxed">
-                Beyond academics, the college encourages research, cultural
-                activities, and community outreach. Madha College of
-                Physiotherapy continues to advance physiotherapy education
-                while promoting student well-being, innovation, social
-                responsibility, and professional excellence.
-              </p>
+              
             </div>
           </ScrollReveal>
         </div>
       </section>
+
+{/* Vision & Mission */}
+<ScrollReveal direction="right" as="section" className="section-padding bg-white">
+  <style>{`
+    .vision-mission-card {
+      position: relative;
+      min-height: 300px;
+      overflow: hidden;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 1rem;
+      background: #174D38;
+      transition: background 0.45s ease,
+        border-color 0.45s ease,
+        box-shadow 0.45s ease,
+        transform 0.45s ease;
+    }
+
+    .vision-mission-card:hover {
+      background: linear-gradient(135deg, #D4AF37 0%, #D4AF37 52%, #D4AF37);
+      border-color: #D4AF37;
+      box-shadow: 0 16px 36px rgba(132, 95, 12, 0.22);
+      transform: translateY(-5px);
+    }
+
+    .vision-mission-card .vm-content {
+      position: relative;
+      z-index: 1;
+      min-height: 300px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    .vision-mission-card .vm-icon {
+      color: #D4AF37;
+      margin-bottom: 1rem;
+      transition: color 0.35s ease;
+    }
+
+    .vision-mission-card h3 {
+      color: #FFFFFF;
+      transition: color 0.35s ease;
+    }
+
+    .vision-mission-card p,
+    .vision-mission-card ul {
+      color: #FFFFFF;
+      line-height: 1.7;
+      transition: color 0.35s ease;
+    }
+
+    .vision-mission-card ul li::marker {
+      color: #D4AF37;
+    }
+
+    .vision-mission-card .vm-link {
+      color: #D4AF37;
+      transition: color 0.35s ease, gap 0.3s ease;
+    }
+
+    .vision-mission-card:hover .vm-icon,
+    .vision-mission-card:hover h3,
+    .vision-mission-card:hover p,
+    .vision-mission-card:hover ul,
+    .vision-mission-card:hover .vm-link {
+      color: #173B2C;
+    }
+
+    .vision-mission-card:hover ul li::marker {
+      color: #173B2C;
+    }
+
+    @media (max-width: 640px) {
+      .vision-mission-card .vm-content {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .vision-mission-card,
+      .vision-mission-card * {
+        transition: none !important;
+      }
+
+      .vision-mission-card:hover {
+        transform: none;
+      }
+    }
+      /* Core Values Card */
+.core-values-card .vm-content {
+  
+  
+}
+
+.core-values-card ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 14px;
+  width: 100%;
+  max-width: 650px;
+  text-align: left;
+}
+
+.core-values-card ul li::marker {
+  color: #D4AF37;
+}
+
+@media (max-width: 640px) {
+  .core-values-card ul {
+    grid-template-columns: 1fr;
+  }
+}
+  `}</style>
+
+  <div className="container-mcp">
+
+    <SectionTitle
+      eyebrow="Our Direction"
+      title="Vision & Mission"
+      description="Guided by clear principles that shape every aspect of our educational approach — from classroom teaching to clinical practice."
+    />
+
+    <div className="grid md:grid-cols-2 gap-6">
+
+      {/* Our Vision */}
+      <div className="vision-mission-card group">
+        <div className="vm-content">
+
+          <Eye className="vm-icon w-10 h-10" />
+
+          <h3 className="text-2xl font-bold mb-3">
+            Our Vision
+          </h3>
+
+          <p className="text-sm">
+            To provide a centre of excellence in Physiotherapy education,
+            research and healthcare services to produce skilled professionals.
+          </p>
+
+          <Link
+            to="/vision-mission"
+            className="vm-link inline-flex items-center gap-2 text-sm font-semibold mt-4 group-hover:gap-3"
+          >
+            Read More <ArrowRight className="w-4 h-4" />
+          </Link>
+
+        </div>
+      </div>
+
+      {/* Our Mission */}
+      <div className="vision-mission-card group">
+        <div className="vm-content">
+
+          <Target className="vm-icon w-10 h-10" />
+
+          <h3 className="text-2xl font-bold mb-3">
+            Our Mission
+          </h3>
+
+          <ul className="text-sm list-disc pl-5 space-y-2 leading-relaxed">
+            <li>To provide quality Physiotherapy education using innovative methods of teaching.</li>
+            <li>To encourage research in Physiotherapy.</li>
+            <li>To train ethical, compassionate and skilled healthcare professionals.</li>
+            <li>To empower communities with health knowledge.</li>
+            <li>To encourage lifelong learning.</li>
+          </ul>
+    
+
+          <Link
+            to="/vision-mission"
+            className="vm-link inline-flex items-center gap-2 text-sm font-semibold mt-4 group-hover:gap-3"
+          >
+            Read More <ArrowRight className="w-4 h-4" />
+          </Link>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+        <div className="grid md:grid-cols-2 gap-6">
+
+          </div>
+            
+{/* Our Core Values */}
+<div className="flex justify-center mt-8">
+
+  <div className="vision-mission-card core-values-card group w-full max-w-xl">
+
+    <div className="vm-content">
+
+      <Award className="vm-icon w-12 h-12" />
+
+      <h3 className="text-2xl font-bold mb-5">
+        Our Core Values
+      </h3>
+
+      <ul className="text-sm text-white list-disc pl-5 leading-relaxed">
+
+        <li>Principled Excellence</li>
+
+        <li>Integrity</li>
+
+        <li>Professional Ethics</li>
+
+        <li>Value Based Education</li>
+
+        <li>Innovation</li>
+
+        <li>Service to Community</li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</div>
+</ScrollReveal>
+
 
       {/* Educational Philosophy */}
       <section className="section-padding bg-forest-50">

@@ -18,12 +18,27 @@ export const courses: Course[] = [
     eligibility: '10+2 with Physics, Chemistry, Biology (or Botany & Zoology) with minimum 50% marks',
     description:
       'A comprehensive undergraduate program designed to build strong foundations in human anatomy, physiology, biomechanics, and therapeutic techniques. Students progress through structured clinical rotations to become confident, evidence-based physiotherapy practitioners.',
-    highlights: [
-      'Foundational sciences in Year 1–2',
-      'Clinical rotations from Year 3',
-      'Six-month compulsory rotatory internship',
-      'Evidence-based practice curriculum',
-    ],
+
+highlights: [
+  'Graduate with a comprehensive curriculum',
+
+  'Understanding of Human Anatomy, Physiology, Biochemistry, Pathology, Pharmacology and Biomechanics.',
+
+  'Specialised modules such as Orthopaedics, Neurology, Cardiorespiratory, Sports Physiotherapy, Community Based Rehabilitation and Rehabilitation Medicine.',
+
+  'Providing extensive clinical training',
+
+  'Exposure to clinical practice from early semesters.',
+
+  'Rotating placements in multi-speciality hospitals and rehabilitation centres.',
+
+  'Training in assessment, diagnosis, treatment planning and patient management.',
+
+  'Evidence-based practice, Research Methodology and Biostatistics.',
+
+  'Research projects and dissertation.',
+],
+
     icon: 'GraduationCap',
   },
   {
@@ -35,10 +50,10 @@ export const courses: Course[] = [
     description:
       'Advanced postgraduate program offering specialization in key physiotherapy disciplines. Designed to develop clinical reasoning, research methodology, and advanced therapeutic skills for specialist practice and academic careers.',
     highlights: [
-      'Specialization in Orthopedics, Neurology, Sports, or Cardio-pulmonary',
-      'Research dissertation component',
-      'Advanced clinical reasoning modules',
-      'Teaching and academic training',
+      'Journal club once a week ',
+      'Seminars ',
+      'Case discussions ',
+      'Community Camps',
     ],
     icon: 'Award',
   },
@@ -60,14 +75,131 @@ export const courses: Course[] = [
   },
 ];
 
-export const courseSpecializations = [
-  'Orthopedics & Sports Physiotherapy',
-  'Neurological & Psychosomatic Physiotherapy',
-  'Cardio-Respiratory Physiotherapy',
-  'Pediatric Physiotherapy',
-  'Obstetrics & Gynecological Physiotherapy',
-  'Community-Based Rehabilitation',
+
+export interface MptSpecialization {
+  id: string;
+  name: string;
+  description: string;
+  highlights: string[];
+  careers: string[];
+}
+
+export const mptSpecializations: MptSpecialization[] = [
+
+  
+  {
+    id: 'musculoskeletal',
+    name: 'Musculoskeletal Sciences',
+    description:
+      'Emphasizes the assessment and management of musculoskeletal disorders affecting muscles, bones, joints and soft tissues. Students develop clinical reasoning and rehabilitation skills through therapeutic exercises, manual therapy and evidence-based treatment approaches.',
+   highlights: [
+  'Interpretation of clinical signs and symptoms of commonly encountered orthopedic conditions',
+  'Interpretation of clinical tests and special investigations used in diagnosis',
+  'Advanced assessment and treatment of musculoskeletal disorders',
+  'Manual therapy, joint mobilisation, and soft tissue techniques',
+  'Physiotherapy management of fractures and joint instabilities',
+  'Management of soft tissue disorders and musculoskeletal deformities',
+  'Physiotherapy management of infective conditions of bones and joints',
+  'Pre- and post-surgical rehabilitation for joint replacement surgeries',
+  'Evidence-based rehabilitation for orthopaedic and sports related injuries.',
+  'Application of ICF in Musculoskeletal diagnosis',
+  'Clinical placement in orthopaedic hospitals and rehabilitation centres.',
+  'Research opportunities with biomechanics and musculoskeletal rehabilitation.',
+],
+    careers: [
+      '	Orthopaedic Physiotherapist',
+      '		Musculoskeletal Specialist',
+      '	Rehabilitation Consultant',
+      '	Clinical Researcher',
+      '	Academic',
+    ],
+  },
+  {
+    id: 'neurology',
+    name: 'Neurosciences',
+    description:
+      'Focuses on advanced neurological rehabilitation for conditions such as stroke, spinal cord injuries, Parkinson’s disease and cerebral palsy. Students develop expertise in neuro-developmental treatment approaches, motor relearning and functional rehabilitation.',
+   highlights: [
+  'Advanced clinical practice using neuroanatomy and neurophysiology',
+  'Assessment and treatment of stroke, spinal cord injury, and traumatic brain injury',
+  'Management of Parkinson’s disease, multiple sclerosis (MS), and neuromuscular disorders',
+  'Neurodevelopmental assessment',
+  'Neurorehabilitation using NDT, PNF, CIMT, and task-oriented training',
+  'Training in electrophysiological assessment devices, including instrumentation, characteristics, and components',
+  'Qualitative and quantitative EMG and nerve conduction velocity (NCV) assessment',
+  'Balance, gait, and vestibular rehabilitation',
+  'Exposure to paediatric neurological rehabilitation',
+  'Assessment of hand function',
+  'Intensive clinical practice in neurorehabilitation centres',
+  'Research in neurorehabilitation',
+],
+    careers: [
+      'Neurological Physiotherapist',
+      '	Stroke Rehabilitation',
+      '	Clinical Researcher',
+      '	Faculty/Academic.',
+    ],
+  },
+  {
+    id: 'cardio-pulmonary',
+    name: 'Cardio-Pulmonary Sciences',
+    description:
+      'Focuses on cardiac and respiratory rehabilitation, peri-operative care and intensive care physiotherapy. Students gain knowledge in chest physiotherapy, breathing exercises, pulmonary rehabilitation and exercise prescription for patients with cardiopulmonary conditions.',
+ highlights: [
+  'Advanced physiotherapy for cardiac, pulmonary, and critical care patients',
+  'Hands-on training in ICU, CCU, MICU, SICU, and post-cardiac surgery units',
+  'Training in Phase 1 to Phase 4 cardiac rehabilitation',
+  'Rehabilitation after CABG, angioplasty, and valve replacement',
+  'Management of COPD, asthma, post-COVID conditions, bronchiectasis, and cystic fibrosis',
+  'Chest physiotherapy, ventilator management, and ABG interpretation',
+  'Practical training in ECG, PFT, and the 6-minute walk test',
+  'Clinical postings in multi-speciality hospitals, cardiac institutes, and pulmonary centres',
+  'Mentorship by cardiologists, pulmonologists, and cardio-pulmonary physiotherapists',
+  'Guided research in cardiac rehabilitation, pulmonary rehabilitation, and critical care outcomes',
+  'Training in cardio-pulmonary, exercise, simulation, and ICU laboratories',
+  'BLS, ACLS, PFT, and cardiac rehabilitation certifications during the course',
+  'Clinical exposure from the 1st semester through bedside, OPD, ICU, and community camps',
+],
+    careers: [
+      'Cardiac Hospitals',
+      'Pulmonary Hospitals ',
+      'ICU- Intensive Care Unit ',
+      'Transplant Units',
+      'Rehabilitation Centers',
+      'Teaching and Research',
+    ],
+  },
+    {
+    id: 'Sports',
+    name: 'Sports Sciences ',
+    description:
+      'The Master of Physiotherapy (MPT) in Sports Science is a postgraduate programme designed to develop advanced knowledge and clinical expertise in the prevention, assessment, treatment, and rehabilitation of sports-related injuries. The programme focuses on sports physiotherapy, exercise physiology, biomechanics, athletic performance, and evidence-based rehabilitation practices.',
+highlights: [
+  'Assessment, prevention and management of sports injuries',
+  'Biomechanics and sports performance analysis',
+  'Pre-participation evaluation and sports physiotherapy programmes',
+  'On-field emergency care and sports taping techniques',
+  'Strength and conditioning',
+  'First aid for sporting emergencies',
+  'Exercise prescription for athletes across various sports',
+  'Assessment of physical fitness components through functional tests',
+  'Muscle strength, flexibility, agility, balance and coordination assessment',
+  'Sensory deficit and cardiopulmonary endurance assessment',
+  'Return-to-play protocols and performance enhancement',
+  'Sports nutrition',
+  'Exposure to professional sports teams and sports medicine centres',
+],
+      careers: [
+    '	Sports Physiotherapist',
+    '	Performance enhancement specialist',
+    '	Team Physiotherapist',
+    '	Fitness & Conditioning',
+
+    
+  ],
+},
 ];
+
 
 export interface Department {
   id: string;

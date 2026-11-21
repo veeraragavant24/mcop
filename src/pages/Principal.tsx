@@ -563,19 +563,37 @@ export default function Principal() {
           <div className="principal-heading-underline" />
 
           <p>
-            At Madha College of Physiotherapy, we are committed
-            to nurturing compassionate, skilled and ethical
-            physiotherapy professionals who can contribute
-            meaningfully to the healthcare sector.
+          Prof. Dr. D. Mythili is an academic who aims to provide 
+          excellence to her students through her visionary leadership
+           and dedication to teaching. As Principal of Madha College of
+            Physiotherapy (MCOP) she has provided an environment
+             which encourages academic growth, research and development.
           </p>
 
           <p>
-            Our focus is on academic excellence, clinical
-            training, research and the holistic development of
-            our students. We aim to create an environment where
-            learning goes beyond the classroom, shaping
-            confident and competent professionals for a
-            healthier society.
+           She has over 16 years’ experience in the academic field.
+            She has a Master’s degree in Physiotherapy (Neurology),
+            PhD in Physiotherapy and Masters in Counselling Psychology.
+             Her wide range of knowledge enables her to provide high-quality healthcare and education.
+          </p>
+          <p>
+            Her passion lies in research and innovation.
+             She has made many contributions within the field of Neuro-rehabilitation.
+              She has received a Research Grant from The Tamil Nadu Dr. M.G.R. Medical University
+               and has been awarded Patent Rights by the Intellectual Property 
+               Rights Authority of India for her invention, Modified Nine-Hole
+                Peg Test (Digital Version), A tool to assess the dexterity. 
+          </p>
+          <p>
+            She has published and co-authored many research papers in indexed
+             and non-indexed national and international journals. Her research
+              focuses on Neurorehabilitation.
+          </p>
+          <p>
+            Madha College of Physiotherapy under her leadership provides
+            
+           high quality education with excellence in academics, clinical practice, 
+           ethical values and research.
           </p>
         </section>
 
