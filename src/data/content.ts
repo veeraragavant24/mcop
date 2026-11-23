@@ -57,22 +57,7 @@ highlights: [
     ],
     icon: 'Award',
   },
-  {
-    id: 'phd',
-    name: 'Doctor of Philosophy (Ph.D.) in Physiotherapy',
-    image: '/course/phd.png',
-    duration: '3–5 Years',
-    eligibility: 'MPT degree from a recognized university with minimum 55% marks',
-    description:
-      'Doctoral research program for those pursuing academic leadership, advanced clinical research, and scholarly contributions to the physiotherapy profession. Candidates undertake original research under faculty guidance.',
-    highlights: [
-      'Original research contribution',
-      'Faculty mentorship and guidance',
-      'Opportunities for publication',
-      'Preparation for academic and research careers',
-    ],
-    icon: 'BookOpen',
-  },
+
 ];
 
 

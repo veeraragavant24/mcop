@@ -24,6 +24,7 @@ type Department = {
   shortName: string;
   title: string;
   cardTitle: string;
+   shortDescription: string; 
   icon: typeof Activity;
   image: string;
   bannerColor: string;
@@ -40,8 +41,10 @@ const departments: Department[] = [
   {
     id: 1,
     shortName: 'Orthopedics',
-    title: 'Orthopedics & Sports Physiotherapy',
-    cardTitle: 'Orthopedics & Sports',
+    title: 'Orthopedics  Physiotherapy',
+    cardTitle: 'Orthopedics Physiotherapy ',
+    shortDescription: 'Assessment, treatment and rehabilitation of bone, joint and muscle conditions.',
+
     icon: Activity,
     image: '/department/orthopedics.jpg',
     bannerColor: '#0099ffea',
@@ -78,6 +81,8 @@ const departments: Department[] = [
     shortName: 'Neurology',
     title: 'Neurological Physiotherapy',
     cardTitle: 'Neurological Physiotherapy',
+    shortDescription: 'Building breathing capacity, endurance and heart-lung recovery.',
+
     icon: Brain,
     image: '/department/neurological.jpg',
     bannerColor: '#ffe369',
@@ -113,7 +118,8 @@ const departments: Department[] = [
     id: 3,
     shortName: 'Cardiorespiratory',
     title: 'Cardiorespiratory Physiotherapy',
-    cardTitle: 'Cardiorespiratory',
+    cardTitle: 'Cardiorespiratory ',       
+    shortDescription: 'Building breathing capacity, endurance and heart-lung recovery.', 
     icon: HeartPulse,
     image: '/department/cardiorespiratory.jpg',
     bannerColor: '#ff69b1',
@@ -147,9 +153,10 @@ const departments: Department[] = [
   },
   {
     id: 4,
-    shortName: 'Pediatrics',
-    title: 'Pediatric Physiotherapy',
-    cardTitle: 'Pediatric Physiotherapy',
+    shortName: 'Sports',
+    title: 'Sports Physiotherapy',
+    cardTitle: 'Sports Physiotherapy',
+    shortDescription: 'Injury prevention, performance training and return-to-sport rehabilitation.',
     icon: Baby,
     image: '/department/pediatric.jpg',
     bannerColor: '#5e83ff',
@@ -181,78 +188,7 @@ const departments: Department[] = [
       { name: 'Functional Movement Unit', image: '/images/departments/functional-lab.jpg' },
     ],
   },
-  {
-    id: 5,
-    shortName: 'Community',
-    title: 'Community-Based Rehabilitation',
-    cardTitle: 'Community Rehabilitation',
-    icon: Users,
-    image: '/department/community.jpg',
-    bannerColor: '#53e0a3',
-    hod: 'Department Faculty',
-    qualification: 'Faculty details to be updated',
-    overview:
-      'Community-Based Rehabilitation explores physiotherapy services in community settings, prevention strategies, accessibility, and functional independence. Students learn how rehabilitation principles can support individuals and communities in different environments.',
-    focusAreas: [
-      'Community rehabilitation',
-      'Disability awareness',
-      'Health education',
-      'Functional independence',
-      'Rehabilitation accessibility',
-    ],
-    training: [
-      'Community-based assessment',
-      'Health education activities',
-      'Functional independence planning',
-      'Rehabilitation awareness programmes',
-    ],
-    facilities: [
-      'Community assessment resources',
-      'Mobility support equipment',
-      'Rehabilitation education materials',
-    ],
-    laboratories: [
-      { name: 'Community Rehabilitation Unit', image: '/images/departments/community-lab.jpg' },
-      { name: 'Mobility Assessment Area', image: '/images/departments/mobility-assessment.jpg' },
-      { name: 'Assistive Training Unit', image: '/images/departments/assistive-lab.jpg' },
-    ],
-  },
-  {
-    id: 6,
-    shortName: 'Geriatrics',
-    title: 'Geriatric Physiotherapy',
-    cardTitle: 'Geriatric Physiotherapy',
-    icon: Accessibility,
-    image: '/department/geriatric.jpg',
-    bannerColor: '#8674d8',
-    hod: 'Department Faculty',
-    qualification: 'Faculty details to be updated',
-    overview:
-      'Geriatric Physiotherapy focuses on mobility, balance, strength, and functional independence in older adults. Students learn age-appropriate assessment, fall prevention, exercise prescription, and rehabilitation strategies that support safe daily activities.',
-    focusAreas: [
-      'Balance and fall prevention',
-      'Strength and mobility',
-      'Age-related functional assessment',
-      'Gait training',
-      'Daily activity independence',
-    ],
-    training: [
-      'Balance and mobility assessment',
-      'Functional exercise programmes',
-      'Fall prevention strategies',
-      'Gait and walking practice',
-    ],
-    facilities: [
-      'Balance assessment equipment',
-      'Gait training equipment',
-      'Functional mobility resources',
-    ],
-    laboratories: [
-      { name: 'Geriatric Rehabilitation Lab', image: '/images/departments/geriatric-lab.jpg' },
-      { name: 'Balance and Gait Unit', image: '/images/departments/gait-training.jpg' },
-      { name: 'Functional Training Area', image: '/images/departments/functional-training.jpg' },
-    ],
-  },
+  
 ];
 
 /* =========================================================
@@ -349,21 +285,88 @@ export default function Departments() {
           animation: dept-orbit 16s linear infinite;
         }
 
-        .dept-hero::before {
-          width: 430px;
-          height: 430px;
-          right: -65px;
-          top: -245px;
-          box-shadow: 0 0 0 35px rgba(216,181,76,.035), 0 0 0 75px rgba(216,181,76,.025);
-        }
+        
+.dept-hero::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  border: 1px solid rgba(216,181,76,.30);
+  border-radius: 50%;
+  animation: dept-orbit 16s linear infinite;
+}
 
-        .dept-hero::after {
-          width: 240px;
-          height: 240px;
-          right: 20%;
-          bottom: -210px;
-          animation-direction: reverse;
-        }
+.dept-hero::after {
+  width: 240px;
+  height: 240px;
+  right: 20%;
+  bottom: -210px;
+  animation-direction: reverse;
+}
+  .dept-hero-ring {
+  position: absolute;
+  z-index: -1;
+  top: -245px;
+  right: -65px;
+  width: 430px;
+  height: 430px;
+  border: 2px solid rgba(216, 181, 76, .8);
+  border-radius: 50%;
+  pointer-events: none;
+  /* extra gold borders around the main ring */
+  box-shadow:
+    0 0 0 16px rgba(216, 181, 76, .06),
+    0 0 0 17px rgba(216, 181, 76, .55),
+    0 0 0 46px rgba(216, 181, 76, .04),
+    0 0 0 47px rgba(216, 181, 76, .3),
+    0 0 40px rgba(216, 181, 76, .2);
+  animation: dept-ring-glow 3.6s ease-in-out infinite;
+}
+
+/* the shining highlight that travels around the ring */
+.dept-hero-ring::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 250deg,
+    rgba(255, 241, 176, .25) 300deg,
+    #FFF1B0 345deg,
+    #FFFFFF 360deg
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+  filter: drop-shadow(0 0 8px rgba(240, 207, 112, .9));
+  animation: dept-ring-sweep 5s linear infinite;
+}
+
+@keyframes dept-ring-sweep {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes dept-ring-glow {
+  0%, 100% {
+    border-color: rgba(216, 181, 76, .6);
+    box-shadow:
+      0 0 0 16px rgba(216, 181, 76, .05),
+      0 0 0 17px rgba(216, 181, 76, .4),
+      0 0 0 46px rgba(216, 181, 76, .03),
+      0 0 0 47px rgba(216, 181, 76, .2),
+      0 0 25px rgba(216, 181, 76, .12);
+  }
+  50% {
+    border-color: rgba(245, 215, 120, 1);
+    box-shadow:
+      0 0 0 16px rgba(216, 181, 76, .1),
+      0 0 0 17px rgba(245, 215, 120, .8),
+      0 0 0 46px rgba(216, 181, 76, .06),
+      0 0 0 47px rgba(245, 215, 120, .45),
+      0 0 55px rgba(240, 207, 112, .4);
+  }
+}
 
         .dept-hero-content {
           max-width: 1240px;
@@ -490,10 +493,10 @@ export default function Departments() {
         }
 
         .dept-grid {
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 13px;
-        }
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
 
         .dept-card {
           --card-delay: 0ms;
@@ -946,11 +949,10 @@ export default function Departments() {
         /* RESPONSIVE */
 
         @media (max-width: 900px) {
-          .dept-container { width: min(100% - 38px, 760px); }
-          .dept-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-          .dept-info-grid { grid-template-columns: 1fr; }
-          .dept-banner-content { width: min(590px, 78%); }
-        }
+  .dept-container { width: min(100% - 38px, 760px); }
+  .dept-info-grid { grid-template-columns: 1fr; }
+  .dept-banner-content { width: min(590px, 78%); }
+}
 
         @media (max-width: 600px) {
           .dept-page { padding-bottom: 48px; }
@@ -960,7 +962,12 @@ export default function Departments() {
             padding: 39px 22px;
             border-radius: 0 0 25px 25px;
           }
-
+.dept-hero-ring {
+  top: -150px;
+  right: -90px;
+  width: 270px;
+  height: 270px;
+}
           .dept-hero h1 { font-size: clamp(30px, 8vw, 42px); }
           .dept-hero p { font-size: 13px; line-height: 1.7; }
 
@@ -1076,6 +1083,7 @@ export default function Departments() {
 
       {/* HERO SECTION */}
       <header className="dept-hero">
+          <span className="dept-hero-ring" aria-hidden="true" />
         <div className="dept-hero-content">
           <div className="dept-eyebrow">
             Madha College of Physiotherapy
@@ -1168,7 +1176,7 @@ export default function Departments() {
               </span>
 
               <h2>{department.title}</h2>
-              <p>{department.overview}</p>
+              <p>{department.shortDescription}</p>
               <span className="dept-banner-accent" />
             </div>
           </article>

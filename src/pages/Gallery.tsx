@@ -578,15 +578,37 @@ useEffect(() => {
           transform: rotate(-17deg);
         }
 
-        .mcp-gallery .g-decoration-leaf {
-          position: absolute;
-          top: 18px;
-          right: 8%;
-          color: rgba(214, 173, 82, .8);
-          font-size: 90px;
-          font-weight: 200;
-          transform: rotate(25deg);
-        }
+     .mcp-gallery .g-decoration-leaf {
+  position: absolute;
+  top: 18px;
+  right: 8%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  color: rgba(214, 173, 82, .8);
+  font-size: 90px;
+  font-weight: 200;
+  line-height: 1;
+  cursor: pointer;
+  pointer-events: auto;            /* lets the star react to the mouse */
+  transform-origin: center center;
+  animation: g-star-spin 8s linear infinite;
+  transition: color .3s ease, text-shadow .3s ease;
+}
+
+/* Hover: stop rotating and glow slightly */
+.mcp-gallery .g-decoration-leaf:hover {
+  animation-play-state: paused;
+  color: var(--g-gold-light);
+  text-shadow: 0 0 18px rgba(214, 173, 82, .6);
+}
+
+@keyframes g-star-spin {
+  from { transform: rotate(25deg); }
+  to   { transform: rotate(385deg); }   /* 25 + 360 = seamless loop */
+}
 
         .mcp-gallery .g-container {
           width: 100%;
@@ -1287,12 +1309,14 @@ useEffect(() => {
             line-height: 1.6;
           }
 
-          .mcp-gallery .g-decoration-leaf {
-            top: 25px;
-            right: -6%;
-            font-size: 70px;
-            opacity: .4;
-          }
+         .mcp-gallery .g-decoration-leaf {
+  top: 25px;
+  right: -6%;
+  width: 70px;
+  height: 70px;
+  font-size: 70px;
+  opacity: .4;
+}
 
           .mcp-gallery .g-container {
             padding: 0 18px 40px;

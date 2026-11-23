@@ -113,11 +113,9 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
                   direction={index % 2 === 0 ? 'left' : 'right'}
                   className="w-full"
                 >
-                  <div className="grid lg:grid-cols-3 gap-0 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">
-                    {/* Left: Flip card panel */}
-                    <div
-                      className={`relative min-h-[320px] bg-forest-700 ${
-                        isEven ? 'lg:order-1' : 'lg:order-2'
+<div className="grid lg:grid-cols-3 gap-0 min-h-[650px] lg:min-h-[650px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100">                    <div
+className={`relative min-h-[450px] lg:min-h-full bg-forest-700 ${
+                          isEven ? 'lg:order-1' : 'lg:order-2'
                       }`}
                     >
                       <CourseFlipPanel
@@ -129,8 +127,8 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
 
                     {/* Right: Details */}
                     <div
-                      className={`lg:col-span-2 p-8 bg-white ${
-                        isEven ? 'lg:order-2' : 'lg:order-1'
+className={`lg:col-span-2 p-8 md:p-10 bg-white h-full ${
+                            isEven ? 'lg:order-2' : 'lg:order-1'
                       }`}
                     >
                       <p className="text-gray-600 leading-relaxed mb-6">
@@ -423,7 +421,7 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
       </section>
 
       {/* Admission process */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-[#FFF8E7]">
         <div className="container-mcp">
           <SectionTitle
             eyebrow="How to Join"
@@ -438,7 +436,7 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
               { step: '04', title: 'Enrollment', desc: 'Complete the enrollment formalities and begin your journey in physiotherapy education.' },
             ].map((item) => (
               <div key={item.step} className="relative">
-                <div className="bg-forest-50 rounded-2xl p-7 h-full hover:shadow-lg transition-all duration-300 group">
+                <div className="bg-white rounded-2xl p-7 h-full hover:shadow-lg transition-all duration-300 group">
                   <div className="text-4xl font-bold text-gold-500/50 group-hover:text-gold-500 transition-colors mb-3">
                     {item.step}
                   </div>

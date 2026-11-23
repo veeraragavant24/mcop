@@ -1,1199 +1,515 @@
-import { Link } from 'react-router-dom';
-import { useMemo, type ComponentType } from 'react';
+
+import React from "react";
+import { Link } from "react-router-dom";
 import {
-  Dumbbell,
-  Activity,
-  Library,
-  Monitor,
-  Stethoscope,
-  Accessibility,
   ArrowRight,
-  Bus,
+  ArrowUpRight,
+  BedDouble,
   BookOpen,
-  Users,
-  HeartPulse,
+  BusFront,
+  CheckCircle2,
+  Dumbbell,
   FlaskConical,
   GraduationCap,
-  Building2,
-  ChevronRight,
-} from 'lucide-react';
-import { facilities } from '@/data/content';
+  HeartPulse,
+  LibraryBig,
+  Presentation,
+  Stethoscope,
+} from "lucide-react";
 
 interface FacilitiesProps {
   onEnquiryClick: () => void;
 }
 
-type FacilityIcon = ComponentType<{ className?: string }>;
+const heroIcons = [
+  { Icon: Presentation, label: "Classroom",   top: "6%",  left: "12%", size: 76, dur: 7,   delay: 0 },
+  { Icon: FlaskConical, label: "Laboratory",  top: "10%", left: "58%", size: 88, dur: 9,   delay: -2 },
+  { Icon: HeartPulse,   label: "Rehabilitation", top: "26%", left: "82%", size: 68, dur: 8, delay: -6 },
+  { Icon: BusFront,     label: "Transport",   top: "40%", left: "34%", size: 98, dur: 8,   delay: -4 },
+  { Icon: BedDouble,    label: "Hostel",      top: "52%", left: "74%", size: 76, dur: 10,  delay: -1 },
+  { Icon: LibraryBig,   label: "Library",     top: "70%", left: "10%", size: 80, dur: 9,   delay: -3 },
+  { Icon: Dumbbell,     label: "Gym",         top: "74%", left: "55%", size: 72, dur: 7.5, delay: -5 },
+];
 
-const iconMap: Record<string, FacilityIcon> = {
-  Dumbbell,
-  Activity,
-  Library,
-  Monitor,
-  Stethoscope,
-  Accessibility,
-  Bus,
-  BookOpen,
-  Users,
-  HeartPulse,
-  FlaskConical,
-  GraduationCap,
-  Building2,
-};
 
-const transportFacility = {
-  id: 'transport',
-  name: 'Transport Facilities',
-  description:
-    'Convenient transportation facilities for students travelling to and from campus.',
-  icon: 'Bus',
-  image:
-    'https://images.pexels.com/photos/1178448/pexels-photo-1178448.jpeg?auto=compress&cs=tinysrgb&w=1200',
-};
+const academicFacilities = [
+  "Spacious classrooms with audio-visual aids",
+  "Demonstration rooms",
+  "Seminar rooms",
+];
 
-const heroImage =
-  'https://images.pexels.com/photos/20860610/pexels-photo-20860610.jpeg?auto=compress&cs=tinysrgb&w=1400';
+const rehabilitationFacilities = [
+  "Physiotherapy Laboratories",
+  "Exercise Therapy Unit",
+  "Electrotherapy Unit",
+  "Neurological Rehabilitation Unit",
+  "Cardiorespiratory Rehabilitation Unit",
+  "Musculoskeletal Rehabilitation",
+  "Multi-Gym",
+  "Sports Rehabilitation",
+];
 
-const clinicalImage =
-  'https://images.pexels.com/photos/20860610/pexels-photo-20860610.jpeg?auto=compress&cs=tinysrgb&w=1400';
+const facilityCards = [
+  {
+    title: "Academic Facilities",
+    description:
+      "Spacious classrooms equipped with audio-visual aids, demonstration rooms and seminar facilities.",
+    image:
+      "https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1000&q=85",
+    icon: GraduationCap,
+    link: "#academic",
+  },
+  {
+    title: "Clinical & Rehabilitation",
+    description:
+      "Practical learning spaces supporting physiotherapy education and rehabilitation training.",
+    image:
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=85",
+    icon: HeartPulse,
+    link: "#clinical",
+  },
+  {
+    title: "Library & Research",
+    description:
+      "A centralized library with advanced textbooks, journals, research publications and internet resources.",
+    image:
+      "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1000&q=85",
+    icon: BookOpen,
+    link: "#library",
+  },
+  {
+    title: "Hostel Facility",
+    description:
+      "Hostel accommodation to support students during their academic journey.",
+    image:
+      "https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1000&q=85",
+    icon: BedDouble,
+    link: "#hostel",
+  },
+];
 
-/* Curved edge of the hero panel. The same path draws the green panel and the
-   gold ring around it, so the gold line always follows the curve exactly. */
-const HERO_CURVE = 'M0 0 H76 C104 0 104 100 76 100 H0 Z';
-
-export default function Facilities({
-  onEnquiryClick,
-}: FacilitiesProps) {
-  const allFacilities = useMemo(() => {
-    const existing = facilities.map((facility) => ({
-      ...facility,
-    }));
-
-    const hasTransport = existing.some((facility) =>
-      /transport|bus/i.test(facility.name)
-    );
-
-    return hasTransport
-      ? existing
-      : [...existing, transportFacility];
-  }, []);
-
-  const featured = useMemo(() => {
-    const find = (pattern: RegExp) =>
-      allFacilities.find((item) => pattern.test(item.name));
-
-    const exercise =
-      find(/exercise|therapy|physio/i) ?? allFacilities[0];
-
-    const diagnostics =
-      find(/electro|diagnostic/i) ??
-      allFacilities.find((item) => item.id !== exercise?.id);
-
-    const anatomy =
-      find(/anatomy|movement/i) ??
-      allFacilities.find(
-        (item) =>
-          item.id !== exercise?.id &&
-          item.id !== diagnostics?.id
-      );
-
-    const remaining = allFacilities.filter(
-      (item) =>
-        item.id !== exercise?.id &&
-        item.id !== diagnostics?.id &&
-        item.id !== anatomy?.id
-    );
-
-    return {
-      exercise,
-      diagnostics,
-      anatomy,
-      remaining,
-    };
-  }, [allFacilities]);
-
-  const getIcon = (icon: string) =>
-    iconMap[icon] ?? Building2;
-
-  const renderFeature = (
-    facility: (typeof allFacilities)[number] | undefined,
-    variant: 'large' | 'small',
-    eyebrow: string
-  ) => {
-    if (!facility) return null;
-
-    const Icon = getIcon(facility.icon);
-
-    return (
-      <article
-        key={facility.id}
-        className={`premium-feature premium-feature--${variant}`}
-      >
-        <img
-          src={facility.image}
-          alt={facility.name}
-          loading="lazy"
-        />
-
-        <div className="premium-feature__overlay" />
-
-        <div className="premium-feature__icon">
-          <Icon />
-        </div>
-
-        <div className="premium-feature__content">
-          <span>{eyebrow}</span>
-          <h3>{facility.name}</h3>
-          <p>{facility.description}</p>
-        </div>
-
-        <div className="premium-feature__arrow">
-          <ArrowRight />
-        </div>
-      </article>
-    );
-  };
-
+const Facilities: React.FC<FacilitiesProps> = ({ onEnquiryClick }) => {
   return (
-    <main className="premium-facilities">
-      <style>{`
-        .premium-facilities {
-          --forest: #063d2f;
-          --deep: #022e24;
-          --green: #105c43;
-          --gold: #e6b52f;
-          --gold-light: #f5d77b;
-          --cream: #fbf8f0;
-          --ink: #183d30;
-          --muted: #66736d;
-
-          background: #fff;
-          color: var(--ink);
-          overflow-x: clip;
-        }
-
-        .premium-facilities *,
-        .premium-facilities *::before,
-        .premium-facilities *::after {
-          box-sizing: border-box;
-        }
-
-        .pf-container {
-          width: min(1240px, calc(100% - 48px));
-          margin-inline: auto;
-        }
-
-        /* ---------- HERO ---------- */
-
-        .pf-hero {
-          position: relative;
-          display: flex;
-          align-items: stretch;
-          min-height: 440px;
-          overflow: hidden;
-          isolation: isolate;
-          background: var(--deep);
-        }
-
-        /* Photo sits in the right part of the hero so the subject
-           is centred in the area that stays visible */
-        .pf-hero__image {
-          position: absolute;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          left: 35%;
-          z-index: -2;
-          overflow: hidden;
-        }
-
-        .pf-hero__image img {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: 60% 30%;
-        }
-
-        .pf-hero__image::after {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(
-            90deg,
-            rgba(2, 46, 36, .25),
-            transparent 55%
-          );
-        }
-
-        /* Green panel + gold ring, drawn as one SVG so they match exactly */
-        .pf-hero__shape {
-          position: absolute;
-          top: 0;
-          bottom: 0;
-          left: 0;
-          z-index: -1;
-          width: 56%;
-          pointer-events: none;
-        }
-
-        .pf-hero__shape svg {
-          display: block;
-          width: 100%;
-          height: 100%;
-          overflow: visible;
-        }
-
-        .pf-hero__ring {
-          fill: var(--gold);
-          stroke: var(--gold);
-          stroke-width: 14px; /* about 7px of gold shows outside the green */
-          stroke-linejoin: round;
-        }
-
-        .pf-hero__content {
-          position: relative;
-          z-index: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          width: 56%;
-          min-height: 440px;
-          padding: 55px 70px 55px max(30px, calc((100vw - 1240px) / 2));
-          color: #fff;
-        }
-
-        .pf-eyebrow {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          margin: 0 0 15px;
-          color: var(--gold);
-          font-size: 11px;
-          font-weight: 800;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-        }
-
-        .pf-eyebrow::after {
-          content: "";
-          width: 55px;
-          height: 1px;
-          background: var(--gold);
-        }
-
-        .pf-hero h1 {
-          margin: 0 0 15px;
-          color: #fff;
-          font-family: Georgia, "Times New Roman", serif;
-          font-size: clamp(48px, 6vw, 76px);
-          font-weight: 600;
-          line-height: 1;
-        }
-
-        .pf-hero__description {
-          max-width: 440px;
-          margin: 0;
-          color: rgba(255,255,255,.9);
-          font-size: 15px;
-          line-height: 1.8;
-        }
-
-        .pf-hero__button {
-          display: inline-flex;
-          align-items: center;
-          align-self: flex-start;
-          gap: 12px;
-          margin-top: 25px;
-          padding: 13px 20px;
-          border-radius: 30px;
-          background: var(--gold);
-          color: var(--deep);
-          font-size: 12px;
-          font-weight: 800;
-          text-decoration: none;
-          transition: .3s ease;
-        }
-
-        .pf-hero__button:hover {
-          transform: translateY(-3px);
-          background: var(--gold-light);
-        }
-
-        .pf-hero__button svg {
-          width: 17px;
-        }
-
-        /* ---------- SECTION INTRO ---------- */
-
-        .pf-intro {
-          padding: 35px 0 25px;
-          background: var(--cream);
-          text-align: center;
-        }
-
-        .pf-label {
-          display: inline-flex;
-          align-items: center;
-          gap: 13px;
-          margin-bottom: 8px;
-          color: #b98516;
-          font-size: 11px;
-          font-weight: 800;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-        }
-
-        .pf-label::before,
-        .pf-label::after {
-          content: "";
-          width: 38px;
-          height: 1px;
-          background: var(--gold);
-        }
-
-        .pf-section-title {
-          margin: 0;
-          color: var(--forest);
-          font-family: Georgia, serif;
-          font-size: clamp(30px, 4vw, 42px);
-          font-weight: 600;
-          line-height: 1.2;
-        }
-
-        .pf-section-description {
-          max-width: 720px;
-          margin: 10px auto 0;
-          color: #52635a;
-          font-size: 14px;
-          line-height: 1.8;
-        }
-
-        /* ---------- FEATURE SHOWCASE ---------- */
-
-        .pf-showcase-section {
-          padding: 0 0 30px;
-          background: var(--cream);
-        }
-
-        .pf-showcase {
-          display: grid;
-          grid-template-columns: 1.05fr 1fr;
-          grid-template-rows: repeat(2, minmax(155px, 1fr));
-          gap: 14px;
-        }
-
-        .premium-feature {
-          position: relative;
-          isolation: isolate;
-          min-width: 0;
-          overflow: hidden;
-          border-radius: 15px;
-          background: var(--deep);
-          box-shadow: 0 5px 18px rgba(3,48,36,.09);
-          transition: transform .35s ease;
-        }
-
-        .premium-feature:hover {
-          transform: translateY(-4px);
-        }
-
-        .premium-feature--large {
-          grid-row: 1 / span 2;
-          min-height: 350px;
-        }
-
-        .premium-feature--small {
-          min-height: 165px;
-        }
-
-        .premium-feature > img {
-          position: absolute;
-          inset: 0;
-          z-index: -2;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform .65s ease;
-        }
-
-        .premium-feature:hover > img {
-          transform: scale(1.05);
-        }
-
-        .premium-feature__overlay {
-          position: absolute;
-          inset: 0;
-          z-index: -1;
-          background: linear-gradient(
-            180deg,
-            rgba(1,30,22,.08),
-            rgba(1,32,23,.18) 35%,
-            rgba(1,36,27,.93) 100%
-          );
-        }
-
-        .premium-feature--small .premium-feature__overlay {
-          background:
-            linear-gradient(
-              90deg,
-              rgba(2,43,32,.72),
-              rgba(2,43,32,.12)
-            ),
-            linear-gradient(
-              0deg,
-              rgba(1,30,22,.55),
-              transparent
-            );
-        }
-
-        .premium-feature__icon {
-          position: absolute;
-          top: 18px;
-          left: 18px;
-          display: grid;
-          width: 47px;
-          height: 47px;
-          place-items: center;
-          border-radius: 12px;
-          background: #fff9e9;
-          color: var(--forest);
-        }
-
-        .premium-feature__icon svg {
-          width: 24px;
-          height: 24px;
-        }
-
-        .premium-feature__content {
-          position: absolute;
-          right: 55px;
-          bottom: 20px;
-          left: 20px;
-        }
-
-        .premium-feature__content span {
-          display: block;
-          margin-bottom: 6px;
-          color: var(--gold-light);
-          font-size: 10px;
-          font-weight: 800;
-          letter-spacing: 1.5px;
-          text-transform: uppercase;
-        }
-
-        .premium-feature__content h3 {
-          margin: 0 0 6px;
-          color: #fff;
-          font-family: Georgia, serif;
-          font-size: clamp(19px, 2vw, 27px);
-          font-weight: 600;
-        }
-
-        .premium-feature__content p {
-          max-width: 430px;
-          margin: 0;
-          color: rgba(255,255,255,.9);
-          font-size: 12px;
-          line-height: 1.6;
-        }
-
-        .premium-feature--small .premium-feature__content {
-          left: 98px;
-          bottom: 17px;
-        }
-
-        .premium-feature--small .premium-feature__content h3 {
-          font-size: 21px;
-        }
-
-        .premium-feature__arrow {
-          position: absolute;
-          right: 15px;
-          bottom: 17px;
-          display: grid;
-          width: 36px;
-          height: 36px;
-          place-items: center;
-          border: 1px solid var(--gold);
-          border-radius: 50%;
-          background: rgba(2,46,36,.7);
-          color: white;
-          transition: .25s ease;
-        }
-
-        .premium-feature__arrow svg {
-          width: 17px;
-        }
-
-        .premium-feature:hover .premium-feature__arrow {
-          background: var(--gold);
-          color: var(--deep);
-        }
-
-        /* ---------- AMENITIES ---------- */
-
-        .pf-amenities {
-          padding: 32px 0 38px;
-          scroll-margin-top: 90px;
-          background: linear-gradient(
-            110deg,
-            #f8f3e9,
-            #fffdf8
-          );
-        }
-
-        .pf-amenities__heading {
-          margin-bottom: 22px;
-          text-align: center;
-        }
-
-        .pf-amenities__grid {
-          display: grid;
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-          gap: 10px;
-        }
-
-        .pf-amenity {
-          display: flex;
-          align-items: center;
-          gap: 13px;
-          min-width: 0;
-          min-height: 76px;
-          padding: 14px;
-          border: 1px solid #eae4d7;
-          border-radius: 12px;
-          background: rgba(255,255,255,.8);
-          box-shadow: 0 2px 6px rgba(20,50,35,.035);
-          transition: .3s ease;
-        }
-
-        .pf-amenity:hover {
-          transform: translateY(-3px);
-          border-color: var(--gold);
-          box-shadow: 0 7px 18px rgba(20,50,35,.09);
-        }
-
-        .pf-amenity__icon {
-          display: grid;
-          flex-shrink: 0;
-          width: 40px;
-          height: 40px;
-          place-items: center;
-          color: var(--green);
-        }
-
-        .pf-amenity__icon svg {
-          width: 29px;
-          height: 29px;
-          stroke-width: 2;
-        }
-
-        .pf-amenity__name {
-          flex: 1;
-          color: #253c32;
-          font-size: 12px;
-          font-weight: 600;
-          line-height: 1.5;
-        }
-
-        .pf-amenity__arrow {
-          flex-shrink: 0;
-          color: #78877e;
-        }
-
-        .pf-amenity__arrow svg {
-          width: 18px;
-        }
-
-        /* ---------- CLINICAL SECTION ---------- */
-
-        .pf-clinical {
-          padding: 30px 0 42px;
-          background: #fffdf7;
-        }
-
-        .pf-clinical__grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          align-items: center;
-          gap: 38px;
-        }
-
-        .pf-clinical__image {
-          position: relative;
-          min-height: 315px;
-          overflow: hidden;
-          border-radius: 15px;
-          background: #e8eee8;
-          box-shadow: 0 10px 30px rgba(3,48,36,.1);
-        }
-
-        .pf-clinical__image img {
-          position: absolute;
-          inset: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-
-        .pf-clinical__content .pf-label {
-          margin-bottom: 10px;
-        }
-
-        .pf-clinical__content .pf-section-title {
-          font-size: clamp(27px, 3vw, 39px);
-        }
-
-        .pf-clinical__content p {
-          margin: 13px 0 0;
-          color: var(--muted);
-          font-size: 13px;
-          line-height: 1.85;
-        }
-
-        .pf-department-link {
-          display: inline-flex;
-          align-items: center;
-          gap: 11px;
-          margin-top: 20px;
-          padding: 12px 20px;
-          border-radius: 30px;
-          background: var(--forest);
-          color: white;
-          font-size: 12px;
-          font-weight: 700;
-          text-decoration: none;
-          transition: .3s ease;
-        }
-
-        .pf-department-link:hover {
-          transform: translateY(-3px);
-          background: var(--gold);
-          color: var(--deep);
-        }
-
-        .pf-department-link svg {
-          width: 17px;
-        }
-
-        /* ---------- CTA ---------- */
-
-        .pf-cta {
-          position: relative;
-          isolation: isolate;
-          padding: 52px 0;
-          overflow: hidden;
-          background:
-            radial-gradient(
-              ellipse at 85% 20%,
-              rgba(33,115,78,.65),
-              transparent 50%
-            ),
-            linear-gradient(110deg, #022e24, #07513c);
-        }
-
-        .pf-cta::before {
-          content: "";
-          position: absolute;
-          z-index: -1;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          width: 45%;
-          background:
-            linear-gradient(
-              90deg,
-              #063d2f,
-              rgba(6,61,47,.35)
-            ),
-            url('https://images.pexels.com/photos/207691/pexels-photo-207691.jpeg?auto=compress&cs=tinysrgb&w=1200')
-            center / cover;
-          opacity: .4;
-        }
-
-        .pf-cta__inner {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 25px;
-        }
-
-        .pf-cta__content {
-          padding-left: 20px;
-          border-left: 4px solid var(--gold);
-        }
-
-        .pf-cta h2 {
-          margin: 0;
-          color: #fff;
-          font-family: Georgia, serif;
-          font-size: clamp(27px, 3vw, 38px);
-        }
-
-        .pf-cta p {
-          max-width: 570px;
-          margin: 10px 0 0;
-          color: rgba(255,255,255,.82);
-          font-size: 13px;
-          line-height: 1.7;
-        }
-
-        .pf-cta__button {
-          display: inline-flex;
-          flex-shrink: 0;
-          align-items: center;
-          justify-content: center;
-          gap: 12px;
-          padding: 15px 23px;
-          border: none;
-          border-radius: 30px;
-          background: var(--gold);
-          color: var(--deep);
-          font-size: 13px;
-          font-weight: 800;
-          cursor: pointer;
-          transition: .3s ease;
-        }
-
-        .pf-cta__button:hover {
-          transform: translateY(-3px);
-          background: var(--gold-light);
-          box-shadow: 0 8px 20px rgba(230,181,47,.2);
-        }
-
-        .pf-cta__button svg {
-          width: 17px;
-        }
-
-        /* ---------- TABLET ---------- */
-
-        @media (max-width: 900px) {
-          .pf-hero {
-            min-height: 390px;
+    <main className="bg-[#FAF8F1] text-[#26332C]">
+
+     {/* HERO SECTION */}
+<section className="relative overflow-hidden bg-[#174D38]">
+  <style>{`
+    @keyframes fac-float {
+      0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+      25%      { transform: translate3d(14px, -18px, 0) rotate(6deg); }
+      50%      { transform: translate3d(-10px, -30px, 0) rotate(-4deg); }
+      75%      { transform: translate3d(-16px, -10px, 0) rotate(5deg); }
+    }
+    @keyframes fac-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(215,180,90,.0), 0 0 14px rgba(215,180,90,.18); }
+      50%      { box-shadow: 0 0 0 8px rgba(215,180,90,.06), 0 0 30px rgba(215,180,90,.4); }
+    }
+    .fac-float-icon {
+      animation:
+        fac-float var(--dur, 8s) ease-in-out var(--delay, 0s) infinite,
+        fac-glow 4s ease-in-out var(--delay, 0s) infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .fac-float-icon { animation: none; }
+    }
+  `}</style>
+
+  <div className="grid min-h-[480px] lg:grid-cols-2">
+    <div className="relative z-10 flex flex-col justify-center px-6 py-16 sm:px-12 lg:px-16 xl:px-24">
+      <span className="mb-5 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.25em] text-[#D7B45A]">
+        <span className="h-[2px] w-8 bg-[#D7B45A]" />
+        Infrastructure & Learning
+      </span>
+
+      <h1 className="max-w-xl text-5xl font-bold leading-tight text-white sm:text-6xl lg:text-7xl">
+        Our <span className="text-[#D7B45A]">Facilities</span>
+      </h1>
+
+      <p className="mt-6 max-w-lg text-base leading-8 text-white/85 sm:text-lg">
+        Modern learning spaces, physiotherapy laboratories,
+        rehabilitation facilities, library resources and hostel
+        accommodation to support a complete educational experience.
+      </p>
+
+      <div className="mt-9">
+        <button
+          onClick={() =>
+            document
+              .getElementById("facility-overview")
+              ?.scrollIntoView({ behavior: "smooth" })
           }
+          className="inline-flex items-center gap-3 rounded-full bg-[#D7B45A] px-7 py-3.5 text-sm font-bold text-[#174D38] transition hover:bg-white"
+        >
+          Explore Our Campus
+          <ArrowRight size={18} />
+        </button>
+      </div>
+    </div>
 
-          .pf-hero__image {
-            left: 30%;
+    {/* FLOATING GOLD ICONS */}
+    <div className="relative min-h-[340px] lg:min-h-full" aria-hidden="true">
+      <div className="pointer-events-none absolute right-[-60px] top-[-80px] h-72 w-72 rounded-full border border-[#D7B45A]/15" />
+      <div className="pointer-events-none absolute bottom-[-90px] left-[10%] h-64 w-64 rounded-full border border-[#D7B45A]/15" />
+
+      {heroIcons.map(({ Icon, label, top, left, size, dur, delay }) => (
+        <div
+          key={label}
+          title={label}
+          className="fac-float-icon absolute flex items-center justify-center rounded-full border border-[#D7B45A]/60 bg-[#D7B45A]/10 text-[#D7B45A] backdrop-blur-[2px]"
+          style={
+            {
+              top,
+              left,
+              width: size,
+              height: size,
+              "--dur": `${dur}s`,
+              "--delay": `${delay}s`,
+            } as React.CSSProperties
           }
-
-          .pf-hero__shape {
-            width: 64%;
-          }
-
-          .pf-hero__content {
-            width: 64%;
-            min-height: 390px;
-            padding: 40px 50px 40px 30px;
-          }
-
-          .pf-hero h1 {
-            font-size: 54px;
-          }
-
-          .pf-hero__description {
-            max-width: 380px;
-            font-size: 14px;
-          }
-
-          .pf-showcase {
-            grid-template-columns: 1fr 1fr;
-          }
-
-          .premium-feature--large {
-            grid-column: 1 / -1;
-            grid-row: auto;
-            min-height: 300px;
-          }
-
-          .premium-feature--small {
-            min-height: 210px;
-          }
-
-          .premium-feature--small .premium-feature__content {
-            left: 17px;
-          }
-
-          .premium-feature--small .premium-feature__icon {
-            top: 14px;
-            left: 14px;
-          }
-
-          .pf-amenities__grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-          }
-
-          .pf-clinical__grid {
-            gap: 25px;
-          }
-        }
-
-        /* ---------- MOBILE ---------- */
-
-        @media (max-width: 600px) {
-          .pf-container {
-            width: calc(100% - 32px);
-          }
-
-          .pf-hero {
-            flex-direction: column;
-            min-height: auto;
-          }
-
-          .pf-hero__image {
-            position: relative;
-            inset: auto;
-            z-index: 0;
-            width: 100%;
-            height: 235px;
-            min-height: 235px;
-            order: 1;
-          }
-
-          .pf-hero__shape {
-            display: none;
-          }
-
-          .pf-hero__content {
-            order: 2;
-            width: 100%;
-            min-height: 290px;
-            padding: 38px 24px 40px;
-            background: linear-gradient(120deg, #022e24, #064735);
-            border-bottom: 6px solid var(--gold);
-            border-radius: 0 0 45% 0 / 0 0 12% 0;
-          }
-
-          .pf-hero h1 {
-            font-size: 49px;
-          }
-
-          .pf-hero__description {
-            max-width: 100%;
-            font-size: 14px;
-          }
-
-          .pf-intro {
-            padding: 30px 0 23px;
-          }
-
-          .pf-section-title {
-            font-size: 32px;
-          }
-
-          .pf-section-description {
-            font-size: 13px;
-          }
-
-          .pf-showcase {
-            grid-template-columns: 1fr;
-            gap: 13px;
-          }
-
-          .premium-feature--large {
-            grid-column: auto;
-            min-height: 290px;
-          }
-
-          .premium-feature--small {
-            min-height: 220px;
-          }
-
-          .premium-feature--small .premium-feature__content {
-            left: 17px;
-            bottom: 18px;
-          }
-
-          .premium-feature--small .premium-feature__content h3 {
-            font-size: 20px;
-          }
-
-          .pf-amenities {
-            padding: 30px 0;
-          }
-
-          .pf-amenities__grid {
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-          }
-
-          .pf-amenity {
-            min-height: 78px;
-            gap: 7px;
-            padding: 10px 8px;
-          }
-
-          .pf-amenity__icon {
-            width: 30px;
-            height: 30px;
-          }
-
-          .pf-amenity__icon svg {
-            width: 23px;
-            height: 23px;
-          }
-
-          .pf-amenity__name {
-            font-size: 11px;
-          }
-
-          .pf-amenity__arrow svg {
-            width: 14px;
-          }
-
-          .pf-clinical {
-            padding: 26px 0 34px;
-          }
-
-          .pf-clinical__grid {
-            grid-template-columns: 1fr;
-            gap: 23px;
-          }
-
-          .pf-clinical__image {
-            min-height: 235px;
-          }
-
-          .pf-cta {
-            padding: 38px 0;
-          }
-
-          .pf-cta__inner {
-            align-items: flex-start;
-            flex-direction: column;
-          }
-
-          .pf-cta h2 {
-            font-size: 30px;
-          }
-        }
-
-        @media (max-width: 360px) {
-          .pf-amenities__grid {
-            grid-template-columns: 1fr;
-          }
-        }
-
-        /* ---------- REDUCED MOTION ---------- */
-
-        @media (prefers-reduced-motion: reduce) {
-          .premium-facilities *,
-          .premium-facilities *::before,
-          .premium-facilities *::after {
-            animation: none !important;
-            transition: none !important;
-            scroll-behavior: auto !important;
-          }
-        }
-      `}</style>
-
-      {/* HERO */}
-
-      <section className="pf-hero">
-        <div className="pf-hero__image">
-          <img
-            src={heroImage}
-            alt="Modern physiotherapy laboratory"
-          />
+        >
+          <Icon size={Math.round(size * 0.45)} strokeWidth={1.6} />
         </div>
-
-        {/* Green curved panel with a gold ring that follows the same curve */}
-        <div className="pf-hero__shape" aria-hidden="true">
-          <svg
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-            focusable="false"
-          >
-            <defs>
-              <linearGradient
-                id="pf-hero-gradient"
-                x1="0"
-                y1="0"
-                x2="1"
-                y2="0"
-              >
-                <stop offset="0" stopColor="#022e24" />
-                <stop offset="0.65" stopColor="#064735" />
-                <stop offset="1" stopColor="#06382c" />
-              </linearGradient>
-            </defs>
-
-            <path
-              className="pf-hero__ring"
-              d={HERO_CURVE}
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d={HERO_CURVE}
-              fill="url(#pf-hero-gradient)"
-            />
-          </svg>
-        </div>
-
-        <div className="pf-hero__content">
-          <p className="pf-eyebrow">
-            Infrastructure &amp; Learning
-          </p>
-
-          <h1>Facilities</h1>
-
-          <p className="pf-hero__description">
-            Modern laboratories, advanced rehabilitation
-            equipment, student resources, and convenient
-            transport facilities supporting a complete
-            physiotherapy learning experience.
-          </p>
-
-          <a
-            href="#pf-amenities"
-            className="pf-hero__button"
-          >
-            Explore Our Campus
-            <ArrowRight />
-          </a>
-        </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* INTRODUCTION */}
-
-      <section className="pf-intro">
-        <div className="pf-container">
-          <span className="pf-label">
-            Explore Our Campus
-          </span>
-
-          <h2 className="pf-section-title">
-            Our Facilities
-          </h2>
-
-          <p className="pf-section-description">
-            Every space is designed to support physiotherapy
-            education, from foundational sciences and practical
-            laboratories to clinical training, student resources,
-            and campus transport.
-          </p>
-        </div>
-      </section>
-
-      {/* FEATURED LABORATORIES */}
-
-      <section className="pf-showcase-section">
-        <div className="pf-container">
-          <div className="pf-showcase">
-            {renderFeature(
-              featured.exercise,
-              'large',
-              'Therapy Lab'
-            )}
-
-            {renderFeature(
-              featured.diagnostics,
-              'small',
-              'Diagnostics Lab'
-            )}
-
-            {renderFeature(
-              featured.anatomy,
-              'small',
-              'Anatomy Lab'
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* CAMPUS AMENITIES */}
-
-      <section className="pf-amenities" id="pf-amenities">
-        <div className="pf-container">
-          <div className="pf-amenities__heading">
-            <span className="pf-label">
-              More Facilities
+      <section
+        id="facility-overview"
+        className="px-6 py-16 sm:px-10 lg:px-16"
+      >
+        <div className="mx-auto max-w-7xl">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#B58A28]">
+              Explore Our Campus
             </span>
 
-            <h2 className="pf-section-title">
-              Campus Amenities
+            <h2 className="mt-3 text-3xl font-bold text-[#174D38] sm:text-4xl lg:text-5xl">
+              Facilities That Support Excellence
             </h2>
 
-            <p className="pf-section-description">
-              A holistic campus environment to support
-              your academic and personal growth.
+            <p className="mt-5 text-base leading-8 text-gray-600">
+              Madha College of Physiotherapy provides students with
+              comprehensive facilities to ensure academic excellence,
+              clinical practice, research and development.
             </p>
           </div>
 
-          <div className="pf-amenities__grid">
-            {featured.remaining.map((facility) => {
-              const Icon = getIcon(facility.icon);
+          {/* FACILITY OVERVIEW CARDS */}
+          <div className="grid gap-6 md:grid-cols-2">
+            {facilityCards.map((facility) => {
+              const Icon = facility.icon;
 
               return (
-                <article
-                  className="pf-amenity"
-                  key={facility.id}
-                  title={facility.description}
+                <a
+                  key={facility.title}
+                  href={facility.link}
+                  className="group grid overflow-hidden rounded-2xl border border-[#E9E3D4] bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl sm:grid-cols-[42%_58%]"
                 >
-                  <div className="pf-amenity__icon">
-                    <Icon />
+                  <div className="relative min-h-[220px] overflow-hidden">
+                    <img
+                      src={facility.image}
+                      alt={facility.title}
+                      className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    />
                   </div>
 
-                  <span className="pf-amenity__name">
-                    {facility.name}
-                  </span>
+                  <div className="flex items-center justify-between gap-4 p-6 sm:p-7">
+                    <div>
+                      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#174D38] text-[#D7B45A]">
+                        <Icon size={23} />
+                      </div>
 
-                  <span className="pf-amenity__arrow">
-                    <ChevronRight />
-                  </span>
-                </article>
+                      <h3 className="text-xl font-bold text-[#174D38]">
+                        {facility.title}
+                      </h3>
+
+                      <p className="mt-2 text-sm leading-6 text-gray-600">
+                        {facility.description}
+                      </p>
+                    </div>
+
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#F2C34E] text-[#174D38] transition group-hover:bg-[#174D38] group-hover:text-white">
+                      <ArrowUpRight size={19} />
+                    </span>
+                  </div>
+                </a>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* CLINICAL TRAINING */}
-
-      <section className="pf-clinical">
-        <div className="pf-container pf-clinical__grid">
-          <div className="pf-clinical__image">
+      {/* ACADEMIC FACILITIES */}
+      <section
+        id="academic"
+        className="bg-white px-6 py-16 sm:px-10 lg:px-16"
+      >
+        <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
+          <div className="overflow-hidden rounded-3xl">
             <img
-              src={clinicalImage}
-              alt="Practical physiotherapy clinical training"
-              loading="lazy"
+              src="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=1200&q=85"
+              alt="Academic classroom"
+              className="h-[350px] w-full object-cover sm:h-[430px]"
             />
           </div>
 
-          <div className="pf-clinical__content">
-            <span className="pf-label">
-              Clinical Training
+          <div>
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#B58A28]">
+              Learning Environment
             </span>
 
-            <h2 className="pf-section-title">
-              Learning Through Clinical Practice
+            <h2 className="mt-3 text-3xl font-bold text-[#174D38] sm:text-4xl">
+              Academic Facilities
             </h2>
 
-            <p>
-              Students develop practical skills through
-              supervised learning, clinical demonstrations,
-              case discussions, and exposure to rehabilitation
-              techniques.
+            <p className="mt-5 leading-8 text-gray-600">
+              Our academic facilities provide a supportive environment
+              for classroom learning, demonstrations and knowledge sharing.
+              Students have access to learning spaces designed to support
+              their academic development.
             </p>
 
-            <p>
-              This learning experience helps connect classroom
-              knowledge with professional physiotherapy practice.
-            </p>
-
-            <Link
-              to="/departments"
-              className="pf-department-link"
-            >
-              Explore Departments
-              <ArrowRight />
-            </Link>
+            <div className="mt-7 space-y-4">
+              {academicFacilities.map((item) => (
+                <div key={item} className="flex items-start gap-3">
+                  <CheckCircle2
+                    size={20}
+                    className="mt-0.5 shrink-0 text-[#C49A36]"
+                  />
+                  <span className="text-sm font-medium text-gray-700">
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-    
+      {/* CLINICAL & REHABILITATION FACILITIES */}
+      <section
+        id="clinical"
+        className="px-6 py-16 sm:px-10 lg:px-16"
+      >
+        <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#B58A28]">
+              Practical Learning
+            </span>
+
+            <h2 className="mt-3 text-3xl font-bold text-[#174D38] sm:text-4xl">
+              Clinical & Rehabilitation Facilities
+            </h2>
+
+            <p className="mt-5 leading-8 text-gray-600">
+              Students gain practical exposure through specialized
+              physiotherapy and rehabilitation learning facilities.
+              These units support the development of clinical knowledge
+              and practical skills.
+            </p>
+
+            <div className="mt-7 grid gap-4 sm:grid-cols-2">
+              {rehabilitationFacilities.map((item) => (
+                <div key={item} className="flex items-start gap-3">
+                  <CheckCircle2
+                    size={19}
+                    className="mt-0.5 shrink-0 text-[#C49A36]"
+                  />
+                  <span className="text-sm font-medium leading-6 text-gray-700">
+                    {item}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <Link
+              to="/departments"
+              className="mt-8 inline-flex items-center gap-3 rounded-full bg-[#174D38] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#23694D]"
+            >
+              Explore Departments
+              <ArrowRight size={17} />
+            </Link>
+          </div>
+
+          <div className="relative">
+            <img
+              src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1400&q=85"
+              alt="Exercise and rehabilitation training"
+              className="h-[390px] w-full rounded-3xl object-cover shadow-xl sm:h-[480px]"
+            />
+
+            <div className="absolute -bottom-5 left-5 flex items-center gap-3 rounded-xl bg-white p-4 shadow-lg sm:left-8">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#174D38] text-[#D7B45A]">
+                <Stethoscope size={23} />
+              </div>
+              <div>
+                <p className="font-bold text-[#174D38]">
+                  Clinical Learning
+                </p>
+                <p className="text-xs text-gray-500">
+                  Practical skill development
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* LIBRARY FACILITY */}
+      <section
+        id="library"
+        className="bg-white px-6 py-16 sm:px-10 lg:px-16"
+      >
+        <div className="mx-auto grid max-w-7xl overflow-hidden rounded-3xl border border-[#E9E3D4] bg-[#F7F2E5] lg:grid-cols-2">
+          <div className="min-h-[300px]">
+            <img
+              src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1200&q=85"
+              alt="Library bookshelves and reading area"
+              className="h-full min-h-[300px] w-full object-cover"
+            />
+          </div>
+
+          <div className="flex flex-col justify-center p-8 sm:p-12">
+            <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full bg-[#174D38] text-[#D7B45A]">
+              <LibraryBig size={27} />
+            </div>
+
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#B58A28]">
+              Learning Resources
+            </span>
+
+            <h2 className="mt-3 text-3xl font-bold text-[#174D38] sm:text-4xl">
+              Centralized Library
+            </h2>
+
+            <p className="mt-5 leading-8 text-gray-600">
+              Students have access to a centralized library featuring
+              advanced textbooks, journals, research publications and
+              internet resources. These resources support academic
+              learning, research and professional development.
+            </p>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              {[
+                "Advanced Textbooks",
+                "Journals",
+                "Research Publications",
+                "Internet Resources",
+              ].map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-[#D7B45A]/60 bg-white px-4 py-2 text-xs font-semibold text-[#174D38]"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* HOSTEL FACILITY */}
+      <section
+        id="hostel"
+        className="px-6 py-16 sm:px-10 lg:px-16"
+      >
+        <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2">
+          <div className="order-2 lg:order-1">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#B58A28]">
+              Student Accommodation
+            </span>
+
+            <h2 className="mt-3 text-3xl font-bold text-[#174D38] sm:text-4xl">
+              Hostel Facility
+            </h2>
+
+            <p className="mt-5 leading-8 text-gray-600">
+              The hostel facility provides accommodation support for
+              students pursuing their education at Madha College of
+              Physiotherapy. It is presented as part of the campus
+              facilities available to students.
+            </p>
+
+            <button
+              onClick={onEnquiryClick}
+              className="mt-8 inline-flex items-center gap-3 rounded-full bg-[#174D38] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#23694D]"
+            >
+              Enquire About Hostel
+              <ArrowRight size={17} />
+            </button>
+          </div>
+
+          <div className="order-1 overflow-hidden rounded-3xl lg:order-2">
+            <img
+              src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?auto=format&fit=crop&w=1200&q=85"
+              alt="Student accommodation"
+              className="h-[320px] w-full object-cover sm:h-[420px]"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* TRANSPORT FACILITY */}
+      <section className="px-6 pb-16 sm:px-10 lg:px-16">
+        <div className="relative mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 overflow-hidden rounded-3xl bg-[#174D38] p-8 sm:flex-row sm:items-center sm:p-10">
+          <div className="relative z-10 flex items-center gap-5">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[#D7B45A] text-[#D7B45A]">
+              <BusFront size={28} />
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold text-white">
+                Transport Facilities
+              </h2>
+              <p className="mt-1 text-sm text-white/75">
+                Student transportation facilities.
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={onEnquiryClick}
+            className="relative z-10 inline-flex items-center gap-3 rounded-full border border-[#D7B45A] px-6 py-3 text-sm font-semibold text-[#D7B45A] transition hover:bg-[#D7B45A] hover:text-[#174D38]"
+          >
+            Enquire Now
+            <ArrowRight size={17} />
+          </button>
+
+          <div className="pointer-events-none absolute -right-10 -top-20 h-64 w-64 rounded-full border border-white/10" />
+          <div className="pointer-events-none absolute -right-2 -top-12 h-48 w-48 rounded-full border border-white/10" />
+        </div>
+      </section>
+
+      {/* FINAL ENQUIRY */}
+      <section className="bg-[#E7EDE7] px-6 py-14 text-center sm:px-10">
+        <div className="mx-auto max-w-3xl">
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#B58A28]">
+            Begin Your Journey
+          </span>
+
+          <h2 className="mt-3 text-3xl font-bold text-[#174D38] sm:text-4xl">
+            Learn, Practise and Grow With Us
+          </h2>
+
+          <p className="mt-4 leading-7 text-gray-600">
+            Discover the learning environment and facilities that
+            support your journey in physiotherapy education.
+          </p>
+
+          <button
+            onClick={onEnquiryClick}
+            className="mt-7 inline-flex items-center gap-3 rounded-full bg-[#174D38] px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-[#23694D]"
+          >
+            Enquire Now
+            <ArrowRight size={18} />
+          </button>
+        </div>
+      </section>
     </main>
   );
-}
+};
+
+export default Facilities;

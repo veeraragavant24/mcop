@@ -5,7 +5,174 @@ import {
   GraduationCap, CheckCircle2, Clock,
   ChevronRight, Globe, ShieldCheck
 } from "lucide-react";
+/* ===== Gold balls animation (lives in this file) ===== */
 
+type Ball = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  r: number;
+  m: number;
+  flash: number;
+};
+
+function GoldBalls({ count = 8 }: { count?: number }) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    const parent = canvas?.parentElement;
+    if (!canvas || !ctx || !parent) return;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    let width = 0;
+    let height = 0;
+    let raf = 0;
+
+    const resize = () => {
+      const rect = parent.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    resize();
+
+    const balls: Ball[] = Array.from({ length: count }, () => {
+      const r = 10 + Math.random() * 22;
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 0.8 + Math.random() * 1.2;
+      return {
+        x: r + Math.random() * Math.max(1, width - r * 2),
+        y: r + Math.random() * Math.max(1, height - r * 2),
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        r,
+        m: r * r,
+        flash: 0,
+      };
+    });
+
+    const update = () => {
+      for (const b of balls) {
+        b.x += b.vx;
+        b.y += b.vy;
+
+        if (b.x - b.r < 0) { b.x = b.r; b.vx = Math.abs(b.vx); }
+        if (b.x + b.r > width) { b.x = width - b.r; b.vx = -Math.abs(b.vx); }
+        if (b.y - b.r < 0) { b.y = b.r; b.vy = Math.abs(b.vy); }
+        if (b.y + b.r > height) { b.y = height - b.r; b.vy = -Math.abs(b.vy); }
+
+        b.flash = Math.max(0, b.flash - 0.03);
+      }
+
+      for (let i = 0; i < balls.length; i++) {
+        for (let j = i + 1; j < balls.length; j++) {
+          const a = balls[i];
+          const b = balls[j];
+          const dx = b.x - a.x;
+          const dy = b.y - a.y;
+          const dist = Math.hypot(dx, dy);
+          const minDist = a.r + b.r;
+
+          if (dist === 0 || dist >= minDist) continue;
+
+          const nx = dx / dist;
+          const ny = dy / dist;
+          const overlap = minDist - dist;
+          const total = a.m + b.m;
+
+          a.x -= nx * overlap * (b.m / total);
+          a.y -= ny * overlap * (b.m / total);
+          b.x += nx * overlap * (a.m / total);
+          b.y += ny * overlap * (a.m / total);
+
+          const vn = (b.vx - a.vx) * nx + (b.vy - a.vy) * ny;
+          if (vn < 0) {
+            const impulse = (-2 * vn) / (1 / a.m + 1 / b.m);
+            a.vx -= (impulse * nx) / a.m;
+            a.vy -= (impulse * ny) / a.m;
+            b.vx += (impulse * nx) / b.m;
+            b.vy += (impulse * ny) / b.m;
+            a.flash = 1;
+            b.flash = 1;
+          }
+        }
+      }
+    };
+
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      for (const b of balls) {
+        const gradient = ctx.createRadialGradient(
+          b.x - b.r * 0.35,
+          b.y - b.r * 0.35,
+          b.r * 0.1,
+          b.x,
+          b.y,
+          b.r
+        );
+        gradient.addColorStop(0, "#FFF1B0");
+        gradient.addColorStop(0.45, "#E3BE5A");
+        gradient.addColorStop(1, "#9A6A00");
+
+        ctx.save();
+        ctx.globalAlpha = 0.5 + b.flash * 0.45;
+        ctx.shadowColor = "rgba(240, 207, 112, 0.9)";
+        ctx.shadowBlur = 12 + b.flash * 28;
+        ctx.fillStyle = gradient;
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    };
+
+    const loop = () => {
+      update();
+      draw();
+      raf = requestAnimationFrame(loop);
+    };
+
+    if (reduceMotion) {
+      draw();
+    } else {
+      raf = requestAnimationFrame(loop);
+    }
+
+    const observer = new ResizeObserver(resize);
+    observer.observe(parent);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      observer.disconnect();
+    };
+  }, [count]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      aria-hidden="true"
+      style={{
+        position: "absolute",
+        inset: 0,
+        width: "100%",
+        height: "100%",
+        pointerEvents: "none",
+        zIndex: 0,
+      }}
+    />
+  );
+}
 const cards = [
   {
     icon: MapPin,
@@ -315,6 +482,11 @@ useEffect(() => {
           border: 1px solid rgba(241,207,98,.2);
           border-radius: 50%;
         }
+          /* keeps the hero text above the animated balls */
+.pd-hero .pd-container {
+  position: relative;
+  z-index: 1;
+}
 
         .pd-hero h1 {
           margin: 15px 0;
@@ -944,6 +1116,8 @@ useEffect(() => {
 
       {/* HERO */}
       <section className="pd-hero">
+          <GoldBalls count={8} />
+
         <div className="pd-container demo-reveal">
           <div className="pd-breadcrumb">
             <span>Home</span>
