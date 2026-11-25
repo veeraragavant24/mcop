@@ -158,7 +158,7 @@ const departments: Department[] = [
     cardTitle: 'Sports Physiotherapy',
     shortDescription: 'Injury prevention, performance training and return-to-sport rehabilitation.',
     icon: Baby,
-    image: '/department/pediatric.jpg',
+    image: '/department/sports.png',
     bannerColor: '#5e83ff',
     hod: 'Department Faculty',
     qualification: 'Faculty details to be updated',

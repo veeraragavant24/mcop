@@ -1,4 +1,3 @@
-
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
@@ -22,14 +21,18 @@ export default defineConfig({
         '**/backend/**',
         '**/wwwroot/**',
         '**/uploads/**',
+        '**/*.~tmp',
+        '**/*.tmp',
+        '**/node_modules/**',
+        '**/.git/**',
       ],
     },
 
-proxy: {
-  '/api': {
-    target: 'http://localhost:5196',
-    changeOrigin: true,
-  },
-},
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5196',
+        changeOrigin: true,
+      },
+    },
   },
 });

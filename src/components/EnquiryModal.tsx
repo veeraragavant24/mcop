@@ -604,42 +604,122 @@ const handleSubmit = async (
           transform: none;
           box-shadow: none;
         }
+/* ===== MOBILE ===== */
 
-        /* ===== MOBILE ===== */
+@media (max-width: 520px) {
+  .enquiry-overlay {
+    align-items: center;
+    padding: 10px;
+  }
 
-        @media (max-width: 520px) {
-          .enquiry-overlay {
-            align-items: center;
-            padding: 12px;
-          }
+  .enquiry-card {
+    max-width: 340px;
+    max-height: 86vh;
+    max-height: 86dvh;
+    border-width: 2px;
+    border-radius: 14px;
+  }
 
-          .enquiry-card {
-            max-height: 94vh;
-            border-radius: 15px;
-          }
+  .enquiry-card-content {
+    max-height: 86vh;
+    max-height: 86dvh;
+  }
 
-          .enquiry-card-content {
-            max-height: 94vh;
-          }
+  .enquiry-header {
+    padding: 14px 14px;
+    gap: 10px;
+  }
 
-          .enquiry-header {
-            padding: 19px 17px;
-          }
+  .enquiry-heading {
+    font-size: 16px;
+    line-height: 1.3;
+  }
 
-          .enquiry-heading {
-            font-size: 19px;
-          }
+  .enquiry-subtitle {
+    margin-top: 2px;
+    font-size: 11px;
+    line-height: 1.4;
+  }
 
-          .enquiry-form {
-            gap: 15px;
-            padding: 20px 17px 22px;
-          }
+  .enquiry-close {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+  }
 
-          .enquiry-success {
-            padding: 30px 20px;
-          }
-        }
+  .enquiry-close svg {
+    width: 16px;
+    height: 16px;
+  }
 
+  .enquiry-form {
+    gap: 10px;
+    padding: 14px 14px 16px;
+  }
+
+  .enquiry-field label {
+    margin-bottom: 4px;
+    font-size: 11px;
+  }
+
+  .enquiry-input,
+  .enquiry-select {
+    min-height: 38px;
+    font-size: 12.5px;
+  }
+
+  .enquiry-input {
+    padding: 8px 10px 8px 34px;
+  }
+
+  .enquiry-select {
+    padding: 8px 10px;
+  }
+
+  .enquiry-textarea {
+    min-height: 66px;
+    padding: 9px 10px 9px 34px;
+    font-size: 12.5px;
+  }
+
+  .enquiry-input-icon {
+    left: 11px;
+    width: 14px;
+    height: 14px;
+  }
+
+  .enquiry-error {
+    margin-top: 3px;
+    font-size: 10.5px;
+  }
+
+  .enquiry-submit {
+    min-height: 40px;
+    padding: 9px 14px;
+    border-width: 2px;
+    font-size: 12.5px;
+  }
+
+  .enquiry-success {
+    padding: 24px 16px;
+  }
+
+  .enquiry-success-icon {
+    width: 58px;
+    height: 58px;
+    margin-bottom: 14px;
+  }
+
+  .enquiry-success h3 {
+    font-size: 20px;
+  }
+
+  .enquiry-success p {
+    margin-bottom: 18px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+}
         @media (prefers-reduced-motion: reduce) {
           .enquiry-overlay,
           .enquiry-card,
