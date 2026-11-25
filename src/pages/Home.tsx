@@ -416,7 +416,7 @@ export default function Home({ onEnquiryClick }: HomeProps) {
       description="Explore our specialized departments, offering comprehensive physiotherapy education, practical learning and dedicated clinical training."
     />
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
       {departments.map((dept, index) => (
         <ScrollReveal
@@ -430,7 +430,7 @@ export default function Home({ onEnquiryClick }: HomeProps) {
           >
 
             {/* Department Image */}
-            <div className="relative h-56 overflow-hidden">
+            <div className="relative h-48 overflow-hidden">
 
               <img
                 src={dept.image}
@@ -443,12 +443,12 @@ export default function Home({ onEnquiryClick }: HomeProps) {
             </div>
 
             {/* Department Content */}
-            <div className="flex flex-1 flex-col p-6">
+            <div className="flex flex-1 flex-col p-5">
 
               <div className="mb-3 h-1 w-12 rounded-full bg-gold-500 transition-all duration-500 group-hover:w-20" />
 
-              <h3 className="text-xl font-bold text-forest-800 mb-3 group-hover:text-gold-600 transition-colors">
-                {dept.name}
+<h3 className="text-lg font-bold text-forest-800 mb-3 group-hover:text-gold-600 transition-colors">      
+            {dept.name}
               </h3>
 
               <p className="text-sm text-gray-600 leading-7 line-clamp-3">

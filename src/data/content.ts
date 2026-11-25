@@ -64,6 +64,7 @@ highlights: [
 export interface MptSpecialization {
   id: string;
   name: string;
+  image?: string;
   description: string;
   highlights: string[];
   careers: string[];
@@ -75,6 +76,7 @@ export const mptSpecializations: MptSpecialization[] = [
   {
     id: 'musculoskeletal',
     name: 'Musculoskeletal Sciences',
+    image: '/course/Musculoskeletal  (1).png',
     description:
       'Emphasizes the assessment and management of musculoskeletal disorders affecting muscles, bones, joints and soft tissues. Students develop clinical reasoning and rehabilitation skills through therapeutic exercises, manual therapy and evidence-based treatment approaches.',
    highlights: [
@@ -102,6 +104,7 @@ export const mptSpecializations: MptSpecialization[] = [
   {
     id: 'neurology',
     name: 'Neurosciences',
+        image: '/course/neuro.png',
     description:
       'Focuses on advanced neurological rehabilitation for conditions such as stroke, spinal cord injuries, Parkinson’s disease and cerebral palsy. Students develop expertise in neuro-developmental treatment approaches, motor relearning and functional rehabilitation.',
    highlights: [
@@ -128,6 +131,7 @@ export const mptSpecializations: MptSpecialization[] = [
   {
     id: 'cardio-pulmonary',
     name: 'Cardio-Pulmonary Sciences',
+    image: '/course/cardiopulm.png',
     description:
       'Focuses on cardiac and respiratory rehabilitation, peri-operative care and intensive care physiotherapy. Students gain knowledge in chest physiotherapy, breathing exercises, pulmonary rehabilitation and exercise prescription for patients with cardiopulmonary conditions.',
  highlights: [
@@ -157,6 +161,7 @@ export const mptSpecializations: MptSpecialization[] = [
     {
     id: 'Sports',
     name: 'Sports Sciences ',
+    image: '/department/sports.png',
     description:
       'The Master of Physiotherapy (MPT) in Sports Science is a postgraduate programme designed to develop advanced knowledge and clinical expertise in the prevention, assessment, treatment, and rehabilitation of sports-related injuries. The programme focuses on sports physiotherapy, exercise physiology, biomechanics, athletic performance, and evidence-based rehabilitation practices.',
 highlights: [
@@ -197,8 +202,8 @@ export interface Department {
 export const departments: Department[] = [
   {
     id: 'orthopedics',
-    name: 'Orthopedics & Sports Physiotherapy',
-    image: '/department/orthopedics.jpg',
+    name: 'Orthopedic Physiotherapy',
+    image: '/department/ortho.png',
     description:
       'Focuses on the assessment and treatment of musculoskeletal conditions including fractures, joint disorders, sports injuries, post-surgical rehabilitation, and postural dysfunctions. Students learn manual therapy, therapeutic exercise prescription, and evidence-based injury management protocols.',
     focus: ['Manual therapy techniques', 'Sports injury rehabilitation', 'Post-surgical recovery', 'Posture and ergonomics'],
@@ -206,7 +211,7 @@ export const departments: Department[] = [
   {
     id: 'neurology',
     name: 'Neurological Physiotherapy',
-    image: '/department/neurological.jpg',
+    image: '/department/neuro.png',
     description:
       'Dedicated to rehabilitation of patients with neurological conditions such as stroke, spinal cord injuries, Parkinson\'s disease, and cerebral palsy. The department emphasizes neuro-developmental treatment approaches and motor relearning strategies.',
     focus: ['Stroke rehabilitation', 'Spinal cord injury management', 'Neuro-developmental therapy', 'Balance and coordination training'],
@@ -214,35 +219,20 @@ export const departments: Department[] = [
   {
     id: 'cardio-respiratory',
     name: 'Cardio-Respiratory Physiotherapy',
-    image: '/department/cardiorespiratory.jpg',
+    image: '/department/cardio (2).png',
     description:
       'Addresses pulmonary and cardiac rehabilitation, peri-operative care, and intensive care physiotherapy. Students train in chest physiotherapy, breathing exercises, and exercise prescription for patients with cardiac and respiratory conditions.',
     focus: ['Pulmonary rehabilitation', 'Post-operative chest care', 'ICU physiotherapy', 'Cardiac fitness programs'],
   },
   {
-    id: 'pediatrics',
-    name: 'Pediatric Physiotherapy',
-    image: '/department/pediatric.jpg',
+    id: 'Sports',
+    name: 'Sports Physiotherapy',
+    image: ' /department/sports.png',
     description:
       'Specializes in the assessment and early intervention for children with developmental delays, congenital disorders, and neuromuscular conditions. Family-centered care and play-based therapy approaches are integral to this department.',
     focus: ['Early intervention programs', 'Cerebral palsy management', 'Developmental delay therapy', 'Family-centered care'],
   },
-  {
-    id: 'obstetrics',
-    name: 'Obstetrics & Gynecological Physiotherapy',
-    image: '/department/geriatric.jpg',
-    description:
-      'Focuses on antenatal and postnatal care, pelvic floor rehabilitation, and management of pregnancy-related musculoskeletal conditions. Students learn safe exercise protocols and education for expectant and new mothers.',
-    focus: ['Antenatal exercise programs', 'Postnatal rehabilitation', 'Pelvic floor therapy', 'Pregnancy-related pain management'],
-  },
-  {
-    id: 'community',
-    name: 'Community-Based Rehabilitation',
-    image: '/department/community.jpg',
-    description:
-      'Promotes accessible rehabilitation services in community settings. Students engage in outreach programs, disability awareness, and training of community health workers to deliver sustainable rehabilitation in underserved populations.',
-    focus: ['Rural outreach programs', 'Disability awareness', 'Home-based therapy', 'Community health worker training'],
-  },
+
 ];
 
 export interface Facility {
@@ -419,7 +409,7 @@ export const heroSlides = [
     subtitle: 'Join a community dedicated to advancing physiotherapy through education, research, and ethical practice.',
   },
   {
-    image: '/slides/graduation.JPG',
+    image: '/slides/slide5.png',
     title: 'Celebrating Achievement. Inspiring Excellence.',
     subtitle: 'Honouring the dedication of our graduates as they begin their journey towards compassionate patient care and a brighter future in physiotherapy.',
   },

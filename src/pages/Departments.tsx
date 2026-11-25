@@ -3,7 +3,7 @@ import {
   Activity,
   Brain,
   HeartPulse,
-  Baby,
+  Dumbbell,
   Users,
   Accessibility,
   ArrowRight,
@@ -24,7 +24,7 @@ type Department = {
   shortName: string;
   title: string;
   cardTitle: string;
-   shortDescription: string; 
+  shortDescription: string;
   icon: typeof Activity;
   image: string;
   bannerColor: string;
@@ -46,8 +46,8 @@ const departments: Department[] = [
     shortDescription: 'Assessment, treatment and rehabilitation of bone, joint and muscle conditions.',
 
     icon: Activity,
-    image: '/department/orthopedics.jpg',
-    bannerColor: '#0099ffea',
+    image: '/department/ortho.png',
+    bannerColor: '#1f93e0fa',
     hod: 'Department Faculty',
     qualification: 'Faculty details to be updated',
     overview:
@@ -84,8 +84,8 @@ const departments: Department[] = [
     shortDescription: 'Building breathing capacity, endurance and heart-lung recovery.',
 
     icon: Brain,
-    image: '/department/neurological.jpg',
-    bannerColor: '#ffe369',
+    image: '/department/neuro.png',
+    bannerColor: '#6d28d9',
     hod: 'Department Faculty',
     qualification: 'Faculty details to be updated',
     overview:
@@ -118,11 +118,11 @@ const departments: Department[] = [
     id: 3,
     shortName: 'Cardiorespiratory',
     title: 'Cardiorespiratory Physiotherapy',
-    cardTitle: 'Cardiorespiratory ',       
-    shortDescription: 'Building breathing capacity, endurance and heart-lung recovery.', 
+    cardTitle: 'Cardiorespiratory ',
+    shortDescription: 'Building breathing capacity, endurance and heart-lung recovery.',
     icon: HeartPulse,
-    image: '/department/cardiorespiratory.jpg',
-    bannerColor: '#ff69b1',
+    image: '/department/cardio (2).png',
+    bannerColor: '#f793a9',
     hod: 'Department Faculty',
     qualification: 'Faculty details to be updated',
     overview:
@@ -157,9 +157,9 @@ const departments: Department[] = [
     title: 'Sports Physiotherapy',
     cardTitle: 'Sports Physiotherapy',
     shortDescription: 'Injury prevention, performance training and return-to-sport rehabilitation.',
-    icon: Baby,
+    icon: Dumbbell,
     image: '/department/sports.png',
-    bannerColor: '#5e83ff',
+    bannerColor: '#022083',
     hod: 'Department Faculty',
     qualification: 'Faculty details to be updated',
     overview:
@@ -188,8 +188,39 @@ const departments: Department[] = [
       { name: 'Functional Movement Unit', image: '/images/departments/functional-lab.jpg' },
     ],
   },
-  
 ];
+
+/* =========================================================
+   TEXT COLOR HELPER
+   Returns a light or dark text palette based on the
+   brightness of the banner background color.
+========================================================= */
+
+const getTextColors = (hex: string) => {
+  const clean = hex.replace('#', '').slice(0, 6); // ignores alpha like "fa" in #1f93e0fa
+  const r = parseInt(clean.slice(0, 2), 16);
+  const g = parseInt(clean.slice(2, 4), 16);
+  const b = parseInt(clean.slice(4, 6), 16);
+
+  // perceived brightness (0 = black, 255 = white)
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+
+  return brightness < 150
+    ? {
+        title: '#FFFFFF',
+        text: 'rgba(255,255,255,0.88)',
+        pillBg: 'rgba(255,255,255,0.16)',
+        pillText: '#F0CF70',
+        pillBorder: 'rgba(240,207,112,0.6)',
+      }
+    : {
+        title: '#102C43',
+        text: '#29475B',
+        pillBg: 'rgba(255,255,255,0.66)',
+        pillText: '#815D0A',
+        pillBorder: 'rgba(177,123,5,0.4)',
+      };
+};
 
 /* =========================================================
    COMPONENT
@@ -201,6 +232,7 @@ export default function Departments() {
   const sectionRef = useRef<HTMLElement | null>(null);
 
   const department = departments[activeDepartment];
+  const textColors = getTextColors(department.bannerColor);
 
   useEffect(() => {
     const root = sectionRef.current;
@@ -285,88 +317,88 @@ export default function Departments() {
           animation: dept-orbit 16s linear infinite;
         }
 
-        
-.dept-hero::after {
-  content: "";
-  position: absolute;
-  pointer-events: none;
-  z-index: -1;
-  border: 1px solid rgba(216,181,76,.30);
-  border-radius: 50%;
-  animation: dept-orbit 16s linear infinite;
-}
+        .dept-hero::after {
+          content: "";
+          position: absolute;
+          pointer-events: none;
+          z-index: -1;
+          border: 1px solid rgba(216,181,76,.30);
+          border-radius: 50%;
+          animation: dept-orbit 16s linear infinite;
+        }
 
-.dept-hero::after {
-  width: 240px;
-  height: 240px;
-  right: 20%;
-  bottom: -210px;
-  animation-direction: reverse;
-}
-  .dept-hero-ring {
-  position: absolute;
-  z-index: -1;
-  top: -245px;
-  right: -65px;
-  width: 430px;
-  height: 430px;
-  border: 2px solid rgba(216, 181, 76, .8);
-  border-radius: 50%;
-  pointer-events: none;
-  /* extra gold borders around the main ring */
-  box-shadow:
-    0 0 0 16px rgba(216, 181, 76, .06),
-    0 0 0 17px rgba(216, 181, 76, .55),
-    0 0 0 46px rgba(216, 181, 76, .04),
-    0 0 0 47px rgba(216, 181, 76, .3),
-    0 0 40px rgba(216, 181, 76, .2);
-  animation: dept-ring-glow 3.6s ease-in-out infinite;
-}
+        .dept-hero::after {
+          width: 240px;
+          height: 240px;
+          right: 20%;
+          bottom: -210px;
+          animation-direction: reverse;
+        }
 
-/* the shining highlight that travels around the ring */
-.dept-hero-ring::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    transparent 250deg,
-    rgba(255, 241, 176, .25) 300deg,
-    #FFF1B0 345deg,
-    #FFFFFF 360deg
-  );
-  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
-  mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
-  filter: drop-shadow(0 0 8px rgba(240, 207, 112, .9));
-  animation: dept-ring-sweep 5s linear infinite;
-}
+        .dept-hero-ring {
+          position: absolute;
+          z-index: -1;
+          top: -245px;
+          right: -65px;
+          width: 430px;
+          height: 430px;
+          border: 2px solid rgba(216, 181, 76, .8);
+          border-radius: 50%;
+          pointer-events: none;
+          /* extra gold borders around the main ring */
+          box-shadow:
+            0 0 0 16px rgba(216, 181, 76, .06),
+            0 0 0 17px rgba(216, 181, 76, .55),
+            0 0 0 46px rgba(216, 181, 76, .04),
+            0 0 0 47px rgba(216, 181, 76, .3),
+            0 0 40px rgba(216, 181, 76, .2);
+          animation: dept-ring-glow 3.6s ease-in-out infinite;
+        }
 
-@keyframes dept-ring-sweep {
-  to { transform: rotate(360deg); }
-}
+        /* the shining highlight that travels around the ring */
+        .dept-hero-ring::before {
+          content: "";
+          position: absolute;
+          inset: -2px;
+          border-radius: 50%;
+          background: conic-gradient(
+            from 0deg,
+            transparent 0deg,
+            transparent 250deg,
+            rgba(255, 241, 176, .25) 300deg,
+            #FFF1B0 345deg,
+            #FFFFFF 360deg
+          );
+          -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+          mask: radial-gradient(farthest-side, transparent calc(100% - 5px), #000 calc(100% - 4px));
+          filter: drop-shadow(0 0 8px rgba(240, 207, 112, .9));
+          animation: dept-ring-sweep 5s linear infinite;
+        }
 
-@keyframes dept-ring-glow {
-  0%, 100% {
-    border-color: rgba(216, 181, 76, .6);
-    box-shadow:
-      0 0 0 16px rgba(216, 181, 76, .05),
-      0 0 0 17px rgba(216, 181, 76, .4),
-      0 0 0 46px rgba(216, 181, 76, .03),
-      0 0 0 47px rgba(216, 181, 76, .2),
-      0 0 25px rgba(216, 181, 76, .12);
-  }
-  50% {
-    border-color: rgba(245, 215, 120, 1);
-    box-shadow:
-      0 0 0 16px rgba(216, 181, 76, .1),
-      0 0 0 17px rgba(245, 215, 120, .8),
-      0 0 0 46px rgba(216, 181, 76, .06),
-      0 0 0 47px rgba(245, 215, 120, .45),
-      0 0 55px rgba(240, 207, 112, .4);
-  }
-}
+        @keyframes dept-ring-sweep {
+          to { transform: rotate(360deg); }
+        }
+
+        @keyframes dept-ring-glow {
+          0%, 100% {
+            border-color: rgba(216, 181, 76, .6);
+            box-shadow:
+              0 0 0 16px rgba(216, 181, 76, .05),
+              0 0 0 17px rgba(216, 181, 76, .4),
+              0 0 0 46px rgba(216, 181, 76, .03),
+              0 0 0 47px rgba(216, 181, 76, .2),
+              0 0 25px rgba(216, 181, 76, .12);
+          }
+          50% {
+            border-color: rgba(245, 215, 120, 1);
+            box-shadow:
+              0 0 0 16px rgba(216, 181, 76, .1),
+              0 0 0 17px rgba(245, 215, 120, .8),
+              0 0 0 46px rgba(216, 181, 76, .06),
+              0 0 0 47px rgba(245, 215, 120, .45),
+              0 0 55px rgba(240, 207, 112, .4);
+          }
+        }
 
         .dept-hero-content {
           max-width: 1240px;
@@ -493,10 +525,10 @@ export default function Departments() {
         }
 
         .dept-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-}
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 18px;
+        }
 
         .dept-card {
           --card-delay: 0ms;
@@ -642,7 +674,7 @@ export default function Departments() {
           color: var(--dept-green-dark);
         }
 
-        /* PASTEL SELECTED DEPARTMENT BANNER */
+        /* SELECTED DEPARTMENT BANNER */
 
         .dept-detail {
           margin-top: 28px;
@@ -650,7 +682,7 @@ export default function Departments() {
         }
 
         .dept-detail-banner {
-          min-height: 315px;
+          min-height: 500px;
           position: relative;
           isolation: isolate;
           overflow: hidden;
@@ -711,8 +743,8 @@ export default function Departments() {
           flex-direction: column;
           align-items: flex-start;
           justify-content: center;
-          padding: 36px;
-          color: #102C43;
+          padding: 120px 36px 10px;
+          color: var(--banner-title);
         }
 
         .dept-number-pill {
@@ -721,10 +753,10 @@ export default function Departments() {
           gap: 8px;
           padding: 9px 15px;
           margin-bottom: 20px;
-          border: 1px solid rgba(177,123,5,.4);
+          border: 1px solid var(--pill-border);
           border-radius: 999px;
-          background: rgba(255,255,255,.66);
-          color: #815D0A;
+          background: var(--pill-bg);
+          color: var(--pill-text);
           font-size: 10px;
           font-weight: 900;
           letter-spacing: 1.5px;
@@ -733,16 +765,16 @@ export default function Departments() {
 
         .dept-banner-content h2 {
           margin: 0;
-          color: #102C43;
+          color: var(--banner-title);
           font: 700 clamp(28px, 3.2vw, 43px)/1.15 Georgia, "Times New Roman", serif;
           letter-spacing: -.7px;
-          text-shadow: 0 1px 0 rgba(255,255,255,.2);
+          text-shadow: none;
         }
 
         .dept-banner-content p {
           max-width: 560px;
           margin: 15px 0 0;
-          color: #29475B;
+          color: var(--banner-text);
           font-size: 14px;
           line-height: 1.85;
         }
@@ -949,10 +981,10 @@ export default function Departments() {
         /* RESPONSIVE */
 
         @media (max-width: 900px) {
-  .dept-container { width: min(100% - 38px, 760px); }
-  .dept-info-grid { grid-template-columns: 1fr; }
-  .dept-banner-content { width: min(590px, 78%); }
-}
+          .dept-container { width: min(100% - 38px, 760px); }
+          .dept-info-grid { grid-template-columns: 1fr; }
+          .dept-banner-content { width: min(590px, 78%); }
+        }
 
         @media (max-width: 600px) {
           .dept-page { padding-bottom: 48px; }
@@ -962,12 +994,14 @@ export default function Departments() {
             padding: 39px 22px;
             border-radius: 0 0 25px 25px;
           }
-.dept-hero-ring {
-  top: -150px;
-  right: -90px;
-  width: 270px;
-  height: 270px;
-}
+
+          .dept-hero-ring {
+            top: -150px;
+            right: -90px;
+            width: 270px;
+            height: 270px;
+          }
+
           .dept-hero h1 { font-size: clamp(30px, 8vw, 42px); }
           .dept-hero p { font-size: 13px; line-height: 1.7; }
 
@@ -1083,7 +1117,7 @@ export default function Departments() {
 
       {/* HERO SECTION */}
       <header className="dept-hero">
-          <span className="dept-hero-ring" aria-hidden="true" />
+        <span className="dept-hero-ring" aria-hidden="true" />
         <div className="dept-hero-content">
           <div className="dept-eyebrow">
             Madha College of Physiotherapy
@@ -1158,7 +1192,16 @@ export default function Departments() {
           <article
             className="dept-detail-banner"
             key={department.id}
-            style={{ '--banner-color': department.bannerColor } as React.CSSProperties}
+            style={
+              {
+                '--banner-color': department.bannerColor,
+                '--banner-title': textColors.title,
+                '--banner-text': textColors.text,
+                '--pill-bg': textColors.pillBg,
+                '--pill-text': textColors.pillText,
+                '--pill-border': textColors.pillBorder,
+              } as React.CSSProperties
+            }
           >
             <img
               key={department.image}

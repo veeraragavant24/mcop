@@ -79,7 +79,7 @@ export default function About() {
       <PageHeader
         title="About Us"
         subtitle="Discover our history, values, and commitment to excellence in physiotherapy education and clinical practice."
-        image="https://images.pexels.com/photos/20860622/pexels-photo-20860622.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+        image="/about/mcop.png"
         breadcrumbs={[{ label: 'About Us' }]}
       />
 
