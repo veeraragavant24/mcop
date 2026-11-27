@@ -106,39 +106,40 @@ export default function About() {
 
           <ScrollReveal direction="right" delay={150}>
             <div>
-              <SectionTitle eyebrow="Our Story" title="About College" center={false} />
-              <p className="text-gray-600 leading-relaxed mb-4">
-                Madha College of Physiotherapy (MCOP) established in the year 1998 is 
-                a premier institution that aims to offer quality education in the field 
-                of Physiotherapy. The college is affiliated to Tamil Nadu Dr. M.G.R. Medical
-                 University, Guindy, Chennai -600032 and follows the curriculum approved by
-                  National Commission for Allied and Healthcare Professions (NCAHP),
-                   Government of India. The college has successfully completed over 25 
-                   years of providing quality education to budding Physiotherapists.
-                    The college located at Kundrathur, Chennai -600069, 
-                    Tamil Nadu offers an excellent environment to provide
-                     academic excellence, clinical expertise, evidence-based practice 
-                     and ethical values to shape future healthcare professionals.
+  <SectionTitle eyebrow="Our Story" title="About College" center={false} />
+              <p className="text-gray-600 leading-relaxed mb-4 text-justify hyphens-auto">
+            Madha College of Physiotherapy (MCOP) opened its doors in 1998, and
+             for more than 25 years we have been training physiotherapists who go on t
+             o make a real difference in people's lives. We are affiliated with The Tamil 
+             Nadu Dr. M.G.R. Medical University, Guindy, Chennai – 600032, and
+              we follow the curriculum approved by the National Commission for
+               Allied and Healthcare Professions (NCAHP), Government of India. 
+               Our campus in Kundrathur, Chennai – 600069, is a place where 
+               students build strong academic knowledge, sharpen their clinical 
+               skills, learn to practise based on evidence and grow into ethical 
+               healthcare professionals.
               </p>
-              <p className="text-gray-600 leading-relaxed mb-4">
-                The college provides modern laboratories, Smart Classrooms,
-                 well stocked library and clinical training facilities.
-                  All the students are guided by an experienced and dedicated faculty. 
-                  The curriculum focuses on providing patient centric, 
-                  evidence-based education, collaborative and lifelong learning. 
-                  The students receive adequate exposure to various specialist
-                   areas such as Musculoskeletal, Neurology, Cardiopulmonary Physiotherapy,
-                    Sports Physiotherapy, Community Based Rehabilitation and Paediatrics Physiotherapy.
+              <p className="text-gray-600 leading-relaxed mb-4 text-justify hyphens-auto">
+               Our students learn in modern laboratories and smart 
+               classrooms, have a well-stocked library at their 
+               fingertips and train in dedicated clinical facilities.
+                Along the way, they are guided by experienced faculty who 
+                genuinely care about their progress. We place the patient 
+                at the centre of everything we teach, and we encourage teamwork, 
+                evidence-based thinking and a love of learning that lasts a lifetime.
+                 Students also get a wide view of the profession, with exposure to musculoskeletal, 
+                 neurological, cardiopulmonary, sports, community-based and paediatric physiotherapy.
               </p>
-              <p className="text-gray-600 leading-relaxed mb-4">
-               The college logo consists of a statue of Mother Mary representing
-                strength, patience, nobility, compassion and perseverance.
-                 The motto of the institution is "Oli Peruga" meaning Let the light flourish.
-                  Apart from academics, the students receive exposure to community by organising 
-                  various outreach programs, workshops, continuing education sessions, conferences
-                   and professional development programs. Students are trained to become future
-                    healthcare professionals who are socially responsible. The college aims to
-                     provide an environment of excellence to produce future leaders in Physiotherapy..
+              
+  <p className="text-gray-600 leading-relaxed mb-4 text-justify hyphens-auto">
+              Our logo carries the image of Mother Mary, a reminder of the strength, 
+              patience, nobility, compassion and perseverance we hope every student
+               will carry with them. Our motto, “Oli Peruga,” means “Let the light
+                flourish.” Learning here doesn't stop at the classroom door. Students 
+                reach out to the community through outreach programmes and take part
+                 in workshops, continuing-education sessions, conferences and professional
+                 -development activities. Our aim is simple: to shape socially responsible
+                  healthcare professionals and the future leaders of physiotherapy
               </p>
               
             </div>
@@ -282,8 +283,8 @@ export default function About() {
           </h3>
 
           <p className="text-sm">
-            To provide a centre of excellence in Physiotherapy education,
-            research and healthcare services to produce skilled professionals.
+          To become a centre of excellence in physiotherapy education, 
+          research and healthcare services, producing highly skilled professionals.
           </p>
 
           <Link
@@ -307,11 +308,11 @@ export default function About() {
           </h3>
 
           <ul className="text-sm list-disc pl-5 space-y-2 leading-relaxed">
-            <li>To provide quality Physiotherapy education using innovative methods of teaching.</li>
-            <li>To encourage research in Physiotherapy.</li>
-            <li>To train ethical, compassionate and skilled healthcare professionals.</li>
-            <li>To empower communities with health knowledge.</li>
-            <li>To encourage lifelong learning.</li>
+            <li>	Offer high-quality physiotherapy education through creative, innovative teaching.</li>
+            <li>Encourage and support research in physiotherapy.</li>
+            <li>Shape ethical, compassionate and capable healthcare professionals.</li>
+            <li>Strengthen communities through health education.</li>
+            <li>Nurture a lifelong commitment to learning.</li>
           </ul>
     
 
@@ -415,7 +416,8 @@ export default function About() {
           <ScrollReveal direction="left">
             <div>
               <SectionTitle eyebrow="Academic Standards" title="Academic Excellence" center={false} />
-              <p className="text-gray-600 leading-relaxed mb-6">
+              
+  <p className="text-gray-600 leading-relaxed mb-6 text-justify hyphens-auto">
                 Our BPT and MPT programs combine structured academic learning
                 with practical experience to help students build the knowledge,
                 clinical reasoning, and professional skills required in
@@ -468,7 +470,8 @@ export default function About() {
           <ScrollReveal direction="right" delay={150}>
             <div className="order-1 lg:order-2">
               <SectionTitle eyebrow="Clinical Learning" title="Practical Learning" center={false} />
-              <p className="text-gray-600 leading-relaxed mb-6">
+              
+  <p className="text-gray-600 leading-relaxed mb-6 text-justify hyphens-auto">
                 Practical learning helps students connect classroom knowledge
                 with physiotherapy assessment, treatment planning, and
                 rehabilitation. Laboratory sessions and clinical learning

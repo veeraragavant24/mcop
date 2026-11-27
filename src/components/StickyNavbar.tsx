@@ -28,16 +28,16 @@ const mainNavLinks = [
   { label: 'Home', path: '/' },
   { label: 'About Us', path: '/about' },
   { label: 'Academics', path: '/courses' },
-  { label: 'Admissions', path: '/contact' },
+ 
   { label: 'Departments', path: '/departments' },
   { label: 'Facilities', path: '/facilities' },
   { label: 'Student Life', path: '/gallery' },
+    { label: 'Contact Us', path: '/contact' },
 ];
 
 const allNavLinks = [
   ...mainNavLinks,
-  { label: 'Vision & Mission', path: '/vision-mission' },
-  { label: 'Madha Group', path: '/madha-group' },
+  
   { label: 'Gallery', path: '/gallery' },
   { label: 'News & Events', path: '/news-events' },
   { label: 'Contact Us', path: '/contact' },
@@ -256,8 +256,7 @@ filter:
           </Link>
 
           {/* Desktop navigation */}
-          <ul className="hidden lg:flex items-center gap-2">
-          
+<ul className="hidden lg:flex items-center gap-0 whitespace-nowrap">          
 {mainNavLinks.map((link) => {
   const isAboutButton = link.label === 'About Us';
   const active = isActive(link.path);
@@ -285,7 +284,7 @@ filter:
                           setAboutOpen((previous) => !previous)
                         }
                         aria-expanded={aboutOpen}
-                        className={`group relative inline-flex items-center gap-1 px-3 xl:px-4 py-2 transition-colors ${
+                        className={`group relative inline-flex items-center gap-1px-2.5 xl:px-3 py-2 transition-colors ${
                           isDark
                             ? 'text-white/80 hover:text-white'
                             : 'text-forest-700/70 hover:text-forest-800'
@@ -308,7 +307,7 @@ filter:
                         {/* About Us underline */}
                         <span
                           aria-hidden="true"
-                          className={`absolute bottom-0 left-3 right-3 h-[3px] rounded-full bg-[#D4AF37] transition-transform duration-300 ${
+                          className={`absolute bottom-0 left-2.5 right-2.5 h-[3px] rounded-full bg-[#D4AF37] transition-transform duration-300 ${
                             aboutOpen || isAboutActive
                               ? 'scale-x-100'
                               : 'scale-x-0 group-hover:scale-x-100'
@@ -383,8 +382,8 @@ filter:
           </ul>
 
           {/* Search and mobile controls */}
-          <div className="flex items-center gap-2 lg:gap-3 shrink-0">
-            <button
+<div className="flex items-center gap-2 lg:gap-3 shrink-0 lg:ml-4 xl:ml-6">
+              <button
               type="button"
               onClick={() =>
                 setSearchOpen((previous) => !previous)

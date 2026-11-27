@@ -17,7 +17,7 @@ export const courses: Course[] = [
     duration: '4½ Years (including 6 months internship)',
     eligibility: '10+2 with Physics, Chemistry, Biology (or Botany & Zoology) with minimum 50% marks',
     description:
-      'A comprehensive undergraduate program designed to build strong foundations in human anatomy, physiology, biomechanics, and therapeutic techniques. Students progress through structured clinical rotations to become confident, evidence-based physiotherapy practitioners.',
+      'Our undergraduate programme gives students a complete grounding in physiotherapy, from the basic sciences through to hands-on patient care. Here what it includes',
 
 highlights: [
   'Graduate with a comprehensive curriculum',
@@ -48,7 +48,7 @@ highlights: [
     duration: '2 Years',
     eligibility: 'BPT degree from a recognized institution with minimum 50% marks',
     description:
-      'Advanced postgraduate program offering specialization in key physiotherapy disciplines. Designed to develop clinical reasoning, research methodology, and advanced therapeutic skills for specialist practice and academic careers.',
+      'All of our postgraduate programmes share a strong academic culture. Students take part in weekly journal clubs, academic seminars, clinical case discussions and community outreach camps. We offer four specialisations.',
     highlights: [
       'Journal club once a week ',
       'Seminars ',

@@ -8,7 +8,7 @@ import ScrollToTop from '@/components/ScrollToTop';
 import SocialContactBar from '@/components/SocialContactBar';
 import Home from '@/pages/Home';
 import About from '@/pages/About';
-import VisionMission from '@/pages/VisionMission';
+
 import Courses from '@/pages/Courses';
 import Departments from '@/pages/Departments';
 import Facilities from '@/pages/Facilities';
@@ -139,7 +139,7 @@ function Layout({ onEnquiryClick }: LayoutProps) {
         <Routes>
           <Route path="/" element={<Home onEnquiryClick={onEnquiryClick} />} />
           <Route path="/about" element={<About />} />
-          <Route path="/vision-mission" element={<VisionMission />} />
+         
           <Route path="/courses" element={<Courses onEnquiryClick={onEnquiryClick} />} />
           <Route path="/departments" element={<Departments />} />
           <Route path="/facilities" element={<Facilities onEnquiryClick={onEnquiryClick} />} />

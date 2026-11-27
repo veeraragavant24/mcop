@@ -1,7 +1,7 @@
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Menu, X, Search, ArrowRight } from 'lucide-react';
+import { Menu, X, Search, ArrowRight, UserCog } from 'lucide-react';
 import { useHeaderTheme } from '@/hooks/useHeaderTheme';
 import { searchSiteText } from '@/utils/siteSearch';
 
@@ -28,10 +28,11 @@ const mainNavLinks = [
   { label: 'Home', path: '/' },
   { label: 'About Us', path: '/about' },
   { label: 'Academics', path: '/courses' },
-  { label: 'Admissions', path: '/contact' },
+  
   { label: 'Departments', path: '/departments' },
   { label: 'Facilities', path: '/facilities' },
   { label: 'Student Life', path: '/gallery' },
+  { label: 'Contact Us', path: '/contact' },
 ];
 
 const allNavLinks = [

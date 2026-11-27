@@ -682,81 +682,88 @@ export default function Faculty() {
           }
         }
 
-        /* Mobile */
-        @media (max-width: 520px) {
-          .faculty-container {
-            padding: 28px 16px 38px;
-          }
+       /* Mobile */
+@media (max-width: 520px) {
+  .faculty-container {
+    padding: 28px 16px 38px;
+  }
 
-          .faculty-search-row {
-            align-items: stretch;
-            flex-direction: column;
-            gap: 10px;
-          }
+  .faculty-search-row {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 10px;
+  }
 
-          .faculty-search {
-            width: 100%;
-          }
+  .faculty-search {
+    width: 100%;
+  }
 
-          .faculty-filters {
-            gap: 8px;
-          }
+  .faculty-filters {
+    gap: 8px;
+  }
 
-          .faculty-filter {
-            padding: 9px 11px;
-            font-size: 12px;
-          }
+  .faculty-filter {
+    padding: 9px 11px;
+    font-size: 12px;
+  }
 
-          .faculty-grid {
-            gap: 12px;
-          }
+  .faculty-grid {
+    gap: 12px;
+  }
 
-          .faculty-card-photo-wrap {
-            height: 155px;
-          }
+  /* BIGGER IMAGE */
+  .faculty-card-photo-wrap {
+    height: 240px;          /* was 155px */
+  }
 
-          .faculty-card-body {
-            min-height: 190px;
-            padding: 13px 9px;
-          }
+  /* SMALLER CONTENT BELOW THE PHOTO */
+  .faculty-card-body {
+    min-height: 0;          /* was 190px */
+    padding: 9px 7px 10px;  /* was 13px 9px */
+  }
 
-          .faculty-card-name {
-            font-size: 15px;
-          }
+  .faculty-card-name {
+    font-size: 13px;        /* was 15px */
+    line-height: 1.3;
+  }
 
-          .faculty-card-designation {
-            font-size: 12px;
-          }
+  .faculty-card-designation {
+    margin: 3px 0 2px;
+    font-size: 11px;        /* was 12px */
+    line-height: 1.3;
+  }
 
-          .faculty-card-department {
-            font-size: 11px;
-          }
+  .faculty-card-department {
+    margin: 0 0 8px;
+    font-size: 10px;        /* was 11px */
+    line-height: 1.3;
+  }
 
-          .faculty-view-button {
-            padding: 9px 7px;
-            font-size: 12px;
-          }
+  .faculty-view-button {
+    padding: 7px 6px;       /* was 9px 7px */
+    font-size: 11px;        /* was 12px */
+  }
 
-          .faculty-profile-panel {
-            grid-template-columns: 1fr;
-            gap: 18px;
-            padding: 20px;
-          }
+  .faculty-profile-panel {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 20px;
+  }
 
-          .faculty-profile-photo-wrap {
-            width: 100%;
-            max-width: 260px;
-            height: 250px;
-          }
+  .faculty-profile-photo-wrap {
+    width: 100%;
+    max-width: 260px;
+    height: 250px;
+  }
 
-          .faculty-profile-content {
-            padding-right: 0;
-          }
+  .faculty-profile-content {
+    padding-right: 0;
+  }
 
-          .faculty-profile-details {
-            grid-template-columns: 1fr;
-          }
-        }
+  .faculty-profile-details {
+    grid-template-columns: 1fr;
+  }
+}
 
         @media (prefers-reduced-motion: reduce) {
           .faculty-card,

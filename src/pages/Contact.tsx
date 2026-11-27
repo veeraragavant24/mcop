@@ -1164,45 +1164,7 @@ useEffect(() => {
         </div>
       </section>
 
-      {/* CONTACT CARDS */}
-      <section className="pd-container">
-        <div className="pd-cards">
-          {cards.map((card, index) => {
-            const Icon = card.icon;
 
-            return (
-              
-<article
-  key={card.title}
-  className={`pd-card demo-reveal ${
-    index % 2 === 0
-      ? "demo-from-left"
-      : "demo-from-right"
-  }`}
-  style={{
-    transitionDelay: `${index * 150}ms`,
-  }}
->
-  <div className="pd-icon">
-    <Icon size={24} />
-  </div>
-
-  <h3>{card.title}</h3>
-  <p>{card.text}</p>
-
-  {card.href ? (
-    <a href={card.href}>
-      {card.detail} <ArrowRight size={13} />
-    </a>
-  ) : (
-    <strong>{card.detail}</strong>
-  )}
-</article>
-
-            );
-          })}
-        </div>
-      </section>
 
       {/* FORM AND LOCATION */}
       <section className="pd-main">
@@ -1337,25 +1299,47 @@ useEffect(() => {
 
         </div>
       </section>
+            {/* CONTACT CARDS */}
+      <section className="pd-container">
+        <div className="pd-cards">
+          {cards.map((card, index) => {
+            const Icon = card.icon;
 
-      {/* BOTTOM CTA */}
-      <section className="pd-bottom">
-        <div className="pd-container pd-bottom-inner">
-          <div>
-            <h3 className="pd-title">
-              Your Journey Starts With Us.
-            </h3>
-            <p>
-              Take the first step towards a rewarding
-              career in physiotherapy.
-            </p>
-          </div>
+            return (
+              
+<article
+  key={card.title}
+  className={`pd-card demo-reveal ${
+    index % 2 === 0
+      ? "demo-from-left"
+      : "demo-from-right"
+  }`}
+  style={{
+    transitionDelay: `${index * 150}ms`,
+  }}
+>
+  <div className="pd-icon">
+    <Icon size={24} />
+  </div>
 
-          <a className="pd-bottom-link" href="tel:+919157651234">
-            Talk to our team <ArrowRight size={17}/>
-          </a>
+  <h3>{card.title}</h3>
+  <p>{card.text}</p>
+
+  {card.href ? (
+    <a href={card.href}>
+      {card.detail} <ArrowRight size={13} />
+    </a>
+  ) : (
+    <strong>{card.detail}</strong>
+  )}
+</article>
+
+            );
+          })}
         </div>
       </section>
+
+   
     </main>
   );
 }

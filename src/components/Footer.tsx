@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+
 import { Heart, MapPin, Phone, Mail, Facebook, Twitter, Instagram, Youtube, ArrowUpRight } from 'lucide-react';
 import { collegeInfo } from '@/data/content';
 
@@ -7,8 +8,9 @@ const footerSections = [
     title: 'About',
     links: [
       { label: 'About Us', path: '/about' },
-      { label: 'Vision & Mission', path: '/vision-mission' },
-      { label: 'Madha Group', path: '/madha-group' },
+      { label: 'Management', path: '/management' },
+      { label: 'Principal', path: '/principal' },
+      { label: 'Faculty', path: '/faculty' },
       { label: 'Courses', path: '/courses' },
     ],
   },
@@ -35,63 +37,70 @@ interface FooterProps {
 }
 
 export default function Footer({ onEnquiryClick }: FooterProps) {
+  const location = useLocation();
+
+  const hideEnquiry = ['/management', '/principal', '/faculty', '/courses', '/contact','/facilities'].includes(
+    location.pathname
+  );
+
   return (
     <footer className="bg-forest-900 text-gray-300">
-      {/* CTA band */}
-      <div className="bg-forest-800">
-        <div className="container-mcp py-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div>
-            <h3 className="text-white text-xl font-bold">Ready to begin your journey in physiotherapy?</h3>
-            <p className="text-gray-400 text-sm mt-1">Apply today and join a community dedicated to rehabilitation excellence.</p>
+      {/* CTA band (hidden on Management, Principal, Faculty) */}
+      {!hideEnquiry && (
+        <div className="bg-forest-800">
+          <div className="container-mcp py-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+              <h3 className="text-white text-xl font-bold">Ready to begin your journey in physiotherapy?</h3>
+              <p className="text-gray-400 text-sm mt-1">Apply today and join a community dedicated to rehabilitation excellence.</p>
+            </div>
+            <button onClick={onEnquiryClick} className="btn-primary whitespace-nowrap">
+              Enquire Now <ArrowUpRight className="w-4 h-4" />
+            </button>
           </div>
-          <button onClick={onEnquiryClick} className="btn-primary whitespace-nowrap">
-            Enquire Now <ArrowUpRight className="w-4 h-4" />
-          </button>
         </div>
-      </div>
+      )}
 
       {/* Main footer */}
       <div className="container-mcp py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-         {/* Brand */}
-<div className="lg:col-span-2">
-  <div className="flex items-center gap-3 mb-4">
-    {/* Madha College Logo */}
-    <img
-      src="/logos/whitelogo.png"
-      alt="Madha College of Physiotherapy Logo"
-      className="w-16 h-16 object-contain shrink-0"
-    />
+          {/* Brand */}
+          <div className="lg:col-span-2">
+            <div className="flex items-center gap-3 mb-4">
+              <img
+                src="/logos/whitelogo.png"
+                alt="Madha College of Physiotherapy Logo"
+                className="w-16 h-16 object-contain shrink-0"
+              />
 
-    <div>
-      <p className="font-serif text-lg font-bold text-white">
-        Madha College
-      </p>
-      <p className="text-xs text-gold-400 font-medium tracking-wide">
-        OF PHYSIOTHERAPY
-      </p>
-    </div>
-  </div>
+              <div>
+                <p className="font-serif text-lg font-bold text-white">
+                  Madha College
+                </p>
+                <p className="text-xs text-gold-400 font-medium tracking-wide">
+                  OF PHYSIOTHERAPY
+                </p>
+              </div>
+            </div>
 
-  <p className="text-sm text-gray-400 leading-relaxed max-w-sm">
-    A premier institution dedicated to physiotherapy education, combining evidence-based
-    curriculum with extensive clinical training to produce skilled, compassionate
-    rehabilitation professionals.
-  </p>
+            <p className="text-sm text-gray-400 leading-relaxed max-w-sm">
+              A premier institution dedicated to physiotherapy education, combining evidence-based
+              curriculum with extensive clinical training to produce skilled, compassionate
+              rehabilitation professionals.
+            </p>
 
-  <div className="flex items-center gap-3 mt-6">
-    {[Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
-      <a
-        key={i}
-        href="#"
-        className="w-10 h-10 rounded-lg bg-forest-800 hover:bg-gold-500 hover:text-forest-900 flex items-center justify-center transition-all duration-300"
-        aria-label="Social media link"
-      >
-        <Icon className="w-4 h-4" />
-      </a>
-    ))}
-  </div>
-</div>
+            <div className="flex items-center gap-3 mt-6">
+              {[Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
+                <a
+                  key={i}
+                  href="#"
+                  className="w-10 h-10 rounded-lg bg-forest-800 hover:bg-gold-500 hover:text-forest-900 flex items-center justify-center transition-all duration-300"
+                  aria-label="Social media link"
+                >
+                  <Icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
+          </div>
 
           {/* Link sections */}
           {footerSections.map((section) => (

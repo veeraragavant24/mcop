@@ -103,6 +103,10 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
           display: flex;
           align-items: center;
         }
+          .crs-hero :has(> h1) {
+  position: relative;
+  top: -140px;
+}
 
         .crs-hero img {
           object-fit: cover;
@@ -1093,18 +1097,7 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="crs-cta">
-        <div className="container-mcp crs-cta-inner">
-          <h2 className="crs-cta-title">Have Questions About Our Programs?</h2>
-          <p className="crs-cta-text">
-            Our admissions team is ready to help you find the right program and guide you through the application process.
-          </p>
-          <Link to="/contact" className="btn-primary">
-            Contact Admissions <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </section>
+    
     </div>
   );
 }

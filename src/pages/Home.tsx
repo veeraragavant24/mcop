@@ -159,29 +159,25 @@ export default function Home({ onEnquiryClick }: HomeProps) {
 
 
 
-          <div>
+          
 
-            <SectionTitle
+<div>
+  <div className="[&_p]:max-w-none [&_p]:w-full [&_p]:text-justify [&_p]:hyphens-auto">
+    <SectionTitle
+      eyebrow="Welcome"
+      title="Madha College of Physiotherapy"
+      description="A dedicated institution committed to excellence in physiotherapy education, research, and rehabilitation. We combine a rigorous evidence-based curriculum with extensive clinical training to prepare graduates who are skilled, ethical, and compassionate."
+      center={false}
+    />
+  </div>
 
-              eyebrow="Welcome"
+  <p className="text-gray-600 leading-relaxed mb-6 text-justify hyphens-auto">
+    As part of the Madha Educational Group, the college draws upon a strong tradition of
+    educational service. Our programs are designed to meet the evolving needs of healthcare,
+    producing physiotherapists who are ready to serve communities with competence and care.
+  </p>
 
-              title="Madha College of Physiotherapy"
-
-              description="A dedicated institution committed to excellence in physiotherapy education, research, and rehabilitation. We combine a rigorous evidence-based curriculum with extensive clinical training to prepare graduates who are skilled, ethical, and compassionate."
-
-              center={false}
-
-            />
-
-            <p className="text-gray-600 leading-relaxed mb-6">
-
-              As part of the Madha Educational Group, the college draws upon a strong tradition of
-
-              educational service. Our programs are designed to meet the evolving needs of healthcare,
-
-              producing physiotherapists who are ready to serve communities with competence and care.
-
-            </p>
+  {/* the grid with Quality Education, Clinical Training, etc. continues here, unchanged */}
 
             <div className="grid grid-cols-2 gap-4 mb-6">
 
@@ -332,200 +328,171 @@ export default function Home({ onEnquiryClick }: HomeProps) {
       
 
 
-    {/* Featured Courses */}
-<ScrollReveal direction="right" as="section" className="section-padding bg-white">
-  <div className="container-mcp">
-    <SectionTitle
-      eyebrow="Programs"
-      title="Featured Courses"
-      description="Comprehensive physiotherapy programs designed to build competent, confident, and compassionate professionals."
-    />
+{/* Featured Courses (hidden) */}
+{false && (
+  <ScrollReveal direction="right" as="section" className="section-padding bg-white">
+    <div className="container-mcp">
+      <SectionTitle
+        eyebrow="Programs"
+        title="Featured Courses"
+        description="Comprehensive physiotherapy programs designed to build competent, confident, and compassionate professionals."
+      />
 
-    {/* 2 columns, centered, equal height */}
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto items-stretch">
-      {courses.map((course, index) => {
-        const Icon = iconMap[course.icon] ?? BookOpen;
-        return (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto items-stretch">
+        {courses.map((course, index) => {
+          const Icon = iconMap[course.icon] ?? BookOpen;
+          return (
+            <ScrollReveal
+              key={course.id}
+              direction="up"
+              delay={index * 120}
+              className="h-full"
+            >
+              <div className="premium-hover-card h-full flex flex-col bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group">
+                <div className="h-2 bg-forest-700 group-hover:bg-gold-500 transition-colors" />
+
+                <div className="p-7 flex flex-col flex-1">
+                  <div className="w-14 h-14 rounded-xl bg-forest-50 group-hover:bg-forest-700 transition-colors duration-300 flex items-center justify-center mb-5">
+                    <Icon className="w-7 h-7 text-forest-700 group-hover:text-gold-500 transition-colors" />
+                  </div>
+
+                  <h3 className="text-lg font-bold text-forest-800 leading-snug mb-3">
+                    {course.name}
+                  </h3>
+
+                  <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3">
+                    {course.description}
+                  </p>
+
+                  <div className="mb-5">
+                    <div className="flex items-start gap-2 text-sm text-gray-500">
+                      <Award className="w-4 h-4 text-gold-500 shrink-0 mt-0.5" />
+                      <span>
+                        <span className="font-medium">Duration:</span> {course.duration}
+                      </span>
+                    </div>
+                  </div>
+
+                  <Link
+                    to="/courses"
+                    className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-forest-700 hover:text-gold-600 transition-colors"
+                  >
+                    View Details <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </ScrollReveal>
+          );
+        })}
+      </div>
+
+      <div className="text-center mt-10">
+        <Link to="/courses" className="btn-secondary">
+          View All Programs <ArrowRight className="w-4 h-4" />
+        </Link>
+      </div>
+    </div>
+  </ScrollReveal>
+)}
+
+{/* Departments Preview (hidden) */}
+{false && (
+  <ScrollReveal
+    direction="up"
+    as="section"
+    className="section-padding bg-forest-50"
+  >
+    <div className="container-mcp">
+      <SectionTitle
+        eyebrow="Specializations"
+        title="Our Departments"
+        description="Explore our specialized departments, offering comprehensive physiotherapy education, practical learning and dedicated clinical training."
+      />
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {departments.map((dept, index) => (
           <ScrollReveal
-            key={course.id}
+            key={dept.id}
             direction="up"
             delay={index * 120}
-            className="h-full"
           >
-            <div className="premium-hover-card h-full flex flex-col bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 group">
-              <div className="h-2 bg-forest-700 group-hover:bg-gold-500 transition-colors" />
+            <Link
+              to="/departments"
+              className="department-card group flex h-full flex-col overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500"
+            >
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={dept.image}
+                  alt={dept.name}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-forest-900/30 to-transparent" />
+              </div>
 
-              <div className="p-7 flex flex-col flex-1">
-                <div className="w-14 h-14 rounded-xl bg-forest-50 group-hover:bg-forest-700 transition-colors duration-300 flex items-center justify-center mb-5">
-                  <Icon className="w-7 h-7 text-forest-700 group-hover:text-gold-500 transition-colors" />
-                </div>
+              <div className="flex flex-1 flex-col p-5">
+                <div className="mb-3 h-1 w-12 rounded-full bg-gold-500 transition-all duration-500 group-hover:w-20" />
 
-                <h3 className="text-lg font-bold text-forest-800 leading-snug mb-3">
-                  {course.name}
+                <h3 className="text-lg font-bold text-forest-800 mb-3 group-hover:text-gold-600 transition-colors">
+                  {dept.name}
                 </h3>
 
-                <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3">
-                  {course.description}
+                <p className="text-sm text-gray-600 leading-7 line-clamp-3">
+                  {dept.description}
                 </p>
 
-                <div className="mb-5">
-                  <div className="flex items-start gap-2 text-sm text-gray-500">
-                    <Award className="w-4 h-4 text-gold-500 shrink-0 mt-0.5" />
-                    <span>
-                      <span className="font-medium">Duration:</span> {course.duration}
-                    </span>
-                  </div>
+                <div className="mt-auto pt-5">
+                  <span className="inline-flex items-center gap-2 text-sm font-semibold text-forest-700 group-hover:text-gold-600 transition-colors">
+                    Learn More
+                    <ChevronRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
                 </div>
-
-                {/* mt-auto pins the link to the bottom so both cards line up */}
-                <Link
-                  to="/courses"
-                  className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-forest-700 hover:text-gold-600 transition-colors"
-                >
-                  View Details <ArrowRight className="w-4 h-4" />
-                </Link>
               </div>
-            </div>
+            </Link>
           </ScrollReveal>
-        );
-      })}
-    </div>
+        ))}
+      </div>
 
-    <div className="text-center mt-10">
-      <Link to="/courses" className="btn-secondary">
-        View All Programs <ArrowRight className="w-4 h-4" />
-      </Link>
-    </div>
-  </div>
-</ScrollReveal>
-
-
-
-{/* Departments Preview */}
-
-<ScrollReveal
-  direction="up"
-  as="section"
-  className="section-padding bg-forest-50"
->
-  <div className="container-mcp">
-
-    <SectionTitle
-      eyebrow="Specializations"
-      title="Our Departments"
-      description="Explore our specialized departments, offering comprehensive physiotherapy education, practical learning and dedicated clinical training."
-    />
-
-<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
-      {departments.map((dept, index) => (
-        <ScrollReveal
-          key={dept.id}
-          direction="up"
-          delay={index * 120}
+      <div className="text-center mt-10">
+        <Link
+          to="/departments"
+          className="btn-secondary inline-flex items-center gap-2"
         >
-          <Link
-            to="/departments"
-            className="department-card group flex h-full flex-col overflow-hidden rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500"
-          >
-
-            {/* Department Image */}
-            <div className="relative h-48 overflow-hidden">
-
-              <img
-                src={dept.image}
-                alt={dept.name}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-forest-900/30 to-transparent" />
-
-            </div>
-
-            {/* Department Content */}
-            <div className="flex flex-1 flex-col p-5">
-
-              <div className="mb-3 h-1 w-12 rounded-full bg-gold-500 transition-all duration-500 group-hover:w-20" />
-
-<h3 className="text-lg font-bold text-forest-800 mb-3 group-hover:text-gold-600 transition-colors">      
-            {dept.name}
-              </h3>
-
-              <p className="text-sm text-gray-600 leading-7 line-clamp-3">
-                {dept.description}
-              </p>
-
-              {/* Learn More */}
-              <div className="mt-auto pt-5">
-
-                <span className="inline-flex items-center gap-2 text-sm font-semibold text-forest-700 group-hover:text-gold-600 transition-colors">
-
-                  Learn More
-
-                  <ChevronRight
-                    className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                  />
-
-                </span>
-
-              </div>
-
-            </div>
-
-          </Link>
-        </ScrollReveal>
-      ))}
-
+          Explore All Departments
+          <ArrowRight className="w-4 h-4" />
+        </Link>
+      </div>
     </div>
 
-    {/* View All Departments */}
-    <div className="text-center mt-10">
-
-      <Link
-        to="/departments"
-        className="btn-secondary inline-flex items-center gap-2"
-      >
-        Explore All Departments
-        <ArrowRight className="w-4 h-4" />
-      </Link>
-
-    </div>
-
-  </div>
-
-  <style>{`
-    .department-card {
-      transform: translateY(0);
-    }
-
-    .department-card:hover {
-      transform: translateY(-7px);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .department-card,
-      .department-card * {
-        transition: none !important;
+    <style>{`
+      .department-card {
+        transform: translateY(0);
       }
 
       .department-card:hover {
-        transform: none;
+        transform: translateY(-7px);
       }
-    }
-  `}</style>
 
-</ScrollReveal>
+      @media (prefers-reduced-motion: reduce) {
+        .department-card,
+        .department-card * {
+          transition: none !important;
+        }
 
+        .department-card:hover {
+          transform: none;
+        }
+      }
+    `}</style>
+  </ScrollReveal>
+)}
 
-
-
-     
-
-{/* Facilities Preview */}
-<FacilitiesHomeDemo
-  facilities={facilities}
-  iconMap={iconMap}
-/>
+{/* Facilities Preview (hidden) */}
+{false && (
+  <FacilitiesHomeDemo
+    facilities={facilities}
+    iconMap={iconMap}
+  />
+)}
 
 
 
