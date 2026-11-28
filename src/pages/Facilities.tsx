@@ -421,7 +421,7 @@ const Facilities: React.FC<FacilitiesProps> = ({ onEnquiryClick }) => {
             </Reveal>
 
             <Reveal dir="up" delay={0.24}>
-              <p className="mt-5 text-base leading-8 text-gray-600">
+              <p className="mt-5 text-base leading-8 text-black">
                 Madha College of Physiotherapy provides students with
                 comprehensive facilities to ensure academic excellence,
                 clinical practice, research and development.
@@ -472,7 +472,7 @@ const Facilities: React.FC<FacilitiesProps> = ({ onEnquiryClick }) => {
                           {facility.title}
                         </h3>
 
-                        <p className="mt-2 text-sm leading-6 text-gray-600">
+                        <p className="mt-2 text-sm leading-6 text-black">
                           {facility.description}
                         </p>
                       </div>
@@ -519,7 +519,7 @@ const Facilities: React.FC<FacilitiesProps> = ({ onEnquiryClick }) => {
             </Reveal>
 
             <Reveal dir="up" delay={0.2}>
-              <p className="mt-5 leading-8 text-gray-600">
+              <p className="mt-5 leading-8 text-black">
                 Our academic facilities provide a supportive environment
                 for classroom learning, demonstrations and knowledge sharing.
                 Students have access to learning spaces designed to support
@@ -569,7 +569,7 @@ const Facilities: React.FC<FacilitiesProps> = ({ onEnquiryClick }) => {
             </Reveal>
 
             <Reveal dir="up" delay={0.2}>
-              <p className="mt-5 leading-8 text-gray-600">
+              <p className="mt-5 leading-8 text-black">
                 Students gain practical exposure through specialized
                 physiotherapy and rehabilitation learning facilities.
                 These units support the development of clinical knowledge
@@ -631,7 +631,7 @@ const Facilities: React.FC<FacilitiesProps> = ({ onEnquiryClick }) => {
                     <p className="font-bold text-[#174D38]">
                       Clinical Learning
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-black">
                       Practical skill development
                     </p>
                   </div>
@@ -677,7 +677,7 @@ const Facilities: React.FC<FacilitiesProps> = ({ onEnquiryClick }) => {
               </Reveal>
 
               <Reveal dir="up" delay={0.45}>
-                <p className="mt-5 leading-8 text-gray-600">
+                <p className="mt-5 leading-8 text-black">
                   Students have access to a centralized library featuring
                   advanced textbooks, journals, research publications and
                   internet resources. These resources support academic
@@ -719,7 +719,7 @@ const Facilities: React.FC<FacilitiesProps> = ({ onEnquiryClick }) => {
             </Reveal>
 
             <Reveal dir="up" delay={0.22}>
-              <p className="mt-5 leading-8 text-gray-600">
+              <p className="mt-5 leading-8 text-black">
                 The hostel facility provides accommodation support for
                 students pursuing their education at Madha College of
                 Physiotherapy. It is presented as part of the campus
@@ -760,7 +760,7 @@ const Facilities: React.FC<FacilitiesProps> = ({ onEnquiryClick }) => {
             </Reveal>
 
             <Reveal dir="up" delay={0.2}>
-              <p className="mt-5 leading-8 text-gray-600">
+              <p className="mt-5 leading-8 text-black">
                 At MCOP, students get plenty of real-world clinical experience
                 through our own hospital and a network of well-established
                 rehabilitation and healthcare centres. This is where they put
@@ -810,7 +810,7 @@ const Facilities: React.FC<FacilitiesProps> = ({ onEnquiryClick }) => {
                   ))}
                 </ul>
 
-                <p className="mt-6 border-t border-[#D7B45A]/40 pt-4 text-sm leading-7 text-gray-600">
+                <p className="mt-6 border-t border-[#D7B45A]/40 pt-4 text-sm leading-7 text-black">
                   Across these placements, students gain experience in
                   orthopaedic, neurological, cardiorespiratory, paediatric,
                   sports and community-based rehabilitation.
@@ -900,7 +900,7 @@ const Facilities: React.FC<FacilitiesProps> = ({ onEnquiryClick }) => {
           </Reveal>
 
           <Reveal dir="up" delay={0.24}>
-            <p className="mt-4 leading-7 text-gray-600">
+            <p className="mt-4 leading-7 text-black">
               Discover the learning environment and facilities that
               support your journey in physiotherapy education.
             </p>

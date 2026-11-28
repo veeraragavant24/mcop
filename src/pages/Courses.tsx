@@ -85,7 +85,8 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
           --gray-50: #F9FAFB;
           --gray-100: #F3F4F6;
           --gray-300: #D1D5DB;
-          --gray-600: #4B5563;
+          /* paragraph text on light backgrounds (was gray #4B5563) */
+          --text-black: #000000;
         }
 
         .crs-page *,
@@ -103,10 +104,11 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
           display: flex;
           align-items: center;
         }
-          .crs-hero :has(> h1) {
-  position: relative;
-  top: -140px;
-}
+
+        .crs-hero :has(> h1) {
+          position: relative;
+          top: -140px;
+        }
 
         .crs-hero img {
           object-fit: cover;
@@ -153,7 +155,7 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
 
         .crs-course-desc {
           margin: 0 0 24px;
-          color: var(--gray-600);
+          color: var(--text-black);
           line-height: 1.625;
         }
 
@@ -193,7 +195,7 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
         .crs-info-value {
           margin: 2px 0 0;
           font-size: 14px;
-          color: var(--gray-600);
+          color: var(--text-black);
         }
 
         .crs-highlights { margin-bottom: 24px; }
@@ -216,7 +218,7 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
           align-items: flex-start;
           gap: 8px;
           font-size: 14px;
-          color: var(--gray-600);
+          color: var(--text-black);
         }
 
         .crs-highlight-icon {
@@ -324,14 +326,14 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
           color: #fff;
         }
 
-        /* ---------- MPT SPECIALIZATIONS ---------- */
+        /* ---------- MPT SPECIALIZATIONS (dark section: text stays light) ---------- */
 
         .crs-mpt { background: var(--forest-700); }
 
         .crs-mpt-title h2 { color: #fff; }
         .crs-mpt-title p:last-of-type { color: var(--gray-300); }
 
-               .crs-spec-grid {
+        .crs-spec-grid {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: 16px;
@@ -346,7 +348,7 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
         .crs-spec-btn {
           position: relative;
           overflow: hidden;
-                   padding: 16px;
+          padding: 16px;
           text-align: left;
           cursor: pointer;
           border-radius: 16px;
@@ -391,7 +393,7 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
 
         .crs-spec-content { position: relative; z-index: 10; }
 
-                .crs-spec-icon-box {
+        .crs-spec-icon-box {
           width: 40px;
           height: 40px;
           margin-bottom: 12px;
@@ -421,7 +423,7 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
         .crs-spec-btn:hover .crs-spec-icon,
         .crs-spec-btn.is-selected .crs-spec-icon { color: var(--forest-900); }
 
-                .crs-spec-name {
+        .crs-spec-name {
           margin: 0 0 8px;
           font-size: 16px;
           font-weight: 700;
@@ -463,13 +465,13 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
 
         @media (min-width: 768px) {
           .crs-spec-btn { padding: 20px; }
-                              .crs-spec-icon-box { width: 44px; height: 44px; }
+          .crs-spec-icon-box { width: 44px; height: 44px; }
           .crs-spec-icon { width: 24px; height: 24px; }
           .crs-spec-name { font-size: 20px; }
           .crs-spec-more { font-size: 14px; }
         }
 
-        /* ---------- SPECIALIZATION DETAIL CARD ---------- */
+        /* ---------- SPECIALIZATION DETAIL CARD (white card: text black) ---------- */
 
         .crs-detail {
           max-width: 64rem;
@@ -585,7 +587,7 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
           margin: 0;
           font-size: 14px;
           line-height: 1.625;
-          color: var(--gray-600);
+          color: var(--text-black);
         }
 
         .crs-duration-grid {
@@ -623,7 +625,7 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
         .crs-duration-value {
           margin: 0;
           font-size: 14px;
-          color: var(--gray-600);
+          color: var(--text-black);
         }
 
         .crs-spec-highlights-title {
@@ -666,7 +668,7 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
         .crs-spec-highlight span {
           font-size: 14px;
           line-height: 1.625;
-          color: var(--gray-600);
+          color: var(--text-black);
         }
 
         .crs-careers { margin-top: 28px; }
@@ -779,7 +781,7 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
           margin: 0;
           font-size: 14px;
           line-height: 1.625;
-          color: var(--gray-600);
+          color: var(--text-black);
         }
 
         .crs-center-row {
@@ -787,7 +789,7 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
           text-align: center;
         }
 
-        /* ---------- CTA ---------- */
+        /* ---------- CTA (dark section: text stays light) ---------- */
 
         .crs-cta {
           padding: 64px 0;
@@ -835,11 +837,14 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
       {/* Course cards */}
       <section className="section-padding crs-white-section">
         <div className="container-mcp">
-          <SectionTitle
-            eyebrow="Programs Offered"
-            title="Our Physiotherapy Programs"
-            description="From undergraduate foundations to advanced specialization and doctoral research, our programs cover the full spectrum of physiotherapy education."
-          />
+          {/* [&_p]:!text-black makes the SectionTitle description black */}
+          <div className="[&_p]:!text-black">
+            <SectionTitle
+              eyebrow="Programs Offered"
+              title="Our Physiotherapy Programs"
+              description="From undergraduate foundations to advanced specialization and doctoral research, our programs cover the full spectrum of physiotherapy education."
+            />
+          </div>
 
           <div className="crs-course-list">
             {courses.map((course, index) => {
@@ -1066,11 +1071,13 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
       {/* Admission process */}
       <section className="section-padding crs-admission">
         <div className="container-mcp">
-          <SectionTitle
-            eyebrow="How to Join"
-            title="Admission Process"
-            description="A clear, structured process to guide prospective students from application to enrollment."
-          />
+          <div className="[&_p]:!text-black">
+            <SectionTitle
+              eyebrow="How to Join"
+              title="Admission Process"
+              description="A clear, structured process to guide prospective students from application to enrollment."
+            />
+          </div>
 
           <div className="crs-steps-grid">
             {[
@@ -1096,8 +1103,6 @@ export default function Courses({ onEnquiryClick }: CoursesProps) {
           </div>
         </div>
       </section>
-
-    
     </div>
   );
 }

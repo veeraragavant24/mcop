@@ -1009,6 +1009,10 @@ export default function Faculty() {
             animation: none;
           }
         }
+         
+main p {
+  color: #333333 !important;
+}
 
       `}</style>
 

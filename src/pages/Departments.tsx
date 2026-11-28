@@ -194,6 +194,7 @@ const departments: Department[] = [
    TEXT COLOR HELPER
    Returns a light or dark text palette based on the
    brightness of the banner background color.
+   On light banners the paragraph text is now pure black.
 ========================================================= */
 
 const getTextColors = (hex: string) => {
@@ -215,7 +216,7 @@ const getTextColors = (hex: string) => {
       }
     : {
         title: '#102C43',
-        text: '#29475B',
+        text: '#000000', // was #29475B (gray-blue)
         pillBg: 'rgba(255,255,255,0.66)',
         pillText: '#815D0A',
         pillBorder: 'rgba(177,123,5,0.4)',
@@ -274,6 +275,8 @@ export default function Departments() {
           --dept-cream: #FBFCF8;
           --dept-text: #173D30;
           --dept-muted: #66756E;
+          /* paragraph text on light backgrounds (was gray) */
+          --dept-paragraph: #000000;
           --dept-border: rgba(7, 61, 47, 0.10);
           background:
             radial-gradient(ellipse at 10% 35%, rgba(216,181,76,0.06), transparent 35%),
@@ -307,16 +310,6 @@ export default function Departments() {
         }
 
         .dept-hero::before,
-        .dept-hero::after {
-          content: "";
-          position: absolute;
-          pointer-events: none;
-          z-index: -1;
-          border: 1px solid rgba(216,181,76,.30);
-          border-radius: 50%;
-          animation: dept-orbit 16s linear infinite;
-        }
-
         .dept-hero::after {
           content: "";
           position: absolute;
@@ -440,6 +433,7 @@ export default function Departments() {
 
         .dept-hero h1 span { color: var(--dept-gold); }
 
+        /* hero paragraph sits on dark green, so it stays light */
         .dept-hero p {
           max-width: 570px;
           color: rgba(255,255,255,.83);
@@ -856,7 +850,7 @@ export default function Departments() {
 
         .dept-hod p:last-child {
           margin: 5px 0 0;
-          color: var(--dept-muted);
+          color: var(--dept-paragraph);
           font-size: 12px;
           line-height: 1.6;
         }
@@ -869,7 +863,7 @@ export default function Departments() {
 
         .dept-overview {
           margin: 0;
-          color: #53645B;
+          color: var(--dept-paragraph);
           font-size: 14px;
           line-height: 1.9;
         }
@@ -894,7 +888,7 @@ export default function Departments() {
           display: flex;
           align-items: flex-start;
           gap: 10px;
-          color: #4B6055;
+          color: var(--dept-paragraph);
           font-size: 13px;
           line-height: 1.7;
         }

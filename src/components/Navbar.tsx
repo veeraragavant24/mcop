@@ -371,16 +371,15 @@ filter:
 
           {/* Search and mobile controls */}
           <div className="flex items-center gap-2 lg:gap-3 shrink-0">
-            <button
-              type="button"
-              onClick={() => setSearchOpen((previous) => !previous)}
-              className={`w-9 h-9 lg:w-10 lg:h-10 rounded-full flex items-center justify-center transition-colors ${textColor} ${hoverBg}`}
-              aria-label="Search"
-              aria-expanded={searchOpen}
-            >
-              <Search className="w-5 h-5" />
-            </button>
-
+<button
+  type="button"
+  onClick={() => setSearchOpen((previous) => !previous)}
+  className={`w-9 h-9 lg:w-10 lg:h-10 ml-0 lg:-ml-16 rounded-full flex items-center justify-center transition-colors ${textColor} ${hoverBg}`}
+  aria-label="Search"
+  aria-expanded={searchOpen}
+>
+  <Search className="w-5 h-5" />
+</button>
 
 
             {/* Mobile menu toggle */}

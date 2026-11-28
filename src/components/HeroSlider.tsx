@@ -64,7 +64,7 @@ export default function HeroSlider({ onEnquiryClick }: HeroSliderProps) {
                   <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
                     {slide.title}
                   </h1>
-                  <p className="text-base md:text-xl text-gray-200 leading-relaxed mb-6 max-w-xl">
+                  <p className="text-sm md:text-[17px] text-gray-200 leading-relaxed mb-6 max-w-xl">
                     {slide.subtitle}
                   </p>
                   <div className="flex flex-wrap gap-4">

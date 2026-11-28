@@ -552,6 +552,7 @@ export default function Gallery() {
           }
           .mcp-gallery .g-rv { opacity: 1 !important; transform: none !important; }
         }
+          
       `}</style>
 
       {/* HEADER */}

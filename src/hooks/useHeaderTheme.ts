@@ -51,6 +51,22 @@ export function useHeaderTheme(): [HeaderTheme, boolean] {
           }
 
           const style = window.getComputedStyle(el);
+          // Gallery page: prioritize its dark hero background
+if (location.pathname.toLowerCase().includes('gallery')) {
+  const galleryHero = document.querySelector<HTMLElement>(
+    '.mcp-gallery .g-hero'
+  );
+
+  if (galleryHero) {
+    const heroRect = galleryHero.getBoundingClientRect();
+
+    // Check whether the dark hero is behind the navbar
+    if (heroRect.top <= y && heroRect.bottom >= y) {
+      setTheme('dark');
+      return;
+    }
+  }
+}
 
           // Dark gradient overlays, commonly used on hero images.
           if (

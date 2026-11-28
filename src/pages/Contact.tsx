@@ -1112,6 +1112,14 @@ useEffect(() => {
   }
 }
 
+        /* ===== Paragraph color update: gray paragraphs to black only ===== */
+        .premium-contact .pd-intro p,
+        .premium-contact .pd-card p,
+        .premium-contact .pd-form-subtitle,
+        .premium-contact .pd-location-heading p {
+          color: #000000 !important;
+        }
+
       `}</style>
 
       {/* HERO */}

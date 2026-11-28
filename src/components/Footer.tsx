@@ -39,7 +39,7 @@ interface FooterProps {
 export default function Footer({ onEnquiryClick }: FooterProps) {
   const location = useLocation();
 
-  const hideEnquiry = ['/management', '/principal', '/faculty', '/courses', '/contact','/facilities'].includes(
+  const hideEnquiry = ['/management', '/principal', '/faculty', '/courses', '/contact','/facilities','/Home'].includes(
     location.pathname
   );
 
@@ -128,9 +128,9 @@ export default function Footer({ onEnquiryClick }: FooterProps) {
             <MapPin className="w-5 h-5 text-gold-500 shrink-0 mt-0.5" />
             <span className="text-sm text-gray-400">{collegeInfo.address}</span>
           </div>
-          <div className="flex items-start gap-3">
-            <Phone className="w-5 h-5 text-gold-500 shrink-0 mt-0.5" />
-            <span className="text-sm text-gray-400">{collegeInfo.phone}</span>
+          <div className="flex items-start gap-3 px-16">
+  <Phone className="w-5 h-5 text-gold-500 shrink-0 mt-0.5" />
+  <span className="text-sm text-gray-400">{collegeInfo.phone}</span>
           </div>
           <div className="flex items-start gap-3">
             <Mail className="w-5 h-5 text-gold-500 shrink-0 mt-0.5" />

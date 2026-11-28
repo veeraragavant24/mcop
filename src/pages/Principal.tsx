@@ -514,6 +514,7 @@ export default function Principal() {
             transform: none;
           }
         }
+          
       `}</style>
 
       {/* Principal hero */}
